@@ -1,0 +1,3 @@
+class SectionsModel {
+  String? isSectionTimeSpecific;
+}
