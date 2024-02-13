@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:quiz/constants/ui_constants.dart';
-import 'package:quiz/view/widgets/latest_quiz_card.dart';
-import 'package:quiz/view/widgets/previous_year_questions_card.dart';
+
+import '../../constants/ui_constants.dart';
+import '../widgets/latest_quiz_card.dart';
+import '../widgets/previous_year_questions_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

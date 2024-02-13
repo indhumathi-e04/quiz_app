@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:quiz/constants/ui_constants.dart';
-import 'package:quiz/models/sectionsModel.dart';
-import 'package:quiz/view/widgets/custom_dropdownfield.dart';
-import 'package:quiz/view/widgets/custom_textformfield.dart';
+
+import '../../constants/ui_constants.dart';
+import '../../models/sectionsModel.dart';
+import 'custom_widgets/custom_dropdownfield.dart';
+import 'custom_widgets/custom_textformfield.dart';
 
 class Sections extends StatefulWidget {
-  Sections({required this.sectionsTitle, super.key});
-  String sectionsTitle;
-
-  SectionsModel section = SectionsModel();
+  const Sections({
+    required this.sectionsTitle,
+    super.key,
+  });
+  final String sectionsTitle;
 
   @override
   State<Sections> createState() => _SectionsState();
@@ -16,6 +18,7 @@ class Sections extends StatefulWidget {
 
 class _SectionsState extends State<Sections> {
   bool isExpanded = false;
+  SectionsModel section = SectionsModel();
   @override
   Widget build(BuildContext context) {
     return ExpansionPanelList(
@@ -29,43 +32,34 @@ class _SectionsState extends State<Sections> {
       children: [
         ExpansionPanel(
           canTapOnHeader: true,
+          backgroundColor:
+              Theme.of(context).colorScheme.primary.withOpacity(0.1),
           headerBuilder: (context, isExpanded) {
-            return Container(
-              height: 56,
-              width: 320,
-              decoration: BoxDecoration(
-                borderRadius: UIConstants.defaultBorderRadius,
-                color: Colors.blueGrey,
-              ),
+            return Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: UIConstants.defaultPadding,
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.sectionsTitle,
-                    style: Theme.of(context).textTheme.displaySmall,
-                  ),
-                ],
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  widget.sectionsTitle,
+                  textAlign: TextAlign.left,
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
               ),
             );
           },
           isExpanded: isExpanded,
           body: Container(
-            height: 500,
-            width: 320,
-            padding: const EdgeInsets.symmetric(
-                horizontal: UIConstants.defaultHeight),
-            decoration: BoxDecoration(
-              color: Colors.blueGrey,
-              borderRadius: UIConstants.defaultBorderRadius,
+            padding: const EdgeInsets.all(
+              UIConstants.defaultPadding,
             ),
             child: Column(
               children: [
                 CustomTextFormField(
                   labelText: "Section Title",
+                  margin: const EdgeInsets.only(
+                      bottom: UIConstants.defaultMargin * 2),
                   validator: (value) {
                     if (value == null) {
                       return "Field is required. Please enter password";
@@ -77,12 +71,11 @@ class _SectionsState extends State<Sections> {
                       }
                     }
                   },
-                ),
-                const SizedBox(
-                  height: UIConstants.defaultHeight,
                 ),
                 CustomTextFormField(
                   labelText: "Question Count",
+                  margin: const EdgeInsets.only(
+                      bottom: UIConstants.defaultMargin * 2),
                   validator: (value) {
                     if (value == null) {
                       return "Field is required. Please enter password";
@@ -94,12 +87,11 @@ class _SectionsState extends State<Sections> {
                       }
                     }
                   },
-                ),
-                const SizedBox(
-                  height: UIConstants.defaultHeight,
                 ),
                 CustomTextFormField(
                   labelText: "Positive Marks",
+                  margin: const EdgeInsets.only(
+                      bottom: UIConstants.defaultMargin * 2),
                   validator: (value) {
                     if (value == null) {
                       return "Field is required. Please enter password";
@@ -111,12 +103,11 @@ class _SectionsState extends State<Sections> {
                       }
                     }
                   },
-                ),
-                const SizedBox(
-                  height: UIConstants.defaultHeight,
                 ),
                 CustomTextFormField(
                   labelText: "Negative Marks",
+                  margin: const EdgeInsets.only(
+                      bottom: UIConstants.defaultMargin * 2),
                   validator: (value) {
                     if (value == null) {
                       return "Field is required. Please enter password";
@@ -129,16 +120,15 @@ class _SectionsState extends State<Sections> {
                     }
                   },
                 ),
-                const SizedBox(
-                  height: UIConstants.defaultHeight,
-                ),
                 CustomDropDownField(
                   dropdownLabelText: "Is Section Time Specific",
-                  items: const ["True", "False"],
-                  value: widget.section.isSectionTimeSpecific,
+                  items: [
+                    DropDownFieldChoices(id: 0, value: "False"),
+                    DropDownFieldChoices(id: 1, value: "True"),
+                  ],
                   onChanged: (value) {
                     setState(() {
-                      widget.section.isSectionTimeSpecific = value as String?;
+                      section.isSectionTimeSpecific = value as String?;
                     });
                   },
                   validator: (value) {
@@ -152,7 +142,7 @@ class _SectionsState extends State<Sections> {
                   height: UIConstants.defaultHeight,
                 ),
                 Visibility(
-                    visible: widget.section.isSectionTimeSpecific == "True",
+                    visible: section.isSectionTimeSpecific == "True",
                     child: CustomTextFormField(
                       labelText: "Time Limit In Minutes",
                       validator: (value) {

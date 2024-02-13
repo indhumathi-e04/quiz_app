@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:quiz/view/widgets/custom_button.dart';
 
 import '../../constants/ui_constants.dart';
+import 'custom_widgets/custom_button.dart';
 
 class LatestQuizCard extends StatelessWidget {
   const LatestQuizCard({
@@ -26,7 +26,7 @@ class LatestQuizCard extends StatelessWidget {
         border: Border.all(
           color: Theme.of(context).colorScheme.outlineVariant,
         ),
-        borderRadius: UIConstants.defaultBorderRadius,
+        borderRadius: BorderRadius.circular(UIConstants.defaultBorderRadius),
       ),
       child: Row(
         children: [
