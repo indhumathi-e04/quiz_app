@@ -21,7 +21,7 @@ class PreviousYearQuestionsCard extends StatelessWidget {
         border: Border.all(
           color: Theme.of(context).colorScheme.outlineVariant,
         ),
-        borderRadius: UIConstants.defaultBorderRadius,
+        borderRadius: BorderRadius.circular(UIConstants.defaultBorderRadius),
       ),
       margin: const EdgeInsets.symmetric(
           vertical: UIConstants.defaultMargin,
