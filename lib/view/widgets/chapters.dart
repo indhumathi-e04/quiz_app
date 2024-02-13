@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/constants/ui_constants.dart';
-
-import 'package:quiz/view/widgets/custom_textformfield.dart';
+import 'package:quiz/view/widgets/custom_widgets/custom_textformfield.dart';
 
 class Chapter extends StatefulWidget {
   Chapter({required this.chapterTitle, super.key});
@@ -31,7 +30,8 @@ class _SectionsState extends State<Chapter> {
               height: 56,
               width: 320,
               decoration: BoxDecoration(
-                borderRadius: UIConstants.defaultBorderRadius,
+                borderRadius:
+                    BorderRadius.circular(UIConstants.defaultBorderRadius),
                 color: Colors.blueGrey,
               ),
               padding: const EdgeInsets.symmetric(
@@ -57,7 +57,8 @@ class _SectionsState extends State<Chapter> {
                 horizontal: UIConstants.defaultHeight),
             decoration: BoxDecoration(
               color: Colors.blueGrey,
-              borderRadius: UIConstants.defaultBorderRadius,
+              borderRadius:
+                  BorderRadius.circular(UIConstants.defaultBorderRadius),
             ),
             child: Column(
               children: [

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/constants/ui_constants.dart';
-import 'package:quiz/view/widgets/custom_dropdownfield.dart';
-import 'package:quiz/view/widgets/custom_textformfield.dart';
+import 'package:quiz/view/widgets/custom_widgets/custom_dropdownfield.dart';
+import 'package:quiz/view/widgets/custom_widgets/custom_textformfield.dart';
 
 class Syllabus extends StatefulWidget {
   Syllabus({super.key});
@@ -38,8 +38,7 @@ class _SyllabusState extends State<Syllabus> {
           ),
           CustomDropDownField(
             dropdownLabelText: "Exam Name",
-            items: const ["NEET", "JEE"],
-            value: widget.examName.examName,
+            items: [DropDownFieldChoices(id: 1, value: "NEET")],
             onChanged: (value) {
               setState(() {
                 widget.examName.examName = value as String?;

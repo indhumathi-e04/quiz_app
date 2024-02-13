@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/theme/custom_theme.dart';
-import 'package:quiz/view/screens/create_new_test_flows.dart';
+
+import 'package:quiz/view/screens/new_test_screen.dart';
+
 import 'package:quiz/view/screens/sections_screen.dart';
 
 void main() {
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
         context: context,
       ),
       //home: const CreateNewTestFlows(),
-      home: SectionsScreen(),
+      home: NewTestScreen(),
     );
   }
 }

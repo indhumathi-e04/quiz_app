@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/constants/ui_constants.dart';
-import 'package:quiz/view/widgets/custom_button.dart';
+import 'package:quiz/view/widgets/custom_widgets/custom_button.dart';
+
 import 'package:quiz/view/widgets/subjects.dart';
 
 class ChapterScreen extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/constants/ui_constants.dart';
-import 'package:quiz/view/widgets/custom_textformfield.dart';
+import 'package:quiz/view/widgets/custom_widgets/custom_textformfield.dart';
 
 class Options extends StatefulWidget {
   const Options({required this.optionNumber, super.key});
@@ -16,7 +16,6 @@ class _OptionsState extends State<Options> {
     return Container(
       margin: EdgeInsets.symmetric(vertical: UIConstants.defaultHeight),
       child: CustomTextFormField(
-        maxlines: 7,
         labelText: "Option - $widget.optionNumber",
         validator: (value) {
           if (value == null) {

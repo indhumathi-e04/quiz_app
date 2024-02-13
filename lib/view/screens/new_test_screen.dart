@@ -28,8 +28,9 @@ class _NewTestScreenState extends State<NewTestScreen> {
     DropDownFieldChoices(id: 2, value: "Engineering"),
   ];
   List<DropDownFieldChoices> testTypes = [
-    DropDownFieldChoices(id: 1, value: "School"),
-    DropDownFieldChoices(id: 2, value: "Engineering"),
+    DropDownFieldChoices(id: 1, value: "Exam Level Test"),
+    DropDownFieldChoices(id: 2, value: "Subject Level Test"),
+    DropDownFieldChoices(id: 3, value: "Chapter Level Test"),
   ];
   List<DropDownFieldChoices> contentTypes = [
     DropDownFieldChoices(id: 1, value: "School"),
@@ -75,7 +76,7 @@ class _NewTestScreenState extends State<NewTestScreen> {
                 onChanged: (value) {
                   if (value != null) {
                     setState(() {
-                      test.examCategory = value.value;
+                      test.examCategory = value.id;
                     });
                   }
                 },
@@ -95,7 +96,7 @@ class _NewTestScreenState extends State<NewTestScreen> {
                 onChanged: (value) {
                   if (value != null) {
                     setState(() {
-                      test.examName = value.value;
+                      test.examName = value.id;
                     });
                   }
                 },
@@ -115,7 +116,7 @@ class _NewTestScreenState extends State<NewTestScreen> {
                 onChanged: (value) {
                   if (value != null) {
                     setState(() {
-                      test.testType = value.value;
+                      test.testType = value.id;
                     });
                   }
                 },
@@ -126,25 +127,28 @@ class _NewTestScreenState extends State<NewTestScreen> {
                   return null;
                 },
               ),
-              CustomDropDownField(
-                margin: const EdgeInsets.only(
-                  bottom: UIConstants.defaultMargin * 2,
+              Visibility(
+                visible: test.testType == 1,
+                child: CustomDropDownField(
+                  margin: const EdgeInsets.only(
+                    bottom: UIConstants.defaultMargin * 2,
+                  ),
+                  dropdownLabelText: "Content Type",
+                  items: contentTypes,
+                  onChanged: (value) {
+                    if (value != null) {
+                      setState(() {
+                        test.contentType = value.id;
+                      });
+                    }
+                  },
+                  validator: (value) {
+                    if (value == null) {
+                      return "Field is required";
+                    }
+                    return null;
+                  },
                 ),
-                dropdownLabelText: "Content Type",
-                items: contentTypes,
-                onChanged: (value) {
-                  if (value != null) {
-                    setState(() {
-                      test.contentType = value.value;
-                    });
-                  }
-                },
-                validator: (value) {
-                  if (value == null) {
-                    return "Field is required";
-                  }
-                  return null;
-                },
               ),
 
               // CustomDropDownField(

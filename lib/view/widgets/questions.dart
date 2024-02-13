@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/constants/ui_constants.dart';
-import 'package:quiz/view/widgets/custom_dropdownfield.dart';
-import 'package:quiz/view/widgets/custom_textformfield.dart';
+import 'package:quiz/view/widgets/custom_widgets/custom_dropdownfield.dart';
+import 'package:quiz/view/widgets/custom_widgets/custom_textformfield.dart';
+
 import 'package:quiz/view/widgets/options.dart';
 
 class Questions extends StatefulWidget {
@@ -34,7 +35,8 @@ class _QuestionsState extends State<Questions> {
               height: 56,
               width: 320,
               decoration: BoxDecoration(
-                borderRadius: UIConstants.defaultBorderRadius,
+                borderRadius:
+                    BorderRadius.circular(UIConstants.defaultBorderRadius),
                 color: Colors.blueGrey,
               ),
               padding: const EdgeInsets.symmetric(
@@ -55,7 +57,8 @@ class _QuestionsState extends State<Questions> {
                 horizontal: UIConstants.defaultHeight),
             decoration: BoxDecoration(
               color: Colors.blueGrey,
-              borderRadius: UIConstants.defaultBorderRadius,
+              borderRadius:
+                  BorderRadius.circular(UIConstants.defaultBorderRadius),
             ),
             child: Column(
               children: [
@@ -66,12 +69,9 @@ class _QuestionsState extends State<Questions> {
                 ),
                 CustomDropDownField(
                   dropdownLabelText: "Question Type",
-                  items: const [
-                    "Multiple Choice(4 Options)",
-                    "Fill in the blanks",
-                    "True or False"
+                  items: [
+                    DropDownFieldChoices(id: 1, value: "Multiple Choice"),
                   ],
-                  value: widget.questionType.questionType,
                   onChanged: (value) {
                     setState(() {
                       widget.questionType.questionType = value as String?;
@@ -82,7 +82,6 @@ class _QuestionsState extends State<Questions> {
                   height: UIConstants.defaultHeight,
                 ),
                 CustomTextFormField(
-                  maxlines: 15,
                   labelText: "Question",
                   validator: (value) {
                     if (value == null) {

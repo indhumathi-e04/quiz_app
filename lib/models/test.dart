@@ -1,9 +1,9 @@
 class Test {
-  String? examCategory;
-  String? examName;
-  String? testType;
-  String? contentType;
-  String? subjectType;
-  String? chapterType;
-  String? language;
+  int? examCategory;
+  int? examName;
+  int? testType;
+  int? contentType;
+  int? subjectType;
+  int? chapterType;
+  int? language;
 }
