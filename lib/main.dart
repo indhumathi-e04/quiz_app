@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/theme/custom_theme.dart';
+import 'package:quiz/view/screens/chapters_screen.dart';
+import 'package:quiz/view/screens/examination_screen.dart';
 import 'package:quiz/view/screens/create_new_test_flows.dart';
+import 'package:quiz/view/screens/questions_screen.dart';
 import 'package:quiz/view/screens/sections_screen.dart';
+import 'package:quiz/view/screens/subject_screen.dart';
+import 'package:quiz/view/screens/syllabus_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,7 +31,7 @@ class MyApp extends StatelessWidget {
         context: context,
       ),
       //home: const CreateNewTestFlows(),
-      home: SectionsScreen(),
+      home: QuestionScreen(),
     );
   }
 }
