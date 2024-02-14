@@ -3,8 +3,8 @@ import 'package:quiz/constants/ui_constants.dart';
 import 'package:quiz/view/widgets/custom_widgets/custom_button.dart';
 import 'package:quiz/view/widgets/questions.dart';
 
-class SubjectQuestions extends StatefulWidget {
-  const SubjectQuestions({
+class QuestionPanel extends StatefulWidget {
+  const QuestionPanel({
     required this.sectionTitle,
     required this.questionCount,
     super.key,
@@ -13,10 +13,10 @@ class SubjectQuestions extends StatefulWidget {
   final int questionCount;
 
   @override
-  State<SubjectQuestions> createState() => _SubjectQuestionsState();
+  State<QuestionPanel> createState() => _QuestionPanelState();
 }
 
-class _SubjectQuestionsState extends State<SubjectQuestions> {
+class _QuestionPanelState extends State<QuestionPanel> {
   bool isExpanded = false;
   @override
   Widget build(BuildContext context) {

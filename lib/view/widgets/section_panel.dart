@@ -6,8 +6,8 @@ import '../../models/sections_model.dart';
 import 'custom_widgets/custom_dropdownfield.dart';
 import 'custom_widgets/custom_textformfield.dart';
 
-class Sections extends StatefulWidget {
-  const Sections({
+class SectionPanel extends StatefulWidget {
+  const SectionPanel({
     required this.sectionsTitle,
     required this.sectionsModel,
     super.key,
@@ -16,10 +16,10 @@ class Sections extends StatefulWidget {
   final SectionsModel sectionsModel;
 
   @override
-  State<Sections> createState() => _SectionsState();
+  State<SectionPanel> createState() => _SectionPanelState();
 }
 
-class _SectionsState extends State<Sections> {
+class _SectionPanelState extends State<SectionPanel> {
   List<DropDownFieldChoices> isTimeSpecific = [
     DropDownFieldChoices(id: 0, value: "False"),
     DropDownFieldChoices(id: 1, value: "True"),

@@ -30,8 +30,9 @@ class ChapterScreen extends StatelessWidget {
           separatorBuilder: (context, index) => const SizedBox(
             height: UIConstants.defaultHeight,
           ),
-          itemBuilder: (context, index) =>
-              Chapter(chapterTitle: "Chapter-${index + 1}"),
+          itemBuilder: (context, index) => Chapter(
+            chapterTitle: "Chapter-${index + 1}",
+          ),
         ),
       ),
     );

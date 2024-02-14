@@ -3,7 +3,7 @@ import 'package:quiz/constants/ui_constants.dart';
 import 'package:quiz/models/sections_model.dart';
 import 'package:quiz/view/widgets/custom_widgets/custom_button.dart';
 
-import 'package:quiz/view/widgets/subject_questions.dart';
+import 'package:quiz/view/widgets/question_panel.dart';
 
 class QuestionScreen extends StatelessWidget {
   QuestionScreen({
@@ -49,7 +49,7 @@ class QuestionScreen extends StatelessWidget {
           separatorBuilder: (context, index) => const SizedBox(
             height: UIConstants.defaultHeight,
           ),
-          itemBuilder: (context, index) => SubjectQuestions(
+          itemBuilder: (context, index) => QuestionPanel(
             sectionTitle: sectionModelList[index].sectionTitle ?? "",
             questionCount: sectionModelList[index].questionCount ?? 0,
           ),

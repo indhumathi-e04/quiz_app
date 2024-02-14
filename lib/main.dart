@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz/models/sections_model.dart';
 import 'package:quiz/theme/custom_theme.dart';
 import 'package:quiz/view/screens/examination_screen.dart';
 
@@ -32,7 +33,9 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         context: context,
       ),
-      home: SyllabusScreen(),
+      home: QuestionScreen(
+        sectionModelList: [SectionsModel(questionCount: 10)],
+      ),
     );
   }
 }

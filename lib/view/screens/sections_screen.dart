@@ -3,7 +3,7 @@ import "package:quiz/models/sections_model.dart";
 import "package:quiz/view/widgets/custom_widgets/custom_button.dart";
 
 import "../../constants/ui_constants.dart";
-import "../widgets/sections.dart";
+import '../widgets/section_panel.dart';
 import "questions_screen.dart";
 
 class SectionsScreen extends StatefulWidget {
@@ -67,7 +67,7 @@ class _SectionsScreenState extends State<SectionsScreen> {
           separatorBuilder: (context, index) => const SizedBox(
             height: UIConstants.defaultHeight,
           ),
-          itemBuilder: (context, index) => Sections(
+          itemBuilder: (context, index) => SectionPanel(
             sectionsTitle: "Section-${index + 1}",
             sectionsModel: sectionsModelList[index],
           ),
