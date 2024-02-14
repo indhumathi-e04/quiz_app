@@ -26,23 +26,25 @@ class QuestionScreen extends StatelessWidget {
         buttonHeight: 32,
         isLoading: false,
         onPressed: () {
-          // bool isFormValid = _formKey.currentState!.validate();
-          // if (isFormValid) {
-          //   Navigator.of(context).push(
-          //     MaterialPageRoute(
-          //       builder: (context) => SectionsScreen(
-          //         sectionCount: sectionCount,
-          //       ),
-          //     ),
-          //   );
-          // }
+          bool isFormValid = _formKey.currentState!.validate();
+          if (isFormValid) {
+            // Navigator.of(context).push(
+            //   MaterialPageRoute(
+            //     builder: (context) => SectionsScreen(
+            //       sectionCount: sectionCount,
+            //     ),
+            //   ),
+            // );
+          }
         },
         buttonText: "Proceed",
       ),
       body: Form(
         key: _formKey,
         child: ListView.separated(
-          padding: const EdgeInsets.all(UIConstants.defaultHeight * 2),
+          padding: const EdgeInsets.all(
+            UIConstants.defaultHeight * 2,
+          ),
           itemCount: sectionModelList.length,
           separatorBuilder: (context, index) => const SizedBox(
             height: UIConstants.defaultHeight,

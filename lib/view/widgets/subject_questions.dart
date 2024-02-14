@@ -40,7 +40,10 @@ class _SubjectQuestionsState extends State<SubjectQuestions> {
               ),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Text(widget.sectionTitle),
+                child: Text(
+                  widget.sectionTitle,
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
               ),
             );
           },
@@ -52,13 +55,15 @@ class _SubjectQuestionsState extends State<SubjectQuestions> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                    "Enter each question information in the appropriate field and on the appropriate card. Alternatively, you can upload the document that has every detail related to the question. Download sample document"),
-                const Text(
+                Text(
+                  "Enter each question information in the appropriate field and on the appropriate card. Alternatively, you can upload the document that has every detail related to the question.",
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                Text(
                   "Download Sample Document",
-                  style: TextStyle(
-                    decoration: TextDecoration.underline,
-                  ),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        decoration: TextDecoration.underline,
+                      ),
                 ),
                 const SizedBox(
                   height: UIConstants.defaultHeight,

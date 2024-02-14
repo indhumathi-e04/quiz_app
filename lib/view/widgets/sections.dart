@@ -49,7 +49,6 @@ class _SectionsState extends State<Sections> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   widget.sectionsTitle,
-                  textAlign: TextAlign.left,
                   style: Theme.of(context).textTheme.displaySmall,
                 ),
               ),
@@ -71,10 +70,10 @@ class _SectionsState extends State<Sections> {
                       bottom: UIConstants.defaultMargin * 2),
                   validator: (value) {
                     if (value == null) {
-                      return "Field is required. Please enter password";
+                      return "Field is required. Please enter Section Title";
                     } else {
                       if (value.trim().isEmpty) {
-                        return "Field is required. Please enter password";
+                        return "Field is required. Please enter SEction Title";
                       } else {
                         return null;
                       }
@@ -94,10 +93,10 @@ class _SectionsState extends State<Sections> {
                       bottom: UIConstants.defaultMargin * 2),
                   validator: (value) {
                     if (value == null) {
-                      return "Field is required. Please enter password";
+                      return "Field is required. Please enter Question Count";
                     } else {
                       if (value.trim().isEmpty) {
-                        return "Field is required. Please enter password";
+                        return "Field is required. Please enter Question Count";
                       } else {
                         return null;
                       }
@@ -120,10 +119,10 @@ class _SectionsState extends State<Sections> {
                   },
                   validator: (value) {
                     if (value == null) {
-                      return "Field is required. Please enter password";
+                      return "Field is required. Please enter positive marks";
                     } else {
                       if (value.trim().isEmpty) {
-                        return "Field is required. Please enter password";
+                        return "Field is required. Please enter positive marks";
                       } else {
                         return null;
                       }
@@ -146,10 +145,10 @@ class _SectionsState extends State<Sections> {
                   },
                   validator: (value) {
                     if (value == null) {
-                      return "Field is required. Please enter password";
+                      return "Field is required. Please enter negative marks";
                     } else {
                       if (value.trim().isEmpty) {
-                        return "Field is required. Please enter password";
+                        return "Field is required. Please enter negative marks";
                       } else {
                         return null;
                       }
@@ -169,7 +168,7 @@ class _SectionsState extends State<Sections> {
                   },
                   validator: (value) {
                     if (value == null) {
-                      return "Field is required";
+                      return "Field is required. Is Section is time specific or not";
                     }
                     return null;
                   },
@@ -190,10 +189,10 @@ class _SectionsState extends State<Sections> {
                     },
                     validator: (value) {
                       if (value == null) {
-                        return "Field is required. Please enter password";
+                        return "Field is required. Please enter Time Limit";
                       } else {
                         if (value.trim().isEmpty) {
-                          return "Field is required. Please enter password";
+                          return "Field is required. Please enter Time Limit";
                         } else {
                           return null;
                         }

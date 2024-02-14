@@ -20,10 +20,10 @@ class _OptionsState extends State<Options> {
       labelText: widget.optionlabel,
       validator: (value) {
         if (value == null) {
-          return "Field is required. Please enter password";
+          return "Field is required. Enter ${widget.optionlabel}";
         } else {
           if (value.trim().isEmpty) {
-            return "Field is required. Please enter password";
+            return "Field is required. Enter ${widget.optionlabel}";
           } else {
             return null;
           }

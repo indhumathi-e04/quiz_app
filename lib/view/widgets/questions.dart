@@ -58,6 +58,7 @@ class _QuestionsState extends State<Questions> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   widget.questionTitle,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
               ),
             );
@@ -69,8 +70,10 @@ class _QuestionsState extends State<Questions> {
             ),
             child: Column(
               children: [
-                const Text(
-                    "Choose the desired question type from the drop-down menu and then add the content of the question accordin to that choice"),
+                Text(
+                  "Choose the desired question type from the drop-down menu and then add the content of the question accordin to that choice",
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
                 CustomDropDownField(
                   margin: const EdgeInsets.symmetric(
                     vertical: UIConstants.defaultMargin * 2,
@@ -84,6 +87,12 @@ class _QuestionsState extends State<Questions> {
                       });
                     }
                   },
+                  validator: (value) {
+                    if (value == null) {
+                      return "Field is necessary. Select the question type.";
+                    }
+                    return null;
+                  },
                 ),
                 CustomMultiLineTextFormField(
                   labelText: "Question",
@@ -92,10 +101,10 @@ class _QuestionsState extends State<Questions> {
                   ),
                   validator: (value) {
                     if (value == null) {
-                      return "Field is required. Please enter password";
+                      return "Field is necessary. Enter question.";
                     } else {
                       if (value.trim().isEmpty) {
-                        return "Field is required. Please enter password";
+                        return "Field is necessary. Enter question.";
                       } else {
                         return null;
                       }
@@ -127,6 +136,12 @@ class _QuestionsState extends State<Questions> {
                         });
                       }
                     },
+                    validator: (value) {
+                      if (value == null) {
+                        return "Field is necessary. Choose correct option.";
+                      }
+                      return null;
+                    },
                   ),
                 ),
                 Visibility(
@@ -135,8 +150,19 @@ class _QuestionsState extends State<Questions> {
                     margin: const EdgeInsets.only(
                       bottom: UIConstants.defaultMargin * 2,
                     ),
-                    child: const CustomMultiLineTextFormField(
+                    child: CustomMultiLineTextFormField(
                       labelText: "Correct answer",
+                      validator: (value) {
+                        if (value == null) {
+                          return "Field is necessary. Enter correct answer.";
+                        } else {
+                          if (value.trim().isEmpty) {
+                            return "Field is necessary. Enter correct answer.";
+                          } else {
+                            return null;
+                          }
+                        }
+                      },
                     ),
                   ),
                 ),
@@ -146,6 +172,12 @@ class _QuestionsState extends State<Questions> {
                     margin: const EdgeInsets.only(
                       bottom: UIConstants.defaultMargin * 2,
                     ),
+                    validator: (value) {
+                      if (value == null) {
+                        return "Field is necessary. Choose correct option.";
+                      }
+                      return null;
+                    },
                     onChanged: (value) {
                       if (value != null) {
                         setState(() {
@@ -157,10 +189,18 @@ class _QuestionsState extends State<Questions> {
                     items: trueOrFalseOption,
                   ),
                 ),
-                const CustomMultiLineTextFormField(
-                    // margin: EdgeInsets.only(
-                    //   top: UIConstants.defaultMargin * 2,
-                    // ),
+                CustomMultiLineTextFormField(
+                    validator: (value) {
+                      if (value == null) {
+                        return "Field is necessary. Enter solution & explanations.";
+                      } else {
+                        if (value.trim().isEmpty) {
+                          return "Field is necessary. Enter solution & explanations.";
+                        } else {
+                          return null;
+                        }
+                      }
+                    },
                     maxLines: 5,
                     labelText: "Solution & Explanation")
               ],

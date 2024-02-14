@@ -120,7 +120,7 @@ class _NewTestScreenState extends State<NewTestScreen> {
                 },
                 validator: (value) {
                   if (value == null) {
-                    return "Field is required";
+                    return "Field is required. Choose Exam Name";
                   }
                   return null;
                 },
@@ -140,7 +140,7 @@ class _NewTestScreenState extends State<NewTestScreen> {
                 },
                 validator: (value) {
                   if (value == null) {
-                    return "Field is required";
+                    return "Field is required. Choose Test Type";
                   }
                   return null;
                 },
@@ -162,7 +162,7 @@ class _NewTestScreenState extends State<NewTestScreen> {
                   },
                   validator: (value) {
                     if (value == null) {
-                      return "Field is required";
+                      return "Field is required. Choose Content Type";
                     }
                     return null;
                   },
@@ -181,11 +181,11 @@ class _NewTestScreenState extends State<NewTestScreen> {
                       });
                     }
                   },
-                  dropdownLabelText: "Subject Test",
+                  dropdownLabelText: "Subject",
                   items: subjects,
                   validator: (value) {
                     if (value == null) {
-                      return "Field is required";
+                      return "Field is required. Choose Subject";
                     }
                     return null;
                   },
@@ -204,11 +204,11 @@ class _NewTestScreenState extends State<NewTestScreen> {
                       });
                     }
                   },
-                  dropdownLabelText: "Chapter Type",
+                  dropdownLabelText: "Chapter",
                   items: chapters,
                   validator: (value) {
                     if (value == null) {
-                      return "Field is required";
+                      return "Field is required. Choose Chapter";
                     }
                     return null;
                   },
@@ -229,7 +229,7 @@ class _NewTestScreenState extends State<NewTestScreen> {
                 items: languages,
                 validator: (value) {
                   if (value == null) {
-                    return "Field is required";
+                    return "Field is required. Choose language";
                   }
                   return null;
                 },
@@ -241,10 +241,10 @@ class _NewTestScreenState extends State<NewTestScreen> {
                 labelText: "Test Title",
                 validator: (value) {
                   if (value == null) {
-                    return "Field is required. Please enter password";
+                    return "Field is required. Please enter Test Title";
                   } else {
                     if (value.trim().isEmpty) {
-                      return "Field is required. Please enter password";
+                      return "Field is required. Please enter Test Title";
                     } else {
                       return null;
                     }
@@ -262,10 +262,10 @@ class _NewTestScreenState extends State<NewTestScreen> {
                 labelText: "Time limit (In Minutes)",
                 validator: (value) {
                   if (value == null) {
-                    return "Field is required.";
+                    return "Field is required. Enter Time Limit";
                   } else {
                     if (value.trim().isEmpty) {
-                      return "Field is required.";
+                      return "Field is required. Enter Time Limit";
                     } else {
                       return null;
                     }
@@ -280,13 +280,13 @@ class _NewTestScreenState extends State<NewTestScreen> {
                 margin: const EdgeInsets.only(
                   bottom: UIConstants.defaultMargin * 2,
                 ),
-                labelText: "Sections",
+                labelText: "Section Count",
                 validator: (value) {
                   if (value == null) {
-                    return "Field is required. Please enter password";
+                    return "Field is required. Please enter Section Count";
                   } else {
                     if (value.trim().isEmpty) {
-                      return "Field is required. Please enter password";
+                      return "Field is required. Please enter Section Count";
                     } else {
                       return null;
                     }
