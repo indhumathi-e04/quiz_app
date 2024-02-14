@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/constants/ui_constants.dart';
+import 'package:quiz/models/subject_model.dart';
 
 import 'package:quiz/view/widgets/custom_widgets/custom_textformfield.dart';
 
 class Subjects extends StatefulWidget {
-  Subjects({required this.subjectTitle, super.key});
-  String subjectTitle;
+  const Subjects({
+    required this.subjectCount,
+    required this.subjectModel,
+    super.key,
+  });
+  final String subjectCount;
+  final SubjectModel subjectModel;
 
   @override
   State<Subjects> createState() => _SectionsState();
@@ -25,45 +31,35 @@ class _SectionsState extends State<Subjects> {
       expandedHeaderPadding: EdgeInsets.zero,
       children: [
         ExpansionPanel(
+          backgroundColor:
+              Theme.of(context).colorScheme.primary.withOpacity(0.1),
           canTapOnHeader: true,
           headerBuilder: (context, isExpanded) {
-            return Container(
-              height: 56,
-              width: 320,
-              decoration: BoxDecoration(
-                borderRadius:
-                    BorderRadius.circular(UIConstants.defaultBorderRadius),
-                color: Colors.blueGrey,
-              ),
+            return Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: UIConstants.defaultPadding,
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.subjectTitle,
-                    style: Theme.of(context).textTheme.displaySmall,
-                  ),
-                ],
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  widget.subjectCount,
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
               ),
             );
           },
           isExpanded: isExpanded,
-          body: Container(
-            height: 278,
-            width: 320,
-            padding: const EdgeInsets.symmetric(
-                horizontal: UIConstants.defaultHeight),
-            decoration: BoxDecoration(
-              color: Colors.blueGrey,
-              borderRadius:
-                  BorderRadius.circular(UIConstants.defaultBorderRadius),
-            ),
+          body: Padding(
+            padding: const EdgeInsets.all(UIConstants.defaultPadding),
             child: Column(
               children: [
                 CustomTextFormField(
+                  margin: const EdgeInsets.only(
+                    bottom: UIConstants.defaultMargin * 2,
+                  ),
+                  onChanged: (value) {
+                    widget.subjectModel.subjectTitle = value;
+                  },
                   labelText: "Subject Title",
                   validator: (value) {
                     if (value == null) {
@@ -77,10 +73,13 @@ class _SectionsState extends State<Subjects> {
                     }
                   },
                 ),
-                const SizedBox(
-                  height: UIConstants.defaultHeight,
-                ),
                 CustomTextFormField(
+                  onChanged: (value) {
+                    widget.subjectModel.subjectIcon = value;
+                  },
+                  margin: const EdgeInsets.only(
+                    bottom: UIConstants.defaultMargin * 2,
+                  ),
                   labelText: "Subject Icon",
                   validator: (value) {
                     if (value == null) {
@@ -94,10 +93,10 @@ class _SectionsState extends State<Subjects> {
                     }
                   },
                 ),
-                const SizedBox(
-                  height: UIConstants.defaultHeight,
-                ),
                 CustomTextFormField(
+                  onChanged: (value) {
+                    widget.subjectModel.chapters = int.parse(value);
+                  },
                   labelText: "Chapters",
                   validator: (value) {
                     if (value == null) {

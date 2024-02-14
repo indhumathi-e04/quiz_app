@@ -1,59 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/constants/ui_constants.dart';
+import 'package:quiz/models/subject_model.dart';
+import 'package:quiz/view/widgets/chapters.dart';
 import 'package:quiz/view/widgets/custom_widgets/custom_button.dart';
 
-import 'package:quiz/view/widgets/subjects.dart';
-
 class ChapterScreen extends StatelessWidget {
-  ChapterScreen({super.key});
+  ChapterScreen({
+    super.key,
+    required this.subjectModelList,
+  });
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final List<SubjectModel> subjectModelList;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(
-          Icons.arrow_back,
-          size: UIConstants.defaultHeight,
-        ),
         title: Text(
           "Chapters > Physics",
-          style: Theme.of(context).textTheme.displaySmall,
         ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(
-            horizontal: UIConstants.defaultHeight * 2,
-            vertical: UIConstants.defaultHeight * 2),
-        child: Form(
-          key: formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Subjects(
-                subjectTitle: "Chapter - 1",
-              ),
-              const SizedBox(
-                height: UIConstants.defaultHeight,
-              ),
-              Subjects(
-                subjectTitle: "Chapter - 2",
-              ),
-              const SizedBox(
-                height: UIConstants.defaultHeight,
-              ),
-              Subjects(
-                subjectTitle: "Chapter - 3",
-              ),
-              CustomButton(
-                isLoading: false,
-                onPressed: () {
-                  if (!formKey.currentState!.validate()) {}
-                },
-                buttonText: "Preview",
-              )
-            ],
+      body: Form(
+        key: formKey,
+        child: ListView.separated(
+          padding: const EdgeInsets.all(
+            UIConstants.defaultHeight * 2,
           ),
+          itemCount: subjectModelList.length,
+          separatorBuilder: (context, index) => const SizedBox(
+            height: UIConstants.defaultHeight,
+          ),
+          itemBuilder: (context, index) =>
+              Chapter(chapterTitle: "Chapter-${index + 1}"),
         ),
       ),
     );
