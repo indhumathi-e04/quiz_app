@@ -62,8 +62,6 @@ class _NewTestScreenState extends State<NewTestScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: CustomButton(
-        buttonWidth: 320,
-        buttonHeight: 32,
         isLoading: false,
         onPressed: () {
           bool isFormValid = _formKey.currentState!.validate();

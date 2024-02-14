@@ -4,8 +4,13 @@ import 'package:quiz/view/widgets/custom_widgets/custom_button.dart';
 import 'package:quiz/view/widgets/questions.dart';
 
 class SubjectQuestions extends StatefulWidget {
-  const SubjectQuestions({required this.subjectTitle, super.key});
-  final String subjectTitle;
+  const SubjectQuestions({
+    required this.sectionTitle,
+    required this.questionCount,
+    super.key,
+  });
+  final String sectionTitle;
+  final int questionCount;
 
   @override
   State<SubjectQuestions> createState() => _SubjectQuestionsState();
@@ -35,7 +40,7 @@ class _SubjectQuestionsState extends State<SubjectQuestions> {
               ),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Text(widget.subjectTitle),
+                child: Text(widget.sectionTitle),
               ),
             );
           },
@@ -70,7 +75,7 @@ class _SubjectQuestionsState extends State<SubjectQuestions> {
                 ),
                 ListView.builder(
                   shrinkWrap: true,
-                  itemCount: 4,
+                  itemCount: widget.questionCount,
                   itemBuilder: (context, index) =>
                       Questions(questionTitle: "Question -${index + 1}"),
                 ),

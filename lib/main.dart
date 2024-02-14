@@ -28,11 +28,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         context: context,
       ),
-      //home: const CreateNewTestFlows(),
-      home: QuestionScreen(
-        sectionTitle: 'Chemistry',
-        questionsCount: 4,
-      ),
+      home: const NewTestScreen(),
     );
   }
 }

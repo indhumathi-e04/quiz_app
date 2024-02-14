@@ -2,30 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../constants/ui_constants.dart';
-import '../../models/sectionsModel.dart';
+import '../../models/sections_model.dart';
 import 'custom_widgets/custom_dropdownfield.dart';
 import 'custom_widgets/custom_textformfield.dart';
 
 class Sections extends StatefulWidget {
   const Sections({
-    this.sectionsTitle,
+    required this.sectionsTitle,
+    required this.sectionsModel,
     super.key,
   });
-  final String? sectionsTitle;
+  final String sectionsTitle;
+  final SectionsModel sectionsModel;
 
   @override
   State<Sections> createState() => _SectionsState();
 }
 
 class _SectionsState extends State<Sections> {
-  int questionCount = 0;
-  String sectionTitle = "";
   List<DropDownFieldChoices> isTimeSpecific = [
     DropDownFieldChoices(id: 0, value: "False"),
     DropDownFieldChoices(id: 1, value: "True"),
   ];
   bool isExpanded = false;
-  SectionsModel section = SectionsModel();
   @override
   Widget build(BuildContext context) {
     return ExpansionPanelList(
@@ -49,7 +48,7 @@ class _SectionsState extends State<Sections> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  widget.sectionsTitle ?? "",
+                  widget.sectionsTitle,
                   textAlign: TextAlign.left,
                   style: Theme.of(context).textTheme.displaySmall,
                 ),
@@ -66,9 +65,7 @@ class _SectionsState extends State<Sections> {
                 CustomTextFormField(
                   labelText: "Section Title",
                   onChanged: (value) {
-                    setState(() {
-                      sectionTitle = value;
-                    });
+                    widget.sectionsModel.sectionTitle = value;
                   },
                   margin: const EdgeInsets.only(
                       bottom: UIConstants.defaultMargin * 2),
@@ -91,9 +88,7 @@ class _SectionsState extends State<Sections> {
                   ],
                   labelText: "Question Count",
                   onChanged: (value) {
-                    setState(() {
-                      questionCount = int.parse(value);
-                    });
+                    widget.sectionsModel.questionCount = int.parse(value);
                   },
                   margin: const EdgeInsets.only(
                       bottom: UIConstants.defaultMargin * 2),
@@ -120,6 +115,9 @@ class _SectionsState extends State<Sections> {
                   labelText: "Positive Marks",
                   margin: const EdgeInsets.only(
                       bottom: UIConstants.defaultMargin * 2),
+                  onChanged: (value) {
+                    widget.sectionsModel.positiveMarks = double.parse(value);
+                  },
                   validator: (value) {
                     if (value == null) {
                       return "Field is required. Please enter password";
@@ -143,6 +141,9 @@ class _SectionsState extends State<Sections> {
                   labelText: "Negative Marks",
                   margin: const EdgeInsets.only(
                       bottom: UIConstants.defaultMargin * 2),
+                  onChanged: (value) {
+                    widget.sectionsModel.negativeMarks = double.parse(value);
+                  },
                   validator: (value) {
                     if (value == null) {
                       return "Field is required. Please enter password";
@@ -163,9 +164,7 @@ class _SectionsState extends State<Sections> {
                   items: isTimeSpecific,
                   onChanged: (value) {
                     if (value != null) {
-                      setState(() {
-                        section.isSectionTimeSpecific = value.id;
-                      });
+                      widget.sectionsModel.isSectionTimeSpecific = value.id;
                     }
                   },
                   validator: (value) {
@@ -176,28 +175,32 @@ class _SectionsState extends State<Sections> {
                   },
                 ),
                 Visibility(
-                    visible: section.isSectionTimeSpecific == 1,
-                    child: CustomTextFormField(
-                      keyboardtype: TextInputType.number,
-                      inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.digitsOnly
-                      ],
-                      margin: const EdgeInsets.only(
-                        bottom: UIConstants.defaultMargin * 2,
-                      ),
-                      labelText: "Time Limit In Minutes",
-                      validator: (value) {
-                        if (value == null) {
+                  visible: widget.sectionsModel.isSectionTimeSpecific == 1,
+                  child: CustomTextFormField(
+                    keyboardtype: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
+                    margin: const EdgeInsets.only(
+                      bottom: UIConstants.defaultMargin * 2,
+                    ),
+                    labelText: "Time Limit In Minutes",
+                    onChanged: (value) {
+                      widget.sectionsModel.sectionTimeLimit = int.parse(value);
+                    },
+                    validator: (value) {
+                      if (value == null) {
+                        return "Field is required. Please enter password";
+                      } else {
+                        if (value.trim().isEmpty) {
                           return "Field is required. Please enter password";
                         } else {
-                          if (value.trim().isEmpty) {
-                            return "Field is required. Please enter password";
-                          } else {
-                            return null;
-                          }
+                          return null;
                         }
-                      },
-                    )),
+                      }
+                    },
+                  ),
+                ),
               ],
             ),
           ),

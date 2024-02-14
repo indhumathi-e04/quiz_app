@@ -1,18 +1,36 @@
 import "package:flutter/material.dart";
-import "package:quiz/view/screens/questions_screen.dart";
+import "package:quiz/models/sections_model.dart";
 import "package:quiz/view/widgets/custom_widgets/custom_button.dart";
 
 import "../../constants/ui_constants.dart";
 import "../widgets/sections.dart";
+import "questions_screen.dart";
 
-class SectionsScreen extends StatelessWidget {
-  SectionsScreen({
+class SectionsScreen extends StatefulWidget {
+  const SectionsScreen({
     required this.sectionCount,
     super.key,
   });
   final int sectionCount;
+
+  @override
+  State<SectionsScreen> createState() => _SectionsScreenState();
+}
+
+class _SectionsScreenState extends State<SectionsScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  Sections sections = const Sections();
+  final List<SectionsModel> sectionsModelList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    sectionsModelList.addAll(
+      List.generate(
+        widget.sectionCount,
+        (index) => SectionsModel(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +47,15 @@ class SectionsScreen extends StatelessWidget {
         isLoading: false,
         onPressed: () {
           bool isFormValid = _formKey.currentState!.validate();
-          // if (isFormValid) {
-          //   Navigator.of(context).push(
-          //     MaterialPageRoute(
-          //       builder: (context) => QuestionScreen(
-          //         questionsCount: sections.questionCount,
-          //       ),
-          //     ),
-          //   );
-          // }
+          if (isFormValid) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => QuestionScreen(
+                  sectionModelList: sectionsModelList,
+                ),
+              ),
+            );
+          }
         },
         buttonText: "Proceed",
       ),
@@ -45,12 +63,13 @@ class SectionsScreen extends StatelessWidget {
         key: _formKey,
         child: ListView.separated(
           padding: const EdgeInsets.all(UIConstants.defaultHeight * 2),
-          itemCount: sectionCount,
+          itemCount: widget.sectionCount,
           separatorBuilder: (context, index) => const SizedBox(
             height: UIConstants.defaultHeight,
           ),
           itemBuilder: (context, index) => Sections(
             sectionsTitle: "Section-${index + 1}",
+            sectionsModel: sectionsModelList[index],
           ),
         ),
       ),
