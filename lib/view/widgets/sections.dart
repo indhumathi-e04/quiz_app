@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../constants/ui_constants.dart';
 import '../../models/sectionsModel.dart';
@@ -7,16 +8,22 @@ import 'custom_widgets/custom_textformfield.dart';
 
 class Sections extends StatefulWidget {
   const Sections({
-    required this.sectionsTitle,
+    this.sectionsTitle,
     super.key,
   });
-  final String sectionsTitle;
+  final String? sectionsTitle;
 
   @override
   State<Sections> createState() => _SectionsState();
 }
 
 class _SectionsState extends State<Sections> {
+  int questionCount = 0;
+  String sectionTitle = "";
+  List<DropDownFieldChoices> isTimeSpecific = [
+    DropDownFieldChoices(id: 0, value: "False"),
+    DropDownFieldChoices(id: 1, value: "True"),
+  ];
   bool isExpanded = false;
   SectionsModel section = SectionsModel();
   @override
@@ -42,7 +49,7 @@ class _SectionsState extends State<Sections> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  widget.sectionsTitle,
+                  widget.sectionsTitle ?? "",
                   textAlign: TextAlign.left,
                   style: Theme.of(context).textTheme.displaySmall,
                 ),
@@ -50,7 +57,7 @@ class _SectionsState extends State<Sections> {
             );
           },
           isExpanded: isExpanded,
-          body: Container(
+          body: Padding(
             padding: const EdgeInsets.all(
               UIConstants.defaultPadding,
             ),
@@ -58,6 +65,11 @@ class _SectionsState extends State<Sections> {
               children: [
                 CustomTextFormField(
                   labelText: "Section Title",
+                  onChanged: (value) {
+                    setState(() {
+                      sectionTitle = value;
+                    });
+                  },
                   margin: const EdgeInsets.only(
                       bottom: UIConstants.defaultMargin * 2),
                   validator: (value) {
@@ -73,7 +85,16 @@ class _SectionsState extends State<Sections> {
                   },
                 ),
                 CustomTextFormField(
+                  keyboardtype: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
                   labelText: "Question Count",
+                  onChanged: (value) {
+                    setState(() {
+                      questionCount = int.parse(value);
+                    });
+                  },
                   margin: const EdgeInsets.only(
                       bottom: UIConstants.defaultMargin * 2),
                   validator: (value) {
@@ -89,6 +110,13 @@ class _SectionsState extends State<Sections> {
                   },
                 ),
                 CustomTextFormField(
+                  keyboardtype:
+                      const TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(
+                      RegExp(r'^(\d+)?\.?\d{0,2}'),
+                    )
+                  ],
                   labelText: "Positive Marks",
                   margin: const EdgeInsets.only(
                       bottom: UIConstants.defaultMargin * 2),
@@ -105,6 +133,13 @@ class _SectionsState extends State<Sections> {
                   },
                 ),
                 CustomTextFormField(
+                  keyboardtype:
+                      const TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(
+                      RegExp(r'^(\d+)?\.?\d{0,2}'),
+                    )
+                  ],
                   labelText: "Negative Marks",
                   margin: const EdgeInsets.only(
                       bottom: UIConstants.defaultMargin * 2),
@@ -121,15 +156,17 @@ class _SectionsState extends State<Sections> {
                   },
                 ),
                 CustomDropDownField(
+                  margin: const EdgeInsets.only(
+                    bottom: UIConstants.defaultMargin * 2,
+                  ),
                   dropdownLabelText: "Is Section Time Specific",
-                  items: [
-                    DropDownFieldChoices(id: 0, value: "False"),
-                    DropDownFieldChoices(id: 1, value: "True"),
-                  ],
+                  items: isTimeSpecific,
                   onChanged: (value) {
-                    setState(() {
-                      section.isSectionTimeSpecific = value as String?;
-                    });
+                    if (value != null) {
+                      setState(() {
+                        section.isSectionTimeSpecific = value.id;
+                      });
+                    }
                   },
                   validator: (value) {
                     if (value == null) {
@@ -138,12 +175,16 @@ class _SectionsState extends State<Sections> {
                     return null;
                   },
                 ),
-                const SizedBox(
-                  height: UIConstants.defaultHeight,
-                ),
                 Visibility(
-                    visible: section.isSectionTimeSpecific == "True",
+                    visible: section.isSectionTimeSpecific == 1,
                     child: CustomTextFormField(
+                      keyboardtype: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
+                      margin: const EdgeInsets.only(
+                        bottom: UIConstants.defaultMargin * 2,
+                      ),
                       labelText: "Time Limit In Minutes",
                       validator: (value) {
                         if (value == null) {

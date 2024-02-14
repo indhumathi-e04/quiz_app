@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:quiz/constants/ui_constants.dart';
 import 'package:quiz/view/widgets/custom_widgets/custom_dropdownfield.dart';
-import 'package:quiz/view/widgets/custom_widgets/custom_textformfield.dart';
+import 'package:quiz/view/widgets/custom_widgets/custom_multiline_textformfield.dart';
 
 import 'package:quiz/view/widgets/options.dart';
 
 class Questions extends StatefulWidget {
-  Questions({required this.questionNumber, super.key});
-  int questionNumber;
-  QuestionType questionType = QuestionType();
+  const Questions({required this.questionTitle, super.key});
+  final String questionTitle;
 
   @override
   State<Questions> createState() => _QuestionsState();
@@ -16,6 +15,24 @@ class Questions extends StatefulWidget {
 
 class _QuestionsState extends State<Questions> {
   bool isExpanded = false;
+  QuestionType questionType = QuestionType();
+  CorrectOptions correctOption = CorrectOptions();
+  TrueOrFalse trueOrFalse = TrueOrFalse();
+  List<DropDownFieldChoices> questionTypes = [
+    DropDownFieldChoices(id: 1, value: "Multiple Choice"),
+    DropDownFieldChoices(id: 2, value: "Fill in the blanks"),
+    DropDownFieldChoices(id: 3, value: "True or False"),
+  ];
+  List<DropDownFieldChoices> correctOptions = [
+    DropDownFieldChoices(id: 1, value: "1"),
+    DropDownFieldChoices(id: 2, value: "2"),
+    DropDownFieldChoices(id: 3, value: "3"),
+    DropDownFieldChoices(id: 4, value: "4"),
+  ];
+  List<DropDownFieldChoices> trueOrFalseOption = [
+    DropDownFieldChoices(id: 1, value: "True"),
+    DropDownFieldChoices(id: 2, value: "False"),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -29,60 +46,50 @@ class _QuestionsState extends State<Questions> {
       expandedHeaderPadding: EdgeInsets.zero,
       children: [
         ExpansionPanel(
+          backgroundColor:
+              Theme.of(context).colorScheme.primary.withOpacity(0.1),
           canTapOnHeader: true,
           headerBuilder: (context, isExpanded) {
-            return Container(
-              height: 56,
-              width: 320,
-              decoration: BoxDecoration(
-                borderRadius:
-                    BorderRadius.circular(UIConstants.defaultBorderRadius),
-                color: Colors.blueGrey,
-              ),
+            return Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: UIConstants.defaultPadding,
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Text("Question - + widget.questionnumber")],
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  widget.questionTitle,
+                ),
               ),
             );
           },
           isExpanded: isExpanded,
-          body: Container(
-            height: 1054,
-            width: 300,
-            padding: const EdgeInsets.symmetric(
-                horizontal: UIConstants.defaultHeight),
-            decoration: BoxDecoration(
-              color: Colors.blueGrey,
-              borderRadius:
-                  BorderRadius.circular(UIConstants.defaultBorderRadius),
+          body: Padding(
+            padding: const EdgeInsets.all(
+              UIConstants.defaultPadding,
             ),
             child: Column(
               children: [
                 const Text(
                     "Choose the desired question type from the drop-down menu and then add the content of the question accordin to that choice"),
-                const SizedBox(
-                  height: UIConstants.defaultHeight,
-                ),
                 CustomDropDownField(
+                  margin: const EdgeInsets.symmetric(
+                    vertical: UIConstants.defaultMargin * 2,
+                  ),
                   dropdownLabelText: "Question Type",
-                  items: [
-                    DropDownFieldChoices(id: 1, value: "Multiple Choice"),
-                  ],
+                  items: questionTypes,
                   onChanged: (value) {
-                    setState(() {
-                      widget.questionType.questionType = value as String?;
-                    });
+                    if (value != null) {
+                      setState(() {
+                        questionType.questionType = value.id;
+                      });
+                    }
                   },
                 ),
-                const SizedBox(
-                  height: UIConstants.defaultHeight,
-                ),
-                CustomTextFormField(
+                CustomMultiLineTextFormField(
                   labelText: "Question",
+                  margin: const EdgeInsets.only(
+                    bottom: UIConstants.defaultMargin * 2,
+                  ),
                   validator: (value) {
                     if (value == null) {
                       return "Field is required. Please enter password";
@@ -95,10 +102,67 @@ class _QuestionsState extends State<Questions> {
                     }
                   },
                 ),
-                Options(optionNumber: "1"),
-                Options(optionNumber: "2"),
-                Options(optionNumber: "3"),
-                Options(optionNumber: "4"),
+                Visibility(
+                  visible: questionType.questionType == 1,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: 4,
+                    itemBuilder: (context, index) => Options(
+                      optionlabel: 'Opions-${index + 1}',
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: questionType.questionType == 1,
+                  child: CustomDropDownField(
+                    margin: const EdgeInsets.only(
+                      bottom: UIConstants.defaultMargin * 2,
+                    ),
+                    dropdownLabelText: "Correct answer",
+                    items: correctOptions,
+                    onChanged: (value) {
+                      if (value != null) {
+                        setState(() {
+                          correctOption.correctOption = value.id;
+                        });
+                      }
+                    },
+                  ),
+                ),
+                Visibility(
+                  visible: questionType.questionType == 2,
+                  child: Container(
+                    margin: const EdgeInsets.only(
+                      bottom: UIConstants.defaultMargin * 2,
+                    ),
+                    child: const CustomMultiLineTextFormField(
+                      labelText: "Correct answer",
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: questionType.questionType == 3,
+                  child: CustomDropDownField(
+                    margin: const EdgeInsets.only(
+                      bottom: UIConstants.defaultMargin * 2,
+                    ),
+                    onChanged: (value) {
+                      if (value != null) {
+                        setState(() {
+                          trueOrFalse.trueOrFalse = value.id;
+                        });
+                      }
+                    },
+                    dropdownLabelText: "Correct answer",
+                    items: trueOrFalseOption,
+                  ),
+                ),
+                const CustomMultiLineTextFormField(
+                    // margin: EdgeInsets.only(
+                    //   top: UIConstants.defaultMargin * 2,
+                    // ),
+                    maxLines: 5,
+                    labelText: "Solution & Explanation")
               ],
             ),
           ),
@@ -109,5 +173,13 @@ class _QuestionsState extends State<Questions> {
 }
 
 class QuestionType {
-  String? questionType;
+  int? questionType;
+}
+
+class CorrectOptions {
+  int? correctOption;
+}
+
+class TrueOrFalse {
+  int? trueOrFalse;
 }

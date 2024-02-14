@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  const CustomTextFormField({
+  CustomTextFormField({
     required this.labelText,
     this.isPasswordField = false,
     this.onChanged,
     this.validator,
     this.margin,
     this.keyboardtype = TextInputType.text,
+    this.inputFormatters,
     super.key,
   });
 
@@ -17,6 +19,7 @@ class CustomTextFormField extends StatelessWidget {
   final Function(String)? onChanged;
   final TextInputType keyboardtype;
   final EdgeInsetsGeometry? margin;
+  List<TextInputFormatter>? inputFormatters;
 
   @override
   Widget build(BuildContext context) {

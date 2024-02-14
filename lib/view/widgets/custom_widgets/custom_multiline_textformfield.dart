@@ -7,6 +7,7 @@ class CustomMultiLineTextFormField extends StatelessWidget {
     this.maxLines,
     this.validator,
     this.keyboardtype = TextInputType.text,
+    this.margin,
     super.key,
   });
 
@@ -15,17 +16,21 @@ class CustomMultiLineTextFormField extends StatelessWidget {
   final Function(String)? onChanged;
   final TextInputType keyboardtype;
   final int? maxLines;
+  final EdgeInsetsGeometry? margin;
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      keyboardType: keyboardtype,
-      maxLines: maxLines,
-      decoration: InputDecoration(
-        labelText: labelText.toUpperCase(),
+    return Padding(
+      padding: margin ?? EdgeInsets.zero,
+      child: TextFormField(
+        keyboardType: keyboardtype,
+        maxLines: maxLines,
+        decoration: InputDecoration(
+          labelText: labelText.toUpperCase(),
+        ),
+        validator: validator,
+        onChanged: onChanged,
       ),
-      validator: validator,
-      onChanged: onChanged,
     );
   }
 }

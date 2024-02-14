@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quiz/theme/custom_theme.dart';
 
 import 'package:quiz/view/screens/new_test_screen.dart';
+import 'package:quiz/view/screens/questions_screen.dart';
 
 import 'package:quiz/view/screens/sections_screen.dart';
 
@@ -28,7 +29,10 @@ class MyApp extends StatelessWidget {
         context: context,
       ),
       //home: const CreateNewTestFlows(),
-      home: NewTestScreen(),
+      home: QuestionScreen(
+        sectionTitle: 'Chemistry',
+        questionsCount: 4,
+      ),
     );
   }
 }
