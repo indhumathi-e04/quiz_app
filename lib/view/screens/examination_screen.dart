@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:quiz/constants/ui_constants.dart';
+import 'package:quiz/models/examination_model.dart';
 
-import 'package:quiz/view/widgets/custom_widgets/custom_button.dart';
-import 'package:quiz/view/widgets/custom_widgets/custom_dropdownfield.dart';
-import 'package:quiz/view/widgets/custom_widgets/custom_textformfield.dart';
+import '../../constants/ui_constants.dart';
+import '../widgets/custom_widgets/custom_button.dart';
+import '../widgets/custom_widgets/custom_dropdownfield.dart';
+import '../widgets/custom_widgets/custom_textformfield.dart';
 
 class ExaminationScreen extends StatefulWidget {
   const ExaminationScreen({super.key});
@@ -19,7 +20,7 @@ class _ExaminationScreenState extends State<ExaminationScreen> {
     DropDownFieldChoices(id: 2, value: "College"),
     DropDownFieldChoices(id: 1, value: "primary")
   ];
-  Exam exam = Exam();
+  ExaminationModel examination = ExaminationModel();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,13 +55,13 @@ class _ExaminationScreenState extends State<ExaminationScreen> {
                 onChanged: (value) {
                   if (value != null) {
                     setState(() {
-                      exam.examCategory = value.id;
+                      examination.examCategory = value.id;
                     });
                   }
                 },
                 validator: (value) {
                   if (value == null) {
-                    return "Field is required. Choose Exam Category";
+                    return "Field is required. Choose exam category";
                   }
                   return null;
                 },
@@ -75,7 +76,7 @@ class _ExaminationScreenState extends State<ExaminationScreen> {
                     return "Field is required. Please enter Exam Name";
                   } else {
                     if (value.trim().isEmpty) {
-                      return "Field is required. Please enter Exam Name";
+                      return "Field is required. Please enter exam name";
                     } else {
                       return null;
                     }
@@ -103,13 +104,13 @@ class _ExaminationScreenState extends State<ExaminationScreen> {
                 margin: const EdgeInsets.only(
                   bottom: UIConstants.defaultHeight * 2,
                 ),
-                labelText: "Official website",
+                labelText: "Official Website",
                 validator: (value) {
                   if (value == null) {
                     return "Field is required. Please enter official website";
                   } else {
                     if (value.trim().isEmpty) {
-                      return "Field is required. Please enter offocial website";
+                      return "Field is required. Please enter official website";
                     } else {
                       return null;
                     }
@@ -136,8 +137,4 @@ class _ExaminationScreenState extends State<ExaminationScreen> {
       ),
     );
   }
-}
-
-class Exam {
-  int? examCategory;
 }

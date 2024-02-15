@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:quiz/constants/ui_constants.dart';
-import 'package:quiz/models/syllabus_model.dart';
-import 'package:quiz/view/screens/subject_screen.dart';
+import 'package:flutter/services.dart';
+import '../../constants/ui_constants.dart';
+import '../../models/syllabus_model.dart';
+import 'subject_screen.dart';
 
-import 'package:quiz/view/widgets/custom_widgets/custom_button.dart';
-import 'package:quiz/view/widgets/custom_widgets/custom_dropdownfield.dart';
-import 'package:quiz/view/widgets/custom_widgets/custom_textformfield.dart';
+import '../widgets/custom_widgets/custom_button.dart';
+import '../widgets/custom_widgets/custom_dropdownfield.dart';
+import '../widgets/custom_widgets/custom_textformfield.dart';
 
 class SyllabusScreen extends StatefulWidget {
   const SyllabusScreen({super.key});
@@ -79,7 +80,7 @@ class _SyllabusScreenState extends State<SyllabusScreen> {
                 },
                 validator: (value) {
                   if (value == null) {
-                    return "Field is required. Choose Exam Category";
+                    return "Field is required. Choose exam category";
                   }
                   return null;
                 },
@@ -172,6 +173,117 @@ class _SyllabusScreenState extends State<SyllabusScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class Syllabus extends StatefulWidget {
+  const Syllabus({super.key});
+
+  @override
+  State<Syllabus> createState() => _SyllabusState();
+}
+
+class _SyllabusState extends State<Syllabus> {
+  SyllabusModel syllabus = SyllabusModel();
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        CustomTextFormField(
+          labelText: "Exam Category",
+          validator: (value) {
+            if (value == null) {
+              return "Field is required. Please enter exam category";
+            } else {
+              if (value.trim().isEmpty) {
+                return "Field is required. Please enter exam category";
+              } else {
+                return null;
+              }
+            }
+          },
+        ),
+        const SizedBox(
+          height: UIConstants.defaultHeight * 2,
+        ),
+        CustomDropDownField(
+          dropdownLabelText: "Exam Name",
+          items: [DropDownFieldChoices(id: 1, value: "NEET")],
+          onChanged: (value) {
+            if (value != null) {
+              setState(() {
+                syllabus.examName = value.id;
+              });
+            }
+          },
+          validator: (value) {
+            if (value == null) {
+              return "Field is required.Choose exam name";
+            }
+            return null;
+          },
+        ),
+        const SizedBox(
+          height: UIConstants.defaultHeight * 2,
+        ),
+        CustomTextFormField(
+          keyboardtype: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.digitsOnly
+          ],
+          labelText: "Exam Year",
+          validator: (value) {
+            if (value == null) {
+              return "Field is required. Please enter exam year";
+            } else {
+              if (value.trim().isEmpty) {
+                return "Field is required. Please enter exam year";
+              } else {
+                return null;
+              }
+            }
+          },
+        ),
+        const SizedBox(
+          height: UIConstants.defaultHeight * 2,
+        ),
+        CustomTextFormField(
+          labelText: "Official Syllabus Link",
+          validator: (value) {
+            if (value == null) {
+              return "Field is required. Please enter syllabus link";
+            } else {
+              if (value.trim().isEmpty) {
+                return "Field is required. Please enter syllabus link";
+              } else {
+                return null;
+              }
+            }
+          },
+        ),
+        const SizedBox(
+          height: UIConstants.defaultHeight * 2,
+        ),
+        CustomTextFormField(
+          keyboardtype: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.digitsOnly
+          ],
+          labelText: "Subjects",
+          validator: (value) {
+            if (value == null) {
+              return "Field is required. Please enter subject count";
+            } else {
+              if (value.trim().isEmpty) {
+                return "Field is required. Please enter subject count";
+              } else {
+                return null;
+              }
+            }
+          },
+        )
+      ],
     );
   }
 }

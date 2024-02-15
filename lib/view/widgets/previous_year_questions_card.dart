@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:quiz/constants/ui_constants.dart';
+
+import '../../constants/ui_constants.dart';
 
 class PreviousYearQuestionsCard extends StatelessWidget {
   const PreviousYearQuestionsCard(

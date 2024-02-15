@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:quiz/theme/custom_theme.dart';
-import 'package:quiz/view/screens/examination_screen.dart';
+import 'view/screens/new_test_screen.dart';
 
-import 'package:quiz/view/screens/new_test_screen.dart';
-import 'package:quiz/view/screens/questions_screen.dart';
-
-import 'package:quiz/view/screens/sections_screen.dart';
-import 'package:quiz/view/screens/subject_screen.dart';
-import 'package:quiz/view/screens/syllabus_screen.dart';
-import 'package:quiz/view/widgets/syllabus.dart';
+import 'theme/custom_theme.dart';
+import 'view/screens/syllabus_screen.dart';
 
 void main() {
   runApp(const MyApp());

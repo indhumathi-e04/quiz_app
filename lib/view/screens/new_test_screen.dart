@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../constants/ui_constants.dart';
-import '../../models/test.dart';
+import '../../models/new_test_model.dart';
 import '../widgets/custom_widgets/custom_button.dart';
 import '../widgets/custom_widgets/custom_dropdownfield.dart';
 import '../widgets/custom_widgets/custom_multiline_textformfield.dart';
@@ -100,7 +100,7 @@ class _NewTestScreenState extends State<NewTestScreen> {
                 },
                 validator: (value) {
                   if (value == null) {
-                    return "Field is required";
+                    return "Field is required. Choose exam category";
                   }
                   return null;
                 },
@@ -120,7 +120,7 @@ class _NewTestScreenState extends State<NewTestScreen> {
                 },
                 validator: (value) {
                   if (value == null) {
-                    return "Field is required. Choose Exam Name";
+                    return "Field is required. Choose exam name";
                   }
                   return null;
                 },
@@ -140,7 +140,7 @@ class _NewTestScreenState extends State<NewTestScreen> {
                 },
                 validator: (value) {
                   if (value == null) {
-                    return "Field is required. Choose Test Type";
+                    return "Field is required. Choose test type";
                   }
                   return null;
                 },
@@ -162,7 +162,7 @@ class _NewTestScreenState extends State<NewTestScreen> {
                   },
                   validator: (value) {
                     if (value == null) {
-                      return "Field is required. Choose Content Type";
+                      return "Field is required. Choose content type";
                     }
                     return null;
                   },
@@ -185,7 +185,7 @@ class _NewTestScreenState extends State<NewTestScreen> {
                   items: subjects,
                   validator: (value) {
                     if (value == null) {
-                      return "Field is required. Choose Subject";
+                      return "Field is required. Choose subject";
                     }
                     return null;
                   },
@@ -208,7 +208,7 @@ class _NewTestScreenState extends State<NewTestScreen> {
                   items: chapters,
                   validator: (value) {
                     if (value == null) {
-                      return "Field is required. Choose Chapter";
+                      return "Field is required. Choose chapter";
                     }
                     return null;
                   },
@@ -241,10 +241,10 @@ class _NewTestScreenState extends State<NewTestScreen> {
                 labelText: "Test Title",
                 validator: (value) {
                   if (value == null) {
-                    return "Field is required. Please enter Test Title";
+                    return "Field is required. Please enter test title";
                   } else {
                     if (value.trim().isEmpty) {
-                      return "Field is required. Please enter Test Title";
+                      return "Field is required. Please enter test title";
                     } else {
                       return null;
                     }
@@ -262,10 +262,10 @@ class _NewTestScreenState extends State<NewTestScreen> {
                 labelText: "Time limit (In Minutes)",
                 validator: (value) {
                   if (value == null) {
-                    return "Field is required. Enter Time Limit";
+                    return "Field is required. Enter time limit";
                   } else {
                     if (value.trim().isEmpty) {
-                      return "Field is required. Enter Time Limit";
+                      return "Field is required. Enter time limit";
                     } else {
                       return null;
                     }
@@ -280,13 +280,13 @@ class _NewTestScreenState extends State<NewTestScreen> {
                 margin: const EdgeInsets.only(
                   bottom: UIConstants.defaultMargin * 2,
                 ),
-                labelText: "Section Count",
+                labelText: "Sections Count",
                 validator: (value) {
                   if (value == null) {
-                    return "Field is required. Please enter Section Count";
+                    return "Field is required. Please enter section count";
                   } else {
                     if (value.trim().isEmpty) {
-                      return "Field is required. Please enter Section Count";
+                      return "Field is required. Please enter section count";
                     } else {
                       return null;
                     }

@@ -6,4 +6,8 @@ class Test {
   int? subjectType;
   int? chapterType;
   int? language;
+  String? textTitle;
+  int? timeLimit;
+  int? sectionsCount;
+  String? instructions;
 }

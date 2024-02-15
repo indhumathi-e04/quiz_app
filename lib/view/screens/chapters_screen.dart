@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:quiz/constants/ui_constants.dart';
-import 'package:quiz/models/subject_model.dart';
-import 'package:quiz/view/widgets/chapters.dart';
-import 'package:quiz/view/widgets/custom_widgets/custom_button.dart';
+import 'package:flutter/services.dart';
+import '../widgets/custom_widgets/custom_textformfield.dart';
+
+import '../../constants/ui_constants.dart';
+import '../../models/subject_model.dart';
 
 class ChapterScreen extends StatelessWidget {
   ChapterScreen({
@@ -16,8 +17,8 @@ class ChapterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Chapters > Physics",
+        title: const Text(
+          "Chapters",
         ),
       ),
       body: Form(
@@ -30,10 +31,105 @@ class ChapterScreen extends StatelessWidget {
           separatorBuilder: (context, index) => const SizedBox(
             height: UIConstants.defaultHeight,
           ),
-          itemBuilder: (context, index) =>
-              Chapter(chapterTitle: "Chapter-${index + 1}"),
+          itemBuilder: (context, index) => ChapterPanel(
+            chapterTitle: subjectModelList[index].subjectTitle ?? "",
+            chapterCount: subjectModelList[index].ch,
+          ),
         ),
       ),
+    );
+  }
+}
+
+class ChapterPanel extends StatefulWidget {
+  const ChapterPanel({
+    required this.chapterTitle,
+    required this.chapterCount,
+    super.key,
+  });
+  final String chapterTitle;
+  final int chapterCount;
+
+  @override
+  State<ChapterPanel> createState() => _SectionsState();
+}
+
+class _SectionsState extends State<ChapterPanel> {
+  bool isExpanded = false;
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(child: Chapter());
+  }
+}
+
+class Chapter extends StatefulWidget {
+  const Chapter({super.key});
+
+  @override
+  State<Chapter> createState() => _ChapterState();
+}
+
+class _ChapterState extends State<Chapter> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        CustomTextFormField(
+          margin: const EdgeInsets.only(
+            bottom: UIConstants.defaultMargin * 2,
+          ),
+          labelText: "Chapter Title",
+          validator: (value) {
+            if (value == null) {
+              return "Field is required. Please enter chapter title";
+            } else {
+              if (value.trim().isEmpty) {
+                return "Field is required. Please enter chapter title";
+              } else {
+                return null;
+              }
+            }
+          },
+        ),
+        CustomTextFormField(
+          keyboardtype: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.digitsOnly
+          ],
+          margin: const EdgeInsets.only(
+            bottom: UIConstants.defaultMargin * 2,
+          ),
+          labelText: "Weightage",
+          validator: (value) {
+            if (value == null) {
+              return "Field is required. Please enter weightage";
+            } else {
+              if (value.trim().isEmpty) {
+                return "Field is required. Please enter weightage";
+              } else {
+                return null;
+              }
+            }
+          },
+        ),
+        CustomTextFormField(
+          margin: const EdgeInsets.only(
+            bottom: UIConstants.defaultMargin * 2,
+          ),
+          labelText: "Major Topics",
+          validator: (value) {
+            if (value == null) {
+              return "Field is required. Please enter major topics";
+            } else {
+              if (value.trim().isEmpty) {
+                return "Field is required. Please enter major topics";
+              } else {
+                return null;
+              }
+            }
+          },
+        ),
+      ],
     );
   }
 }

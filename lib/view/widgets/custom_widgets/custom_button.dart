@@ -25,7 +25,7 @@ class CustomButton extends StatelessWidget {
         style: Theme.of(context).elevatedButtonTheme.style,
         onPressed: isLoading ? null : onPressed,
         child: isLoading
-            ? SizedBox(
+            ? const SizedBox(
                 height: 20,
                 width: 20,
                 child: CircularProgressIndicator(
