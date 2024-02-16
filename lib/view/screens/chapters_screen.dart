@@ -31,8 +31,7 @@ class ChapterScreen extends StatelessWidget {
           separatorBuilder: (context, index) => const SizedBox(
             height: UIConstants.defaultHeight,
           ),
-          itemBuilder: (context, index) =>
-              Chapter(chapterTitle: "Chapter-${index + 1}"),
+          itemBuilder: (context, index) => Chapter(),
         ),
       ),
     );
@@ -90,7 +89,7 @@ class _ChapterState extends State<Chapter> {
           },
         ),
         CustomTextFormField(
-          keyboardtype: TextInputType.number,
+          keyboardType: TextInputType.number,
           inputFormatters: <TextInputFormatter>[
             FilteringTextInputFormatter.digitsOnly
           ],

@@ -4,7 +4,7 @@ import '../../constants/ui_constants.dart';
 import '../../models/syllabus_model.dart';
 import 'subject_screen.dart';
 
-import '../widgets/custom_widgets/custom_button.dart';
+import '../widgets/custom_widgets/custom_elevated_button.dart';
 import '../widgets/custom_widgets/custom_dropdownfield.dart';
 import '../widgets/custom_widgets/custom_textformfield.dart';
 
@@ -41,7 +41,7 @@ class _SyllabusScreenState extends State<SyllabusScreen> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: CustomButton(
+      floatingActionButton: CustomElevatedButton(
         isLoading: false,
         onPressed: () {
           bool isFormValid = _formKey.currentState!.validate();
@@ -69,7 +69,7 @@ class _SyllabusScreenState extends State<SyllabusScreen> {
                 margin: const EdgeInsets.only(
                   bottom: UIConstants.defaultHeight * 2,
                 ),
-                dropdownLabelText: "Exam Category",
+                labelText: "Exam Category",
                 items: examCategoryList,
                 onChanged: (value) {
                   if (value != null) {
@@ -89,7 +89,7 @@ class _SyllabusScreenState extends State<SyllabusScreen> {
                 margin: const EdgeInsets.only(
                   bottom: UIConstants.defaultHeight * 2,
                 ),
-                dropdownLabelText: "Exam Name",
+                labelText: "Exam Name",
                 items: examName,
                 onChanged: (value) {
                   if (value != null) {
@@ -208,7 +208,7 @@ class _SyllabusState extends State<Syllabus> {
           height: UIConstants.defaultHeight * 2,
         ),
         CustomDropDownField(
-          dropdownLabelText: "Exam Name",
+          labelText: "Exam Name",
           items: [DropDownFieldChoices(id: 1, value: "NEET")],
           onChanged: (value) {
             if (value != null) {
@@ -228,7 +228,7 @@ class _SyllabusState extends State<Syllabus> {
           height: UIConstants.defaultHeight * 2,
         ),
         CustomTextFormField(
-          keyboardtype: TextInputType.number,
+          keyboardType: TextInputType.number,
           inputFormatters: <TextInputFormatter>[
             FilteringTextInputFormatter.digitsOnly
           ],
@@ -266,7 +266,7 @@ class _SyllabusState extends State<Syllabus> {
           height: UIConstants.defaultHeight * 2,
         ),
         CustomTextFormField(
-          keyboardtype: TextInputType.number,
+          keyboardType: TextInputType.number,
           inputFormatters: <TextInputFormatter>[
             FilteringTextInputFormatter.digitsOnly
           ],

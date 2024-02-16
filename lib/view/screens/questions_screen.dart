@@ -4,9 +4,10 @@ import '../widgets/custom_widgets/custom_textformfield.dart';
 
 import '../../constants/ui_constants.dart';
 import '../../models/sections_model.dart';
-import '../widgets/custom_widgets/custom_button.dart';
+import '../widgets/custom_widgets/custom_elevated_button.dart';
 import '../widgets/custom_widgets/custom_dropdownfield.dart';
 import '../widgets/custom_widgets/custom_multiline_textformfield.dart';
+import '../widgets/question_panel.dart';
 
 class QuestionScreen extends StatelessWidget {
   QuestionScreen({
@@ -24,7 +25,7 @@ class QuestionScreen extends StatelessWidget {
         title: const Text("Questions"),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: CustomButton(
+      floatingActionButton: CustomElevatedButton(
         buttonWidth: 320,
         buttonHeight: 32,
         isLoading: false,
@@ -136,7 +137,7 @@ class _SubjectQuestionsState extends State<SubjectQuestions> {
                 const SizedBox(
                   height: UIConstants.defaultHeight,
                 ),
-                CustomButton(
+                CustomElevatedButton(
                   buttonWidth: 144,
                   buttonHeight: 32,
                   isLoading: false,
@@ -240,7 +241,7 @@ class _QuestionsState extends State<Questions> {
                   margin: const EdgeInsets.symmetric(
                     vertical: UIConstants.defaultMargin * 2,
                   ),
-                  dropdownLabelText: "Question Type",
+                  labelText: "Question Type",
                   items: questionTypes,
                   onChanged: (value) {
                     if (value != null) {
@@ -289,7 +290,7 @@ class _QuestionsState extends State<Questions> {
                     margin: const EdgeInsets.only(
                       bottom: UIConstants.defaultMargin * 2,
                     ),
-                    dropdownLabelText: "Correct Answer",
+                    labelText: "Correct Answer",
                     items: correctOptions,
                     onChanged: (value) {
                       if (value != null) {
@@ -347,7 +348,7 @@ class _QuestionsState extends State<Questions> {
                         });
                       }
                     },
-                    dropdownLabelText: "Correct Answer",
+                    labelText: "Correct Answer",
                     items: trueOrFalseOption,
                   ),
                 ),

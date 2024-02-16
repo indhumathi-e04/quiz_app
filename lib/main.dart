@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'view/screens/new_test_screen.dart';
+import 'package:quiz/view/screens/login_screen.dart';
 
 import 'theme/custom_theme.dart';
-import 'view/screens/syllabus_screen.dart';
+import 'view/screens/new_test_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,9 +26,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         context: context,
       ),
-      home: QuestionScreen(
-        sectionModelList: [SectionsModel(questionCount: 10)],
-      ),
+      home: NewTestScreen(),
     );
   }
 }

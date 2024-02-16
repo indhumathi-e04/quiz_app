@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../constants/ui_constants.dart';
-import 'custom_widgets/custom_button.dart';
+import 'custom_widgets/custom_elevated_button.dart';
 
 class LatestQuizCard extends StatelessWidget {
   const LatestQuizCard({
@@ -98,7 +98,7 @@ class LatestQuizCard extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                CustomButton(
+                CustomElevatedButton(
                   buttonHeight: 20,
                   buttonWidth: 90,
                   buttonText: "Attempt",

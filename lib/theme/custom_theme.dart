@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../constants/ui_constants.dart';
 
 class CustomTheme {
-  static const ColorScheme lightColorScheme = ColorScheme(
+  static final ColorScheme lightColorScheme = ColorScheme(
     brightness: Brightness.light,
     primary: Colors.black,
     onPrimary: Colors.white,
@@ -18,9 +18,10 @@ class CustomTheme {
     onBackground: Colors.black,
     surface: Colors.white,
     onSurface: Colors.black,
+    outline: Colors.black.withOpacity(0.2),
   );
 
-  static const ColorScheme darkColorScheme = ColorScheme(
+  static final ColorScheme darkColorScheme = ColorScheme(
     brightness: Brightness.dark,
     primary: Colors.white,
     onPrimary: Colors.black,
@@ -34,6 +35,7 @@ class CustomTheme {
     onBackground: Colors.white,
     surface: Colors.black,
     onSurface: Colors.white,
+    outline: Colors.white.withOpacity(0.2),
   );
 
   static const TextTheme _baseTextTheme = TextTheme(
@@ -99,14 +101,19 @@ class CustomTheme {
     ),
   );
 
-  static TextTheme textTheme(Brightness brightness) =>
+  static TextTheme textTheme(
+    Brightness brightness,
+  ) =>
       GoogleFonts.latoTextTheme(_baseTextTheme).apply(
         bodyColor: brightness == Brightness.dark ? Colors.white : Colors.black,
         displayColor:
             brightness == Brightness.dark ? Colors.white : Colors.black,
       );
 
-  static AppBarTheme appBarTheme(Brightness brightness) => AppBarTheme(
+  static AppBarTheme appBarTheme(
+    Brightness brightness,
+  ) =>
+      AppBarTheme(
         iconTheme: const IconThemeData(
           size: UIConstants.defaultHeight * 2,
         ),
@@ -118,67 +125,56 @@ class CustomTheme {
         titleTextStyle: textTheme(brightness).displayMedium,
       );
 
-  static InputDecorationTheme inputDecorationTheme(BuildContext context) =>
+  static InputDecorationTheme inputDecorationTheme(
+    Brightness brightness,
+  ) =>
       InputDecorationTheme(
-        // labelStyle: , TODO: Provide the label style
+        floatingLabelStyle: textTheme(brightness).bodyMedium,
         floatingLabelBehavior: FloatingLabelBehavior.always,
+        errorStyle: textTheme(brightness).bodySmall?.copyWith(
+              color: brightness == Brightness.dark
+                  ? darkColorScheme.error
+                  : lightColorScheme.error,
+            ),
+        errorMaxLines: 2,
         filled: true,
         contentPadding: const EdgeInsets.all(UIConstants.defaultPadding),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(UIConstants.defaultBorderRadius),
           borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.outline,
+            color: brightness == Brightness.dark
+                ? darkColorScheme.outline
+                : lightColorScheme.outline,
           ),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(UIConstants.defaultBorderRadius),
           borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.error,
+            color: brightness == Brightness.dark
+                ? darkColorScheme.error
+                : lightColorScheme.error,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(UIConstants.defaultBorderRadius),
           borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.primary,
+            color: brightness == Brightness.dark
+                ? darkColorScheme.primary
+                : lightColorScheme.primary,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(UIConstants.defaultBorderRadius),
           borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.outlineVariant,
+            color: brightness == Brightness.dark
+                ? darkColorScheme.outline
+                : lightColorScheme.outline,
           ),
         ),
         outlineBorder: BorderSide(
-          color: Theme.of(context).colorScheme.outlineVariant,
-        ),
-      );
-
-  static ElevatedButtonThemeData elevatedButtonTheme(BuildContext context) =>
-      ElevatedButtonThemeData(
-        style: ButtonStyle(
-          elevation: MaterialStateProperty.all<double>(0),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius:
-                  BorderRadius.circular(UIConstants.defaultBorderRadius),
-              side: BorderSide(
-                color: Theme.of(context).colorScheme.outlineVariant,
-              ),
-            ),
-          ),
-          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-            EdgeInsets.zero,
-          ),
-          minimumSize: MaterialStateProperty.all<Size>(
-            Size.zero,
-          ),
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          iconSize: MaterialStateProperty.all<double>(
-            UIConstants.defaultHeight * 2,
-          ),
-          iconColor: MaterialStateProperty.all<Color>(
-            Theme.of(context).colorScheme.primary,
-          ),
+          color: brightness == Brightness.dark
+              ? darkColorScheme.outline
+              : lightColorScheme.outline,
         ),
       );
 
@@ -199,8 +195,15 @@ class CustomTheme {
         iconSize: MaterialStateProperty.all<double>(
           UIConstants.defaultHeight * 2,
         ),
-        textStyle: MaterialStateProperty.all<TextStyle?>(
-          textTheme(brightness).bodyMedium,
+        backgroundColor: MaterialStateProperty.all<Color>(
+          brightness == Brightness.dark
+              ? darkColorScheme.primary
+              : lightColorScheme.primary,
+        ),
+        iconColor: MaterialStateProperty.all<Color>(
+          brightness == Brightness.dark
+              ? darkColorScheme.primary
+              : lightColorScheme.primary,
         ),
       );
 
@@ -217,8 +220,40 @@ class CustomTheme {
         textTheme: textTheme(brightness),
         iconTheme: iconTheme(brightness),
         appBarTheme: appBarTheme(brightness),
-        inputDecorationTheme: inputDecorationTheme(context),
-        elevatedButtonTheme: elevatedButtonTheme(context),
+        inputDecorationTheme: inputDecorationTheme(brightness),
+        dropdownMenuTheme: DropdownMenuThemeData(
+          inputDecorationTheme: inputDecorationTheme(brightness),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: buttonStyle(brightness).copyWith(
+            backgroundColor: MaterialStateProperty.all<Color>(
+              brightness == Brightness.dark
+                  ? darkColorScheme.outline
+                  : lightColorScheme.outline,
+            ),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              const RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero,
+                side: BorderSide.none,
+              ),
+            ),
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: buttonStyle(brightness).copyWith(
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(UIConstants.defaultBorderRadius),
+                side: BorderSide(
+                  color: brightness == Brightness.dark
+                      ? darkColorScheme.outline
+                      : lightColorScheme.outline,
+                ),
+              ),
+            ),
+          ),
+        ),
         textButtonTheme: TextButtonThemeData(
           style: buttonStyle(brightness),
         ),

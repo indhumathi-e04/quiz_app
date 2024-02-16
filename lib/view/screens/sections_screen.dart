@@ -1,14 +1,12 @@
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
-import "package:quiz/models/sections_model.dart";
-import "package:quiz/models/sections_model.dart";
-import "package:quiz/view/widgets/custom_widgets/custom_button.dart";
 
 import "../../constants/ui_constants.dart";
 import "../../models/sections_model.dart";
-import "../widgets/custom_widgets/custom_button.dart";
+import '../widgets/custom_widgets/custom_elevated_button.dart';
 import "../widgets/custom_widgets/custom_dropdownfield.dart";
 import "../widgets/custom_widgets/custom_textformfield.dart";
+import "../widgets/section_panel.dart";
 import "questions_screen.dart";
 
 class SectionsScreen extends StatefulWidget {
@@ -46,7 +44,7 @@ class _SectionsScreenState extends State<SectionsScreen> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: CustomButton(
+      floatingActionButton: CustomElevatedButton(
         buttonWidth: 320,
         buttonHeight: 32,
         isLoading: false,
@@ -157,7 +155,7 @@ class _SectionsState extends State<Sections> {
                   },
                 ),
                 CustomTextFormField(
-                  keyboardtype: TextInputType.number,
+                  keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],
@@ -180,7 +178,7 @@ class _SectionsState extends State<Sections> {
                   },
                 ),
                 CustomTextFormField(
-                  keyboardtype:
+                  keyboardType:
                       const TextInputType.numberWithOptions(decimal: true),
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.allow(
@@ -206,7 +204,7 @@ class _SectionsState extends State<Sections> {
                   },
                 ),
                 CustomTextFormField(
-                  keyboardtype:
+                  keyboardType:
                       const TextInputType.numberWithOptions(decimal: true),
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.allow(
@@ -235,7 +233,7 @@ class _SectionsState extends State<Sections> {
                   margin: const EdgeInsets.only(
                     bottom: UIConstants.defaultMargin * 2,
                   ),
-                  dropdownLabelText: "Is Section Time Specific ?",
+                  labelText: "Is Section Time Specific ?",
                   items: isTimeSpecific,
                   onChanged: (value) {
                     if (value != null) {
@@ -252,7 +250,7 @@ class _SectionsState extends State<Sections> {
                 Visibility(
                   visible: widget.sectionsModel.isSectionTimeSpecific == 1,
                   child: CustomTextFormField(
-                    keyboardtype: TextInputType.number,
+                    keyboardType: TextInputType.number,
                     inputFormatters: <TextInputFormatter>[
                       FilteringTextInputFormatter.digitsOnly
                     ],

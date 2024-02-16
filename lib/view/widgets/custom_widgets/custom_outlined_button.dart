@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-class CustomButton extends StatelessWidget {
+class CustomOutlinedButton extends StatelessWidget {
   final String buttonText;
   final Function()? onPressed;
   final bool isLoading;
   final double buttonHeight;
   final double buttonWidth;
 
-  const CustomButton({
+  const CustomOutlinedButton({
     required this.isLoading,
     required this.onPressed,
     required this.buttonText,
     this.buttonHeight = 40,
-    this.buttonWidth = double.infinity,
+    this.buttonWidth = double.maxFinite,
     super.key,
   });
 
@@ -21,8 +21,7 @@ class CustomButton extends StatelessWidget {
     return SizedBox(
       height: buttonHeight,
       width: buttonWidth,
-      child: ElevatedButton(
-        style: Theme.of(context).elevatedButtonTheme.style,
+      child: OutlinedButton(
         onPressed: isLoading ? null : onPressed,
         child: isLoading
             ? const SizedBox(
@@ -30,10 +29,10 @@ class CustomButton extends StatelessWidget {
                 width: 20,
                 child: CircularProgressIndicator(
                   strokeWidth: 1.5,
-                ))
+                ),
+              )
             : Text(
                 buttonText.toUpperCase(),
-                style: Theme.of(context).textTheme.labelSmall,
               ),
       ),
     );

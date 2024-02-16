@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quiz/models/examination_model.dart';
 
 import '../../constants/ui_constants.dart';
-import '../widgets/custom_widgets/custom_button.dart';
+import '../widgets/custom_widgets/custom_elevated_button.dart';
 import '../widgets/custom_widgets/custom_dropdownfield.dart';
 import '../widgets/custom_widgets/custom_textformfield.dart';
 
@@ -30,7 +30,7 @@ class _ExaminationScreenState extends State<ExaminationScreen> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: CustomButton(
+      floatingActionButton: CustomElevatedButton(
         isLoading: false,
         onPressed: () {
           bool isFormValid = _formKey.currentState!.validate();
@@ -50,7 +50,7 @@ class _ExaminationScreenState extends State<ExaminationScreen> {
                 margin: const EdgeInsets.only(
                   bottom: UIConstants.defaultHeight * 2,
                 ),
-                dropdownLabelText: "Exam Category",
+                labelText: "Exam Category",
                 items: examCategoryList,
                 onChanged: (value) {
                   if (value != null) {

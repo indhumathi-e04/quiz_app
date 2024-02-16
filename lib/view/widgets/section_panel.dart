@@ -81,7 +81,7 @@ class _SectionPanelState extends State<SectionPanel> {
                   },
                 ),
                 CustomTextFormField(
-                  keyboardtype: TextInputType.number,
+                  keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],
@@ -104,7 +104,7 @@ class _SectionPanelState extends State<SectionPanel> {
                   },
                 ),
                 CustomTextFormField(
-                  keyboardtype:
+                  keyboardType:
                       const TextInputType.numberWithOptions(decimal: true),
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.allow(
@@ -130,7 +130,7 @@ class _SectionPanelState extends State<SectionPanel> {
                   },
                 ),
                 CustomTextFormField(
-                  keyboardtype:
+                  keyboardType:
                       const TextInputType.numberWithOptions(decimal: true),
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.allow(
@@ -159,7 +159,7 @@ class _SectionPanelState extends State<SectionPanel> {
                   margin: const EdgeInsets.only(
                     bottom: UIConstants.defaultMargin * 2,
                   ),
-                  dropdownLabelText: "Is Section Time Specific",
+                  labelText: "Is Section Time Specific",
                   items: isTimeSpecific,
                   onChanged: (value) {
                     if (value != null) {
@@ -176,7 +176,7 @@ class _SectionPanelState extends State<SectionPanel> {
                 Visibility(
                   visible: widget.sectionsModel.isSectionTimeSpecific == 1,
                   child: CustomTextFormField(
-                    keyboardtype: TextInputType.number,
+                    keyboardType: TextInputType.number,
                     inputFormatters: <TextInputFormatter>[
                       FilteringTextInputFormatter.digitsOnly
                     ],

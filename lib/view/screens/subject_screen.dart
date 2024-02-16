@@ -4,7 +4,7 @@ import '../widgets/custom_widgets/custom_textformfield.dart';
 
 import '../../constants/ui_constants.dart';
 import '../../models/subject_model.dart';
-import '../widgets/custom_widgets/custom_button.dart';
+import '../widgets/custom_widgets/custom_elevated_button.dart';
 
 import 'chapters_screen.dart';
 
@@ -44,7 +44,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: CustomButton(
+      floatingActionButton: CustomElevatedButton(
         isLoading: false,
         onPressed: () {
           bool isFormValid = _formKey.currentState!.validate();
@@ -168,7 +168,7 @@ class _SectionsState extends State<Subjects> {
                   },
                 ),
                 CustomTextFormField(
-                  keyboardtype: TextInputType.number,
+                  keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],

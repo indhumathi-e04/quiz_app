@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:quiz/constants/ui_constants.dart';
-import 'package:quiz/view/widgets/custom_widgets/custom_button.dart';
-import 'package:quiz/view/widgets/questions.dart';
+import '../../constants/ui_constants.dart';
+import '../screens/questions_screen.dart';
+import 'custom_widgets/custom_elevated_button.dart';
 
 class QuestionPanel extends StatefulWidget {
   const QuestionPanel({
@@ -68,7 +68,7 @@ class _QuestionPanelState extends State<QuestionPanel> {
                 const SizedBox(
                   height: UIConstants.defaultHeight,
                 ),
-                CustomButton(
+                CustomElevatedButton(
                   buttonWidth: 144,
                   buttonHeight: 32,
                   isLoading: false,
