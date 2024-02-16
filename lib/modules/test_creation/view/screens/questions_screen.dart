@@ -1,5 +1,9 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:quiz/models/questions_model.dart';
+import 'package:quiz/modules/test_creation/view/view_model/questions_controller.dart';
 import '../../../../view/widgets/custom_widgets/custom_textformfield.dart';
 
 import '../../../../constants/ui_constants.dart';
@@ -11,12 +15,11 @@ import '../../../../view/widgets/question_panel.dart';
 
 class QuestionScreen extends StatelessWidget {
   QuestionScreen({
-    required this.sectionModelList,
     super.key,
   });
-
-  final List<SectionsModel> sectionModelList;
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final QuestionsController controller = Get.put<QuestionsController>(
+    QuestionsController(),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -26,36 +29,33 @@ class QuestionScreen extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: CustomElevatedButton(
-        buttonWidth: 320,
-        buttonHeight: 32,
+        buttonHeight: 50,
         isLoading: false,
         onPressed: () {
-          bool isFormValid = _formKey.currentState!.validate();
+          bool isFormValid =
+              controller.formKey.currentState?.validate() ?? false;
           if (isFormValid) {
-            // Navigator.of(context).push(
-            //   MaterialPageRoute(
-            //     builder: (context) => SectionsScreen(
-            //       sectionCount: sectionCount,
-            //     ),
-            //   ),
-            // );
+            controller.formKey.currentState?.save();
+            //TODO: Navigate to test screen
           }
         },
         buttonText: "Proceed",
       ),
       body: Form(
-        key: _formKey,
+        key: controller.formKey,
         child: ListView.separated(
           padding: const EdgeInsets.all(
             UIConstants.defaultHeight,
           ),
-          itemCount: sectionModelList.length,
+          itemCount: controller.sectionsModelList.length,
           separatorBuilder: (context, index) => const SizedBox(
             height: UIConstants.defaultHeight,
           ),
-          itemBuilder: (context, index) => QuestionPanel(
-            sectionTitle: sectionModelList[index].sectionTitle ?? "",
-            questionCount: sectionModelList[index].questionCount ?? 0,
+          itemBuilder: (context, index) => SectionQuestionPanel(
+            sectionTitle:
+                controller.sectionsModelList[index].sectionTitle ?? "",
+            questionCount:
+                controller.sectionsModelList[index].questionCount ?? 0,
           ),
         ),
       ),
@@ -63,105 +63,109 @@ class QuestionScreen extends StatelessWidget {
   }
 }
 
-class SubjectQuestions extends StatefulWidget {
-  const SubjectQuestions({
+class SectionQuestionPanel extends StatelessWidget {
+  SectionQuestionPanel({
     required this.sectionTitle,
     required this.questionCount,
     super.key,
   });
   final String sectionTitle;
   final int questionCount;
+  final QuestionsModel questionsModel;
 
-  @override
-  State<SubjectQuestions> createState() => _SubjectQuestionsState();
-}
-
-class _SubjectQuestionsState extends State<SubjectQuestions> {
-  bool isExpanded = false;
   @override
   Widget build(BuildContext context) {
-    return ExpansionPanelList(
-      expansionCallback: (int i, bool _) {
-        setState(() {
-          isExpanded = !isExpanded;
-        });
-      },
-      elevation: 0,
-      expandedHeaderPadding: EdgeInsets.zero,
-      children: [
-        ExpansionPanel(
-          backgroundColor:
-              Theme.of(context).colorScheme.primary.withOpacity(0.1),
-          canTapOnHeader: true,
-          headerBuilder: (context, isExpanded) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: UIConstants.defaultPadding,
-              ),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  widget.sectionTitle,
-                  style: Theme.of(context).textTheme.displaySmall,
+    return Obx(
+      () => ExpansionPanelList(
+        expansionCallback: (int i, bool _) {
+          questionsModel.isExpanded.value = !questionsModel.isExpanded.value;
+        },
+        elevation: 0,
+        expandedHeaderPadding: EdgeInsets.zero,
+        children: [
+          ExpansionPanel(
+            backgroundColor:
+                Theme.of(context).colorScheme.primary.withOpacity(0.1),
+            canTapOnHeader: true,
+            headerBuilder: (context, isExpanded) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: UIConstants.defaultPadding,
                 ),
-              ),
-            );
-          },
-          isExpanded: isExpanded,
-          body: SingleChildScrollView(
-            padding: const EdgeInsets.all(
-              UIConstants.defaultPadding,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Enter each question information in the appropriate field and on the appropriate card. Alternatively, you can upload the document that has every detail related to the question.",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall
-                      ?.copyWith(height: 2),
-                ),
-                const SizedBox(
-                  height: UIConstants.defaultHeight * 0.5,
-                ),
-                TextButton(
-                  onPressed: () {},
+                child: Align(
+                  alignment: Alignment.centerLeft,
                   child: Text(
-                    "Download Sample Document",
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          decoration: TextDecoration.underline,
-                        ),
+                    sectionTitle,
+                    style: Theme.of(context).textTheme.displaySmall,
                   ),
                 ),
-                const SizedBox(
-                  height: UIConstants.defaultHeight,
-                ),
-                CustomElevatedButton(
-                  buttonWidth: 144,
-                  buttonHeight: 32,
-                  isLoading: false,
-                  onPressed: () {},
-                  buttonText: "Upload Document",
-                ),
-                const SizedBox(
-                  height: UIConstants.defaultHeight,
-                ),
-                ListView.separated(
-                  shrinkWrap: true,
-                  itemCount: widget.questionCount,
-                  itemBuilder: (context, index) =>
-                      Questions(questionTitle: "Question -${index + 1}"),
-                  separatorBuilder: (context, index) => const SizedBox(
+              );
+            },
+            isExpanded: questionsModel.isExpanded.value,
+            body: SingleChildScrollView(
+              padding: const EdgeInsets.all(
+                UIConstants.defaultPadding,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Enter each question information in the appropriate field and on the appropriate card. Alternatively, you can upload the document that has every detail related to the question.",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall
+                        ?.copyWith(height: 2),
+                  ),
+                  const SizedBox(
+                    height: UIConstants.defaultHeight * 0.5,
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Download Sample Document",
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            decoration: TextDecoration.underline,
+                          ),
+                    ),
+                  ),
+                  const SizedBox(
                     height: UIConstants.defaultHeight,
                   ),
-                ),
-              ],
+                  CustomElevatedButton(
+                    buttonWidth: 144,
+                    buttonHeight: 32,
+                    isLoading: false,
+                    onPressed: () {},
+                    buttonText: "Upload Document",
+                  ),
+                  const SizedBox(
+                    height: UIConstants.defaultHeight,
+                  ),
+                  ListView.separated(
+                    shrinkWrap: true,
+                    itemCount: questionCount,
+                    itemBuilder: (context, index) =>
+                        Questions(questionTitle: "Question -${index + 1}"),
+                    separatorBuilder: (context, index) => const SizedBox(
+                      height: UIConstants.defaultHeight,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
+  }
+}
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
 
@@ -175,9 +179,8 @@ class Questions extends StatefulWidget {
 
 class _QuestionsState extends State<Questions> {
   bool isExpanded = false;
-  QuestionsModel questionType = QuestionsModel();
-  QuestionsModel correctOption = QuestionsModel();
-  QuestionsModel trueOrFalse = QuestionsModel();
+
+  QuestionsModel questionsModel = QuestionsModel();
   List<DropDownFieldChoices> questionTypes = [
     DropDownFieldChoices(id: 1, value: "Multiple Choice"),
     DropDownFieldChoices(id: 2, value: "Fill in the blanks"),
@@ -246,7 +249,7 @@ class _QuestionsState extends State<Questions> {
                   onChanged: (value) {
                     if (value != null) {
                       setState(() {
-                        questionType.questionType = value.id;
+                        questionsModel.questionType = value.id;
                       });
                     }
                   },
@@ -275,7 +278,7 @@ class _QuestionsState extends State<Questions> {
                   },
                 ),
                 Visibility(
-                  visible: questionType.questionType == 1,
+                  visible: questionsModel.questionType == 1,
                   child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: 4,
@@ -285,7 +288,7 @@ class _QuestionsState extends State<Questions> {
                   ),
                 ),
                 Visibility(
-                  visible: questionType.questionType == 1,
+                  visible: questionsModel.questionType == 1,
                   child: CustomDropDownField(
                     margin: const EdgeInsets.only(
                       bottom: UIConstants.defaultMargin * 2,
@@ -295,7 +298,7 @@ class _QuestionsState extends State<Questions> {
                     onChanged: (value) {
                       if (value != null) {
                         setState(() {
-                          correctOption.correctOption = value.id;
+                          questionsModel.correctOption = value.id;
                         });
                       }
                     },
@@ -308,7 +311,7 @@ class _QuestionsState extends State<Questions> {
                   ),
                 ),
                 Visibility(
-                  visible: questionType.questionType == 2,
+                  visible: questionsModel.questionType == 2,
                   child: Container(
                     margin: const EdgeInsets.only(
                       bottom: UIConstants.defaultMargin * 2,
@@ -330,7 +333,7 @@ class _QuestionsState extends State<Questions> {
                   ),
                 ),
                 Visibility(
-                  visible: questionType.questionType == 3,
+                  visible: questionsModel.questionType == 3,
                   child: CustomDropDownField(
                     margin: const EdgeInsets.only(
                       bottom: UIConstants.defaultMargin * 2,
@@ -344,7 +347,7 @@ class _QuestionsState extends State<Questions> {
                     onChanged: (value) {
                       if (value != null) {
                         setState(() {
-                          trueOrFalse.trueOrFalse = value.id;
+                          questionsModel.trueOrFalse = value.id;
                         });
                       }
                     },

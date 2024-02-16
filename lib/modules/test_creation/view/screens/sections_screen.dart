@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:quiz/routes/route_constants.dart';
 
 import '../../../../constants/ui_constants.dart';
 import '../../../../models/sections_model.dart';
@@ -8,7 +9,6 @@ import '../../../../view/widgets/custom_widgets/custom_dropdownfield.dart';
 import '../../../../view/widgets/custom_widgets/custom_elevated_button.dart';
 import '../../../../view/widgets/custom_widgets/custom_textformfield.dart';
 import '../view_model/sections_controller.dart';
-import 'questions_screen.dart';
 
 class SectionsScreen extends StatelessWidget {
   SectionsScreen({super.key});
@@ -29,14 +29,13 @@ class SectionsScreen extends StatelessWidget {
         buttonHeight: 50,
         isLoading: false,
         onPressed: () {
-          bool isFormValid = controller.formKey.currentState!.validate();
+          bool isFormValid =
+              controller.formKey.currentState?.validate() ?? false;
           if (isFormValid) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => QuestionScreen(
-                  sectionModelList: controller.sectionsModelList,
-                ),
-              ),
+            controller.formKey.currentState?.save();
+            Get.toNamed(
+              RouteConstants.routeQuestions,
+              arguments: controller.sectionsModelList,
             );
           }
         },
@@ -112,11 +111,11 @@ class SectionPanel extends StatelessWidget {
                 children: [
                   CustomTextFormField(
                     labelText: "Section Title",
-                    onChanged: (value) {
-                      sectionModel.sectionTitle = value;
+                    onSaved: (value) {
+                      if (value != null) {
+                        sectionModel.sectionTitle = value;
+                      }
                     },
-                    margin: const EdgeInsets.only(
-                        bottom: UIConstants.defaultMargin * 2),
                     validator: (value) {
                       if (value == null) {
                         return "Field is required. Please enter section title";
@@ -130,17 +129,16 @@ class SectionPanel extends StatelessWidget {
                     },
                   ),
                   CustomTextFormField(
+                    labelText: "Question Count",
+                    onSaved: (value) {
+                      if (value != null) {
+                        sectionModel.questionCount = int.parse(value.trim());
+                      }
+                    },
                     keyboardType: TextInputType.number,
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
                     ],
-                    labelText: "Question Count",
-                    onChanged: (value) {
-                      sectionModel.questionCount = int.parse(value);
-                    },
-                    margin: const EdgeInsets.only(
-                      bottom: UIConstants.defaultMargin * 2,
-                    ),
                     validator: (value) {
                       if (value == null) {
                         return "Field is required. Please enter question count";
@@ -148,12 +146,18 @@ class SectionPanel extends StatelessWidget {
                         if (value.trim().isEmpty) {
                           return "Field is required. Please enter question count";
                         } else {
-                          return null;
+                          try {
+                            int.parse(value.trim());
+                            return null;
+                          } catch (_) {
+                            return "Please enter valid question count";
+                          }
                         }
                       }
                     },
                   ),
                   CustomTextFormField(
+                    labelText: "Positive Marks",
                     keyboardType:
                         const TextInputType.numberWithOptions(decimal: true),
                     inputFormatters: [
@@ -161,11 +165,12 @@ class SectionPanel extends StatelessWidget {
                         RegExp(r'^(\d+)?\.?\d{0,2}'),
                       ),
                     ],
-                    labelText: "Positive Marks",
-                    margin: const EdgeInsets.only(
-                        bottom: UIConstants.defaultMargin * 2),
-                    onChanged: (value) {
-                      sectionModel.positiveMarks = double.parse(value);
+                    onSaved: (value) {
+                      if (value != null) {
+                        sectionModel.positiveMarks = double.parse(
+                          value.trim(),
+                        );
+                      }
                     },
                     validator: (value) {
                       if (value == null) {
@@ -174,24 +179,31 @@ class SectionPanel extends StatelessWidget {
                         if (value.trim().isEmpty) {
                           return "Field is required. Please enter positive marks";
                         } else {
-                          return null;
+                          try {
+                            double.parse(value.trim());
+                            return null;
+                          } catch (_) {
+                            return "Please enter valid positive marks";
+                          }
                         }
                       }
                     },
                   ),
                   CustomTextFormField(
+                    labelText: "Negative Marks",
                     keyboardType:
                         const TextInputType.numberWithOptions(decimal: true),
-                    inputFormatters: <TextInputFormatter>[
+                    inputFormatters: [
                       FilteringTextInputFormatter.allow(
                         RegExp(r'^(\d+)?\.?\d{0,2}'),
-                      )
+                      ),
                     ],
-                    labelText: "Negative Marks",
-                    margin: const EdgeInsets.only(
-                        bottom: UIConstants.defaultMargin * 2),
-                    onChanged: (value) {
-                      sectionModel.negativeMarks = double.parse(value);
+                    onSaved: (value) {
+                      if (value != null) {
+                        sectionModel.negativeMarks = double.parse(
+                          value.trim(),
+                        );
+                      }
                     },
                     validator: (value) {
                       if (value == null) {
@@ -200,17 +212,24 @@ class SectionPanel extends StatelessWidget {
                         if (value.trim().isEmpty) {
                           return "Field is required. Please enter negative marks";
                         } else {
-                          return null;
+                          try {
+                            double.parse(value.trim());
+                            return null;
+                          } catch (_) {
+                            return "Please enter valid negative marks";
+                          }
                         }
                       }
                     },
                   ),
                   CustomDropDownField(
-                    margin: const EdgeInsets.only(
-                      bottom: UIConstants.defaultMargin * 2,
-                    ),
                     labelText: "Is Section Time Specific ?",
                     items: isTimeSpecific,
+                    onSaved: (value) {
+                      if (value != null) {
+                        sectionModel.isSectionTimeSpecific = value.id;
+                      }
+                    },
                     onChanged: (value) {
                       if (value != null) {
                         sectionModel.isTimeSpecific.value = value.id;
@@ -227,16 +246,15 @@ class SectionPanel extends StatelessWidget {
                     () => Visibility(
                       visible: sectionModel.isTimeSpecific.value == 1,
                       child: CustomTextFormField(
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        margin: const EdgeInsets.only(
-                          bottom: UIConstants.defaultMargin * 2,
-                        ),
                         labelText: "Time Limit (In Minutes)",
-                        onChanged: (value) {
-                          sectionModel.sectionTimeLimit = int.parse(value);
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        onSaved: (value) {
+                          if (value != null) {
+                            sectionModel.sectionTimeLimit = int.parse(value);
+                          }
                         },
                         validator: (value) {
                           if (value == null) {
@@ -245,7 +263,12 @@ class SectionPanel extends StatelessWidget {
                             if (value.trim().isEmpty) {
                               return "Field is required. Please enter time limit";
                             } else {
-                              return null;
+                              try {
+                                int.parse(value.trim());
+                                return null;
+                              } catch (_) {
+                                return "Please enter valid time limit";
+                              }
                             }
                           }
                         },

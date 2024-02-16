@@ -242,7 +242,7 @@ class TestCreationScreen extends StatelessWidget {
                       return "Field cannot be empty. Please enter a valid time limit for the test.";
                     } else {
                       try {
-                        int.tryParse(value.trim());
+                        int.parse(value.trim());
                         return null;
                       } catch (_) {
                         return "Enter valid time limit in minutes.";
@@ -270,7 +270,7 @@ class TestCreationScreen extends StatelessWidget {
                       return "Field cannot be empty. Please enter a valid section count for the test.";
                     } else {
                       try {
-                        int.tryParse(value.trim());
+                        int.parse(value.trim());
                         return null;
                       } catch (_) {
                         return "Enter valid section count. Enter '1' if your test doesn't contain multiple sections.";

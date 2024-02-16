@@ -20,6 +20,8 @@ class SectionsModel {
     this.sectionTimeLimit,
   });
 
+  get sectionsModelList => null;
+
   @override
   String toString() {
     return "$sectionTitle - $questionCount";
