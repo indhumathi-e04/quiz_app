@@ -26,7 +26,9 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         context: context,
       ),
-      home: SyllabusScreen(),
+      home: QuestionScreen(
+        sectionModelList: [SectionsModel(questionCount: 10)],
+      ),
     );
   }
 }

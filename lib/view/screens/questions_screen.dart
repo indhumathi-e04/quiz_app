@@ -52,7 +52,7 @@ class QuestionScreen extends StatelessWidget {
           separatorBuilder: (context, index) => const SizedBox(
             height: UIConstants.defaultHeight,
           ),
-          itemBuilder: (context, index) => SubjectQuestions(
+          itemBuilder: (context, index) => QuestionPanel(
             sectionTitle: sectionModelList[index].sectionTitle ?? "",
             questionCount: sectionModelList[index].questionCount ?? 0,
           ),

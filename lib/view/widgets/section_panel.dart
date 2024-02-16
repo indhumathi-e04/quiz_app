@@ -1,89 +1,13 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import "package:quiz/models/sections_model.dart";
-import "package:quiz/models/sections_model.dart";
-import "package:quiz/view/widgets/custom_widgets/custom_button.dart";
 
-import "../../constants/ui_constants.dart";
-import "../../models/sections_model.dart";
-import "../widgets/custom_widgets/custom_button.dart";
-import "../widgets/custom_widgets/custom_dropdownfield.dart";
-import "../widgets/custom_widgets/custom_textformfield.dart";
-import "questions_screen.dart";
+import '../../constants/ui_constants.dart';
+import '../../models/sections_model.dart';
+import 'custom_widgets/custom_dropdownfield.dart';
+import 'custom_widgets/custom_textformfield.dart';
 
-class SectionsScreen extends StatefulWidget {
-  const SectionsScreen({
-    required this.sectionCount,
-    super.key,
-  });
-  final int sectionCount;
-
-  @override
-  State<SectionsScreen> createState() => _SectionsScreenState();
-}
-
-class _SectionsScreenState extends State<SectionsScreen> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final List<SectionsModel> sectionsModelList = [];
-
-  @override
-  void initState() {
-    super.initState();
-    sectionsModelList.addAll(
-      List.generate(
-        widget.sectionCount,
-        (index) => SectionsModel(),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Sections",
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: CustomButton(
-        buttonWidth: 320,
-        buttonHeight: 32,
-        isLoading: false,
-        onPressed: () {
-          bool isFormValid = _formKey.currentState!.validate();
-          if (isFormValid) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => QuestionScreen(
-                  sectionModelList: sectionsModelList,
-                ),
-              ),
-            );
-          }
-        },
-        buttonText: "Proceed",
-      ),
-      body: Form(
-        key: _formKey,
-        child: ListView.separated(
-          padding: const EdgeInsets.all(UIConstants.defaultHeight * 2),
-          itemCount: widget.sectionCount,
-          separatorBuilder: (context, index) => const SizedBox(
-            height: UIConstants.defaultHeight,
-          ),
-          itemBuilder: (context, index) => SectionPanel(
-            sectionsTitle: "Section-${index + 1}",
-            sectionsModel: sectionsModelList[index],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class Sections extends StatefulWidget {
-  const Sections({
+class SectionPanel extends StatefulWidget {
+  const SectionPanel({
     required this.sectionsTitle,
     required this.sectionsModel,
     super.key,
@@ -92,10 +16,10 @@ class Sections extends StatefulWidget {
   final SectionsModel sectionsModel;
 
   @override
-  State<Sections> createState() => _SectionsState();
+  State<SectionPanel> createState() => _SectionPanelState();
 }
 
-class _SectionsState extends State<Sections> {
+class _SectionPanelState extends State<SectionPanel> {
   List<DropDownFieldChoices> isTimeSpecific = [
     DropDownFieldChoices(id: 0, value: "False"),
     DropDownFieldChoices(id: 1, value: "True"),
@@ -117,12 +41,12 @@ class _SectionsState extends State<Sections> {
           backgroundColor:
               Theme.of(context).colorScheme.primary.withOpacity(0.1),
           headerBuilder: (context, isExpanded) {
-            return Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.all(
-                  UIConstants.defaultPadding,
-                ),
+            return Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: UIConstants.defaultPadding,
+              ),
+              child: Align(
+                alignment: Alignment.centerLeft,
                 child: Text(
                   widget.sectionsTitle,
                   style: Theme.of(context).textTheme.displaySmall,
@@ -146,10 +70,10 @@ class _SectionsState extends State<Sections> {
                       bottom: UIConstants.defaultMargin * 2),
                   validator: (value) {
                     if (value == null) {
-                      return "Field is required. Please enter section title";
+                      return "Field is required. Please enter Section Title";
                     } else {
                       if (value.trim().isEmpty) {
-                        return "Field is required. Please enter section title";
+                        return "Field is required. Please enter SEction Title";
                       } else {
                         return null;
                       }
@@ -169,10 +93,10 @@ class _SectionsState extends State<Sections> {
                       bottom: UIConstants.defaultMargin * 2),
                   validator: (value) {
                     if (value == null) {
-                      return "Field is required. Please enter question count";
+                      return "Field is required. Please enter Question Count";
                     } else {
                       if (value.trim().isEmpty) {
-                        return "Field is required. Please enter question count";
+                        return "Field is required. Please enter Question Count";
                       } else {
                         return null;
                       }
@@ -235,7 +159,7 @@ class _SectionsState extends State<Sections> {
                   margin: const EdgeInsets.only(
                     bottom: UIConstants.defaultMargin * 2,
                   ),
-                  dropdownLabelText: "Is Section Time Specific ?",
+                  dropdownLabelText: "Is Section Time Specific",
                   items: isTimeSpecific,
                   onChanged: (value) {
                     if (value != null) {
@@ -259,16 +183,16 @@ class _SectionsState extends State<Sections> {
                     margin: const EdgeInsets.only(
                       bottom: UIConstants.defaultMargin * 2,
                     ),
-                    labelText: "Time Limit (In Minutes)",
+                    labelText: "Time Limit In Minutes",
                     onChanged: (value) {
                       widget.sectionsModel.sectionTimeLimit = int.parse(value);
                     },
                     validator: (value) {
                       if (value == null) {
-                        return "Field is required. Please enter time limit";
+                        return "Field is required. Please enter Time Limit";
                       } else {
                         if (value.trim().isEmpty) {
-                          return "Field is required. Please enter time limit";
+                          return "Field is required. Please enter Time Limit";
                         } else {
                           return null;
                         }

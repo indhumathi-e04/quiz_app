@@ -18,7 +18,6 @@ class NewTestScreen extends StatefulWidget {
 
 class _NewTestScreenState extends State<NewTestScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  Test test = Test();
   List<DropDownFieldChoices> examCategories = [
     DropDownFieldChoices(id: 1, value: "School"),
     DropDownFieldChoices(id: 2, value: "Engineering"),
@@ -49,8 +48,7 @@ class _NewTestScreenState extends State<NewTestScreen> {
     DropDownFieldChoices(id: 1, value: "School"),
     DropDownFieldChoices(id: 2, value: "Engineering"),
   ];
-
-  int sectionCount = 0;
+  Test test = Test();
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +67,7 @@ class _NewTestScreenState extends State<NewTestScreen> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => SectionsScreen(
-                  sectionCount: sectionCount,
+                  sectionCount: test.sectionCount ?? 0,
                 ),
               ),
             );
@@ -177,7 +175,7 @@ class _NewTestScreenState extends State<NewTestScreen> {
                   onChanged: (value) {
                     if (value != null) {
                       setState(() {
-                        test.subjectType = value.id;
+                        test.subject = value.id;
                       });
                     }
                   },
@@ -200,7 +198,7 @@ class _NewTestScreenState extends State<NewTestScreen> {
                   onChanged: (value) {
                     if (value != null) {
                       setState(() {
-                        test.chapterType = value.id;
+                        test.chapter = value.id;
                       });
                     }
                   },
@@ -239,6 +237,9 @@ class _NewTestScreenState extends State<NewTestScreen> {
                   bottom: UIConstants.defaultMargin * 2,
                 ),
                 labelText: "Test Title",
+                onChanged: (value) {
+                  test.testTitle = value;
+                },
                 validator: (value) {
                   if (value == null) {
                     return "Field is required. Please enter test title";
@@ -253,13 +254,16 @@ class _NewTestScreenState extends State<NewTestScreen> {
               ),
               CustomTextFormField(
                 keyboardtype: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.digitsOnly
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
                 ],
                 margin: const EdgeInsets.only(
                   bottom: UIConstants.defaultMargin * 2,
                 ),
                 labelText: "Time limit (In Minutes)",
+                onChanged: (value) {
+                  test.timeLimit = int.parse(value);
+                },
                 validator: (value) {
                   if (value == null) {
                     return "Field is required. Enter time limit";
@@ -274,8 +278,8 @@ class _NewTestScreenState extends State<NewTestScreen> {
               ),
               CustomTextFormField(
                 keyboardtype: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.digitsOnly
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
                 ],
                 margin: const EdgeInsets.only(
                   bottom: UIConstants.defaultMargin * 2,
@@ -292,14 +296,14 @@ class _NewTestScreenState extends State<NewTestScreen> {
                     }
                   }
                 },
-                onChanged: (value) {
-                  sectionCount = int.tryParse(value) ?? 0;
-                },
               ),
-              const CustomMultiLineTextFormField(
+              CustomMultiLineTextFormField(
                 labelText: "Instructions",
                 maxLines: 5,
                 keyboardtype: TextInputType.multiline,
+                onChanged: (value) {
+                  test.instructions = value;
+                },
               ),
             ],
           ),

@@ -31,10 +31,8 @@ class ChapterScreen extends StatelessWidget {
           separatorBuilder: (context, index) => const SizedBox(
             height: UIConstants.defaultHeight,
           ),
-          itemBuilder: (context, index) => ChapterPanel(
-            chapterTitle: subjectModelList[index].subjectTitle ?? "",
-            chapterCount: subjectModelList[index].ch,
-          ),
+          itemBuilder: (context, index) =>
+              Chapter(chapterTitle: "Chapter-${index + 1}"),
         ),
       ),
     );
