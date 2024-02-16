@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 class SectionsModel {
   String? sectionTitle;
   int? questionCount;
@@ -5,6 +7,9 @@ class SectionsModel {
   double? negativeMarks;
   int? isSectionTimeSpecific;
   int? sectionTimeLimit;
+
+  RxBool isExpanded = false.obs;
+  RxnInt isTimeSpecific = RxnInt();
 
   SectionsModel({
     this.sectionTitle,
