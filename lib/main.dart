@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:quiz/view/screens/login_screen.dart';
+import 'package:get/route_manager.dart';
 
-import 'theme/custom_theme.dart';
-import 'view/screens/new_test_screen.dart';
+import 'routes/app_routes.dart';
+import 'routes/route_constants.dart';
+import 'theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,20 +14,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
-      theme: CustomTheme.customTheme(
-        colorScheme: CustomTheme.lightColorScheme,
+      theme: AppTheme.appTheme(
+        colorScheme: AppTheme.lightColorScheme,
         brightness: Brightness.light,
         context: context,
       ),
-      darkTheme: CustomTheme.customTheme(
-        colorScheme: CustomTheme.darkColorScheme,
+      darkTheme: AppTheme.appTheme(
+        colorScheme: AppTheme.darkColorScheme,
         brightness: Brightness.dark,
         context: context,
       ),
-      home: NewTestScreen(),
+      initialRoute: RouteConstants.routeTestCreation,
+      getPages: AppRoutes.appRoutes,
     );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../constants/ui_constants.dart';
-import '../screens/questions_screen.dart';
+import '../../modules/test_creation/view/screens/questions_screen.dart';
 import 'custom_widgets/custom_elevated_button.dart';
 
 class QuestionPanel extends StatefulWidget {

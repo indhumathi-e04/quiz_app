@@ -30,6 +30,7 @@ class CustomDropDownField extends StatelessWidget {
             bottom: UIConstants.defaultMargin * 2,
           ),
       child: DropdownButtonFormField<DropDownFieldChoices>(
+        icon: const Icon(Icons.keyboard_arrow_down_outlined),
         value: value,
         decoration: InputDecoration(
           labelText: labelText.toUpperCase(),

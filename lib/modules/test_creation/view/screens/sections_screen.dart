@@ -1,13 +1,13 @@
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 
-import "../../constants/ui_constants.dart";
-import "../../models/sections_model.dart";
-import '../widgets/custom_widgets/custom_elevated_button.dart';
-import "../widgets/custom_widgets/custom_dropdownfield.dart";
-import "../widgets/custom_widgets/custom_textformfield.dart";
-import "../widgets/section_panel.dart";
-import "questions_screen.dart";
+import '../../../../constants/ui_constants.dart';
+import '../../../../models/sections_model.dart';
+import '../../../../view/widgets/custom_widgets/custom_elevated_button.dart';
+import '../../../../view/widgets/custom_widgets/custom_dropdownfield.dart';
+import '../../../../view/widgets/custom_widgets/custom_textformfield.dart';
+import '../../../../view/widgets/section_panel.dart';
+import 'questions_screen.dart';
 
 class SectionsScreen extends StatefulWidget {
   const SectionsScreen({

@@ -1,71 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
-import '../../constants/ui_constants.dart';
-import '../../models/new_test_model.dart';
-import '../widgets/custom_widgets/custom_elevated_button.dart';
-import '../widgets/custom_widgets/custom_dropdownfield.dart';
-import '../widgets/custom_widgets/custom_multiline_textformfield.dart';
-import '../widgets/custom_widgets/custom_textformfield.dart';
-import 'sections_screen.dart';
+import '../../../../constants/ui_constants.dart';
+import '../../../../routes/route_constants.dart';
+import '../../../../view/widgets/custom_widgets/custom_dropdownfield.dart';
+import '../../../../view/widgets/custom_widgets/custom_elevated_button.dart';
+import '../../../../view/widgets/custom_widgets/custom_multiline_textformfield.dart';
+import '../../../../view/widgets/custom_widgets/custom_textformfield.dart';
+import '../view_model/test_creation_controller.dart';
 
-class NewTestScreen extends StatefulWidget {
-  const NewTestScreen({super.key});
+class TestCreationScreen extends StatelessWidget {
+  TestCreationScreen({super.key});
 
-  @override
-  State<NewTestScreen> createState() => _NewTestScreenState();
-}
-
-class _NewTestScreenState extends State<NewTestScreen> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  List<DropDownFieldChoices> examCategories = [
-    DropDownFieldChoices(id: 1, value: "School"),
-    DropDownFieldChoices(id: 2, value: "Engineering"),
-    DropDownFieldChoices(id: 3, value: "Medicine"),
-  ];
-  List<DropDownFieldChoices> examNames = [
-    DropDownFieldChoices(id: 1, value: "School"),
-    DropDownFieldChoices(id: 2, value: "Engineering"),
-  ];
-  List<DropDownFieldChoices> testTypes = [
-    DropDownFieldChoices(
-      id: UIConstants.examLevelTestId,
-      value: "Exam Level Test",
-    ),
-    DropDownFieldChoices(
-      id: UIConstants.subjectLevelTestId,
-      value: "Subject Level Test",
-    ),
-    DropDownFieldChoices(
-      id: UIConstants.chapterLevelTestId,
-      value: "Chapter Level Test",
-    ),
-  ];
-  List<DropDownFieldChoices> contentTypes = [
-    DropDownFieldChoices(id: 1, value: "School"),
-    DropDownFieldChoices(id: 2, value: "Engineering"),
-  ];
-  List<DropDownFieldChoices> languages = [
-    DropDownFieldChoices(id: 1, value: "School"),
-    DropDownFieldChoices(id: 2, value: "Engineering"),
-  ];
-  List<DropDownFieldChoices> subjects = [
-    DropDownFieldChoices(id: 1, value: "School"),
-    DropDownFieldChoices(id: 2, value: "Engineering"),
-  ];
-  List<DropDownFieldChoices> chapters = [
-    DropDownFieldChoices(id: 1, value: "School"),
-    DropDownFieldChoices(id: 2, value: "Engineering"),
-  ];
-
-  TestDataModel test = TestDataModel();
+  final TestCreationController controller = Get.put<TestCreationController>(
+    TestCreationController(),
+  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "New Test",
+          "Create New Test",
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -73,15 +30,13 @@ class _NewTestScreenState extends State<NewTestScreen> {
         buttonHeight: UIConstants.defaultHeight * 5,
         isLoading: false,
         onPressed: () {
-          bool isFormValid = _formKey.currentState?.validate() ?? false;
+          bool isFormValid =
+              controller.formKey.currentState?.validate() ?? false;
           if (isFormValid) {
-            _formKey.currentState?.save();
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => SectionsScreen(
-                  sectionCount: test.sectionsCount ?? 0,
-                ),
-              ),
+            controller.formKey.currentState?.save();
+            Get.toNamed(
+              RouteConstants.routeSections,
+              arguments: controller.testDataModel,
             );
           }
         },
@@ -92,22 +47,20 @@ class _NewTestScreenState extends State<NewTestScreen> {
           UIConstants.defaultPadding * 2,
         ),
         child: Form(
-          key: _formKey,
+          key: controller.formKey,
           child: Column(
             children: [
               CustomDropDownField(
                 labelText: "Exam Category",
-                items: examCategories,
+                items: controller.examCategories,
                 onChanged: (value) {
                   if (value != null) {
-                    setState(() {
-                      test.examCategory = value.id;
-                    });
+                    controller.testDataModel.examCategory = value.id;
                   }
                 },
                 onSaved: (value) {
                   if (value != null) {
-                    test.examCategory = value.id;
+                    controller.testDataModel.examCategory = value.id;
                   }
                 },
                 validator: (value) {
@@ -119,17 +72,15 @@ class _NewTestScreenState extends State<NewTestScreen> {
               ),
               CustomDropDownField(
                 labelText: "Exam Name",
-                items: examNames,
+                items: controller.examNames,
                 onChanged: (value) {
                   if (value != null) {
-                    setState(() {
-                      test.examName = value.id;
-                    });
+                    controller.testDataModel.examName = value.id;
                   }
                 },
                 onSaved: (value) {
                   if (value != null) {
-                    test.examName = value.id;
+                    controller.testDataModel.examName = value.id;
                   }
                 },
                 validator: (value) {
@@ -141,17 +92,15 @@ class _NewTestScreenState extends State<NewTestScreen> {
               ),
               CustomDropDownField(
                 labelText: "Test Type",
-                items: testTypes,
+                items: controller.testTypes,
                 onChanged: (value) {
                   if (value != null) {
-                    setState(() {
-                      test.testType = value.id;
-                    });
+                    controller.selectedTestType.value = value.id;
                   }
                 },
                 onSaved: (value) {
                   if (value != null) {
-                    test.testType = value.id;
+                    controller.testDataModel.testType = value.id;
                   }
                 },
                 validator: (value) {
@@ -161,81 +110,88 @@ class _NewTestScreenState extends State<NewTestScreen> {
                   return null;
                 },
               ),
-              Visibility(
-                visible: test.testType == UIConstants.examLevelTestId,
-                child: CustomDropDownField(
-                  labelText: "Content Type",
-                  items: contentTypes,
-                  onChanged: (value) {
-                    if (value != null) {
-                      setState(() {
-                        test.contentType = value.id;
-                      });
-                    }
-                  },
-                  onSaved: (value) {
-                    if (value != null) {
-                      test.contentType = value.id;
-                    }
-                  },
-                  validator: (value) {
-                    if (value == null) {
-                      return "Field is required. Choose the test content type.";
-                    }
-                    return null;
-                  },
+              Obx(
+                () => Visibility(
+                  visible: controller.selectedTestType.value ==
+                      UIConstants.examLevelTestId,
+                  child: CustomDropDownField(
+                    labelText: "Content Type",
+                    items: controller.contentTypes,
+                    onChanged: (value) {
+                      if (value != null) {
+                        controller.testDataModel.contentType = value.id;
+                      }
+                    },
+                    onSaved: (value) {
+                      if (value != null) {
+                        controller.testDataModel.contentType = value.id;
+                      }
+                    },
+                    validator: (value) {
+                      if (value == null) {
+                        return "Field is required. Choose the test content type.";
+                      }
+                      return null;
+                    },
+                  ),
                 ),
               ),
-              Visibility(
-                visible: test.testType == UIConstants.subjectLevelTestId ||
-                    test.testType == UIConstants.chapterLevelTestId,
-                child: CustomDropDownField(
-                  labelText: "Subject",
-                  items: subjects,
-                  onChanged: (value) {
-                    if (value != null) {
-                      setState(() {
-                        test.subject = value.id;
-                      });
-                    }
-                  },
-                  onSaved: (value) {
-                    if (value != null) {
-                      test.subject = value.id;
-                    }
-                  },
-                  validator: (value) {
-                    if (value == null) {
-                      return "Field is required. Choose the subject.";
-                    }
-                    return null;
-                  },
+              Obx(
+                () => Visibility(
+                  visible: controller.selectedTestType.value ==
+                          UIConstants.subjectLevelTestId ||
+                      controller.selectedTestType.value ==
+                          UIConstants.chapterLevelTestId,
+                  child: CustomDropDownField(
+                    labelText: "Subject",
+                    items: controller.subjects,
+                    onChanged: (value) {
+                      if (value != null) {
+                        controller.testDataModel.subject = value.id;
+                      }
+                    },
+                    onSaved: (value) {
+                      if (value != null) {
+                        controller.testDataModel.subject = value.id;
+                      }
+                    },
+                    validator: (value) {
+                      if (value == null) {
+                        return "Field is required. Choose the subject.";
+                      }
+                      return null;
+                    },
+                  ),
                 ),
               ),
-              Visibility(
-                visible: test.testType == UIConstants.chapterLevelTestId,
-                child: CustomDropDownField(
-                  labelText: "Chapter",
-                  items: chapters,
-                  onSaved: (value) {
-                    if (value != null) {
-                      test.chapter = value.id;
-                    }
-                  },
-                  validator: (value) {
-                    if (value == null) {
-                      return "Field is required. Choose the chapter.";
-                    }
-                    return null;
-                  },
+              Obx(
+                () => Visibility(
+                  visible: controller.selectedTestType.value ==
+                      UIConstants.chapterLevelTestId,
+                  child: CustomDropDownField(
+                    labelText: "Chapter",
+                    items: controller.chapters,
+                    onSaved: (value) {
+                      if (value != null) {
+                        controller.testDataModel.chapter = value.id;
+                      }
+                    },
+                    validator: (value) {
+                      if (value == null) {
+                        return "Field is required. Choose the chapter.";
+                      }
+                      return null;
+                    },
+                  ),
                 ),
               ),
               CustomDropDownField(
                 labelText: "Language",
-                items: languages,
+                items: controller.languages,
+                onChanged: (value) {},
                 onSaved: (value) {
                   if (value != null) {
-                    test.language = value.id;
+                    controller.testDataModel.language = value.id;
                   }
                 },
                 validator: (value) {
@@ -249,7 +205,7 @@ class _NewTestScreenState extends State<NewTestScreen> {
                 labelText: "Test Title",
                 onSaved: (value) {
                   if (value != null) {
-                    test.testTitle = value;
+                    controller.testDataModel.testTitle = value;
                   }
                 },
                 validator: (value) {
@@ -275,7 +231,7 @@ class _NewTestScreenState extends State<NewTestScreen> {
                 ],
                 onSaved: (value) {
                   if (value != null) {
-                    test.timeLimit = int.parse(value);
+                    controller.testDataModel.timeLimit = int.parse(value);
                   }
                 },
                 validator: (value) {
@@ -303,7 +259,7 @@ class _NewTestScreenState extends State<NewTestScreen> {
                 ],
                 onSaved: (value) {
                   if (value != null) {
-                    test.sectionsCount = int.parse(value);
+                    controller.testDataModel.sectionsCount = int.parse(value);
                   }
                 },
                 validator: (value) {
@@ -328,7 +284,7 @@ class _NewTestScreenState extends State<NewTestScreen> {
                 maxLines: 5,
                 keyboardType: TextInputType.multiline,
                 onSaved: (value) {
-                  test.instructions = value;
+                  controller.testDataModel.instructions = value;
                 },
               ),
             ],

@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/ui_constants.dart';
 
-class CustomTheme {
+class AppTheme {
   static final ColorScheme lightColorScheme = ColorScheme(
     brightness: Brightness.light,
     primary: Colors.black,
@@ -129,6 +129,7 @@ class CustomTheme {
     Brightness brightness,
   ) =>
       InputDecorationTheme(
+        labelStyle: textTheme(brightness).bodyMedium,
         floatingLabelStyle: textTheme(brightness).bodyMedium,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         errorStyle: textTheme(brightness).bodySmall?.copyWith(
@@ -195,19 +196,17 @@ class CustomTheme {
         iconSize: MaterialStateProperty.all<double>(
           UIConstants.defaultHeight * 2,
         ),
-        backgroundColor: MaterialStateProperty.all<Color>(
-          brightness == Brightness.dark
-              ? darkColorScheme.primary
-              : lightColorScheme.primary,
-        ),
         iconColor: MaterialStateProperty.all<Color>(
           brightness == Brightness.dark
               ? darkColorScheme.primary
               : lightColorScheme.primary,
         ),
+        textStyle: MaterialStateProperty.all<TextStyle?>(
+          textTheme(brightness).bodySmall,
+        ),
       );
 
-  static ThemeData customTheme({
+  static ThemeData appTheme({
     required ColorScheme colorScheme,
     required Brightness brightness,
     required BuildContext context,
@@ -228,8 +227,13 @@ class CustomTheme {
           style: buttonStyle(brightness).copyWith(
             backgroundColor: MaterialStateProperty.all<Color>(
               brightness == Brightness.dark
-                  ? darkColorScheme.outline
-                  : lightColorScheme.outline,
+                  ? darkColorScheme.primary
+                  : lightColorScheme.primary,
+            ),
+            foregroundColor: MaterialStateProperty.all<Color>(
+              brightness == Brightness.dark
+                  ? darkColorScheme.onPrimary
+                  : lightColorScheme.onPrimary,
             ),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               const RoundedRectangleBorder(
@@ -241,6 +245,16 @@ class CustomTheme {
         ),
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: buttonStyle(brightness).copyWith(
+            backgroundColor: MaterialStateProperty.all<Color>(
+              brightness == Brightness.dark
+                  ? darkColorScheme.secondary
+                  : lightColorScheme.secondary,
+            ),
+            foregroundColor: MaterialStateProperty.all<Color>(
+              brightness == Brightness.dark
+                  ? darkColorScheme.onSecondary
+                  : lightColorScheme.onSecondary,
+            ),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius:
@@ -255,10 +269,28 @@ class CustomTheme {
           ),
         ),
         textButtonTheme: TextButtonThemeData(
-          style: buttonStyle(brightness),
+          style: buttonStyle(brightness).copyWith(
+            backgroundColor: MaterialStateProperty.all<Color>(
+              Colors.transparent,
+            ),
+            foregroundColor: MaterialStateProperty.all<Color>(
+              brightness == Brightness.dark
+                  ? darkColorScheme.onSecondary
+                  : lightColorScheme.onSecondary,
+            ),
+          ),
         ),
         iconButtonTheme: IconButtonThemeData(
-          style: buttonStyle(brightness),
+          style: buttonStyle(brightness).copyWith(
+            backgroundColor: MaterialStateProperty.all<Color>(
+              Colors.transparent,
+            ),
+            foregroundColor: MaterialStateProperty.all<Color>(
+              brightness == Brightness.dark
+                  ? darkColorScheme.onSecondary
+                  : lightColorScheme.onSecondary,
+            ),
+          ),
         ),
         dividerTheme: const DividerThemeData(
           space: 0,
