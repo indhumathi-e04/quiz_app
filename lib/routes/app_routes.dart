@@ -13,7 +13,7 @@ class AppRoutes {
     ),
     GetPage(
       name: RouteConstants.routeSections,
-      page: () => SectionsScreen(sectionCount: 2),
+      page: () => SectionsScreen(),
     ),
     GetPage(
       name: RouteConstants.routeQuestions,
