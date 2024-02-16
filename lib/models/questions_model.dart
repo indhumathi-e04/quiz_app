@@ -1,3 +1,5 @@
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+
 class QuestionsModel {
   int? questionType;
   String? questions;
@@ -9,4 +11,5 @@ class QuestionsModel {
   int? correctOption;
   int? trueOrFalse;
   String? solutionExplanation;
+  RxBool isExpanded = false.obs;
 }
