@@ -20,6 +20,7 @@ class SectionsController extends GetxController {
   }
 
   void onFormSubmitted() {
+    FocusManager.instance.primaryFocus?.unfocus();
     bool isFormValid = _formKey.currentState?.validate() ?? false;
     if (isFormValid) {
       _formKey.currentState?.save();

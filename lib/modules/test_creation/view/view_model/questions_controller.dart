@@ -14,4 +14,12 @@ class QuestionsController extends GetxController {
     super.onInit();
     testModel = Get.arguments;
   }
+
+  void onFormSubmitted() {
+    FocusManager.instance.primaryFocus?.unfocus();
+    bool isFormValid = _formKey.currentState?.validate() ?? false;
+    if (isFormValid) {
+      _formKey.currentState?.save();
+    }
+  }
 }

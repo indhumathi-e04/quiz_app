@@ -145,13 +145,7 @@ class QuestionScreen extends StatelessWidget {
           CustomElevatedButton(
             buttonHeight: 50,
             isLoading: false,
-            onPressed: () {
-              bool isFormValid =
-                  controller.formKey.currentState?.validate() ?? false;
-              if (isFormValid) {
-                controller.formKey.currentState?.save();
-              }
-            },
+            onPressed: controller.onFormSubmitted,
             buttonText: "Proceed",
           ),
         ],
@@ -191,6 +185,7 @@ class QuestionPanel extends StatelessWidget {
         ),
         CustomMultiLineTextFormField(
           labelText: "Question",
+          initialValue: questionModel.question,
           maxLines: 5,
           onSaved: (value) {
             if (value != null) {
@@ -278,6 +273,7 @@ class QuestionPanel extends StatelessWidget {
         ),
         CustomMultiLineTextFormField(
           labelText: "Solution Explanation",
+          initialValue: questionModel.solutionExplanation,
           maxLines: 5,
           onSaved: (value) {
             if (value != null) {
@@ -306,6 +302,7 @@ class MultipleChoiceOptions extends StatelessWidget {
       children: [
         CustomMultiLineTextFormField(
           labelText: "Option-1",
+          initialValue: questionModel.option1,
           maxLines: 2,
           onSaved: (value) {
             if (value != null) {
@@ -326,6 +323,7 @@ class MultipleChoiceOptions extends StatelessWidget {
         ),
         CustomMultiLineTextFormField(
           labelText: "Option-2",
+          initialValue: questionModel.option2,
           maxLines: 2,
           onSaved: (value) {
             if (value != null) {
@@ -346,6 +344,7 @@ class MultipleChoiceOptions extends StatelessWidget {
         ),
         CustomMultiLineTextFormField(
           labelText: "Option-3",
+          initialValue: questionModel.option3,
           maxLines: 2,
           onSaved: (value) {
             if (value != null) {
@@ -366,6 +365,7 @@ class MultipleChoiceOptions extends StatelessWidget {
         ),
         CustomMultiLineTextFormField(
           labelText: "Option-4",
+          initialValue: questionModel.option4,
           maxLines: 2,
           onSaved: (value) {
             if (value != null) {
@@ -390,6 +390,7 @@ class MultipleChoiceOptions extends StatelessWidget {
                 UIConstants.multipleChoice5OptionsId,
             child: CustomMultiLineTextFormField(
               labelText: "Option-5",
+              initialValue: questionModel.option5,
               maxLines: 2,
               onSaved: (value) {
                 if (value != null) {
@@ -496,6 +497,7 @@ class FillInTheBlanksCorrectAnswer extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomTextFormField(
       labelText: "Correct Answer",
+      initialValue: questionModel.fillInTheBlanksCorrectAnswer,
       keyboardType:
           questionModel.selectedQuestionType.value == UIConstants.digitFillerId
               ? const TextInputType.numberWithOptions(

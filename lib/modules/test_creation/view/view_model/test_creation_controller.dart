@@ -44,6 +44,7 @@ class TestCreationController extends GetxController {
   TestModel testModel = TestModel();
 
   void onFormSubmitted() {
+    FocusManager.instance.primaryFocus?.unfocus();
     bool isFormValid = _formKey.currentState?.validate() ?? false;
     if (isFormValid) {
       _formKey.currentState?.save();

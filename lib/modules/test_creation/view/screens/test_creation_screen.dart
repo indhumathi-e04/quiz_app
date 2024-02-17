@@ -199,6 +199,7 @@ class TestCreationScreen extends StatelessWidget {
                     ),
                     CustomTextFormField(
                       labelText: "Test Title",
+                      initialValue: controller.testModel.testTitle,
                       onSaved: (value) {
                         if (value != null) {
                           controller.testModel.testTitle = value;
@@ -221,6 +222,7 @@ class TestCreationScreen extends StatelessWidget {
                     ),
                     CustomTextFormField(
                       labelText: "Time limit (In Minutes)",
+                      initialValue: controller.testModel.timeLimit?.toString(),
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly,
@@ -249,6 +251,8 @@ class TestCreationScreen extends StatelessWidget {
                     ),
                     CustomTextFormField(
                       labelText: "Sections Count",
+                      initialValue:
+                          controller.testModel.sectionsCount?.toString(),
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly,
@@ -277,6 +281,7 @@ class TestCreationScreen extends StatelessWidget {
                     ),
                     CustomMultiLineTextFormField(
                       labelText: "Instructions",
+                      initialValue: controller.testModel.instructions,
                       maxLines: 5,
                       keyboardType: TextInputType.multiline,
                       onSaved: (value) {

@@ -82,6 +82,7 @@ class SectionPanel extends StatelessWidget {
       children: [
         CustomTextFormField(
           labelText: "Section Title",
+          initialValue: sectionModel.sectionTitle,
           onSaved: (value) {
             if (value != null) {
               sectionModel.sectionTitle = value;
@@ -101,6 +102,7 @@ class SectionPanel extends StatelessWidget {
         ),
         CustomTextFormField(
           labelText: "Question Count",
+          initialValue: sectionModel.questionCount?.toString(),
           onSaved: (value) {
             if (value != null) {
               sectionModel.questionCount = int.parse(value.trim());
@@ -129,6 +131,7 @@ class SectionPanel extends StatelessWidget {
         ),
         CustomTextFormField(
           labelText: "Positive Marks",
+          initialValue: sectionModel.positiveMarks?.toString(),
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
           inputFormatters: [
             FilteringTextInputFormatter.allow(
@@ -161,6 +164,7 @@ class SectionPanel extends StatelessWidget {
         ),
         CustomTextFormField(
           labelText: "Negative Marks",
+          initialValue: sectionModel.negativeMarks?.toString(),
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
           inputFormatters: [
             FilteringTextInputFormatter.allow(
@@ -217,6 +221,7 @@ class SectionPanel extends StatelessWidget {
             visible: sectionModel.isTimeSpecific.value,
             child: CustomTextFormField(
               labelText: "Time Limit (In Minutes)",
+              initialValue: sectionModel.sectionTimeLimit?.toString(),
               keyboardType: TextInputType.number,
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,

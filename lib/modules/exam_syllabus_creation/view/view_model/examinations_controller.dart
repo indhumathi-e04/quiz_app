@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:quiz/models/examination_model.dart';
 import 'package:quiz/view/widgets/custom_widgets/custom_dropdownfield.dart';
 
-class ExaminationsController extends GetxController {
+class ExamCreationController extends GetxController {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   GlobalKey<FormState> get formKey => _formKey;
   List<DropDownFieldChoices> examCategoryList = [

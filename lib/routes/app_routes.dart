@@ -1,9 +1,7 @@
 import 'package:get/get.dart';
-import 'package:quiz/modules/exam_syllabus_creation/view/screens/chapters_screen.dart';
-import 'package:quiz/modules/exam_syllabus_creation/view/screens/examination_screen.dart';
-import 'package:quiz/modules/exam_syllabus_creation/view/screens/subject_screen.dart';
-import 'package:quiz/modules/exam_syllabus_creation/view/screens/syllabus_screen.dart';
 
+import '../modules/exam_syllabus_creation/view/screens/exam_creation_screen.dart';
+import '../modules/exam_syllabus_creation/view/screens/syllabus_screen.dart';
 import '../modules/test_creation/view/screens/questions_screen.dart';
 import '../modules/test_creation/view/screens/sections_screen.dart';
 import '../modules/test_creation/view/screens/test_creation_screen.dart';
@@ -19,15 +17,17 @@ class AppRoutes {
       name: RouteConstants.routeSections,
       page: () => SectionsScreen(),
     ),
-    // GetPage(
-    //   name: RouteConstants.routeQuestions,
-    //   page: () => QuestionScreen(
-    //     sectionModelList: [],
-    //   ),
-    // ),
     GetPage(
       name: RouteConstants.routeQuestions,
       page: () => QuestionScreen(),
+    ),
+    GetPage(
+      name: RouteConstants.routeExaminations,
+      page: () => ExamCreationScreen(),
+    ),
+    GetPage(
+      name: RouteConstants.routeSyllabus,
+      page: () => SyllabusScreen(),
     ),
   ];
 }
