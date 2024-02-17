@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../../models/subject_model.dart';
 import '../../../../models/syllabus_model.dart';
-import '../../../../routes/route_constants.dart';
+import '../../../../routes/app_route_constants.dart';
 import '../../../../view/widgets/custom_widgets/custom_dropdownfield.dart';
 
 class SyllabusController extends GetxController {
@@ -32,7 +32,7 @@ class SyllabusController extends GetxController {
       );
       syllabusModel.subjects = subject;
       Get.toNamed(
-        RouteConstants.routeSubjects,
+        AppRouteConstants.routeSubjects,
         arguments: syllabusModel,
       );
     }

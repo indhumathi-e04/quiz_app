@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../../../models/chapter_model.dart';
 import '../../../../models/subject_model.dart';
 import '../../../../models/syllabus_model.dart';
-import '../../../../routes/route_constants.dart';
+import '../../../../routes/app_route_constants.dart';
 
 class SubjectsController extends GetxController {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -31,7 +31,7 @@ class SubjectsController extends GetxController {
       }
 
       Get.toNamed(
-        RouteConstants.routeChapters,
+        AppRouteConstants.routeChapters,
         arguments: syllabusModel,
       );
     }

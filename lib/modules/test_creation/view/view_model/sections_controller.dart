@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../../../models/question_model.dart';
 import '../../../../models/section_model.dart';
 import '../../../../models/test_model.dart';
-import '../../../../routes/route_constants.dart';
+import '../../../../routes/app_route_constants.dart';
 
 class SectionsController extends GetxController {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -43,7 +43,7 @@ class SectionsController extends GetxController {
         (index) => QuestionModel(),
       );
       Get.toNamed(
-        RouteConstants.routeQuestions,
+        AppRouteConstants.routeQuestions,
         arguments: testModel,
       );
     }

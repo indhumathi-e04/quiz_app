@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../../models/section_model.dart';
 import '../../../../models/test_model.dart';
-import '../../../../routes/route_constants.dart';
+import '../../../../routes/app_route_constants.dart';
 import '../../../../view/widgets/custom_widgets/custom_dropdownfield.dart';
 
 class TestCreationController extends GetxController {
@@ -54,7 +54,7 @@ class TestCreationController extends GetxController {
       );
       testModel.sections = sections;
       Get.toNamed(
-        RouteConstants.routeSections,
+        AppRouteConstants.routeSections,
         arguments: testModel,
       );
     }

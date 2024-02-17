@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../modules/authentication/view/screens/sign_in_screen.dart';
 import '../modules/exam_syllabus_creation/view/screens/chapters_screen.dart';
 import '../modules/exam_syllabus_creation/view/screens/exam_creation_screen.dart';
 import '../modules/exam_syllabus_creation/view/screens/subject_screen.dart';
@@ -7,37 +8,41 @@ import '../modules/exam_syllabus_creation/view/screens/syllabus_screen.dart';
 import '../modules/test_creation/view/screens/questions_screen.dart';
 import '../modules/test_creation/view/screens/sections_screen.dart';
 import '../modules/test_creation/view/screens/test_creation_screen.dart';
-import 'route_constants.dart';
+import 'app_route_constants.dart';
 
 class AppRoutes {
   static final List<GetPage> appRoutes = [
     GetPage(
-      name: RouteConstants.routeTestCreation,
+      name: AppRouteConstants.routeTestCreation,
       page: () => TestCreationScreen(),
     ),
     GetPage(
-      name: RouteConstants.routeSections,
+      name: AppRouteConstants.routeSections,
       page: () => SectionsScreen(),
     ),
     GetPage(
-      name: RouteConstants.routeQuestions,
+      name: AppRouteConstants.routeQuestions,
       page: () => QuestionScreen(),
     ),
     GetPage(
-      name: RouteConstants.routeExaminations,
+      name: AppRouteConstants.routeExaminations,
       page: () => ExamCreationScreen(),
     ),
     GetPage(
-      name: RouteConstants.routeSyllabus,
+      name: AppRouteConstants.routeSyllabus,
       page: () => SyllabusScreen(),
     ),
     GetPage(
-      name: RouteConstants.routeSubjects,
+      name: AppRouteConstants.routeSubjects,
       page: () => SubjectScreen(),
     ),
     GetPage(
-      name: RouteConstants.routeChapters,
+      name: AppRouteConstants.routeChapters,
       page: () => ChapterScreen(),
+    ),
+    GetPage(
+      name: AppRouteConstants.routeSignIn,
+      page: () => SignInScreen(),
     ),
   ];
 }

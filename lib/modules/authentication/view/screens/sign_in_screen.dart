@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import '../../constants/ui_constants.dart';
-import '../widgets/custom_widgets/custom_outlined_button.dart';
-import '../widgets/custom_widgets/custom_textformfield.dart';
+import '../../../../constants/ui_constants.dart';
+import '../../../../view/widgets/custom_widgets/custom_outlined_button.dart';
+import '../../../../view/widgets/custom_widgets/custom_textformfield.dart';
+import '../view_model/sign_in_controller.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignInScreen extends StatelessWidget {
+  SignInScreen({super.key});
 
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  bool isSubmitButtonLoading = false;
+  final SignInController controller = Get.put<SignInController>(
+    SignInController(),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: UIConstants.defaultHeight * 2,
                     ),
                     Form(
-                      key: formKey,
+                      key: controller.formKey,
                       child: Column(
                         children: [
                           CustomTextFormField(
@@ -120,18 +118,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           CustomOutlinedButton(
                             buttonText: "Submit",
-                            isLoading: isSubmitButtonLoading,
-                            onPressed: () {
-                              setState(() {
-                                isSubmitButtonLoading = true;
-                              });
-                              if (!formKey.currentState!.validate()) {
-                                setState(() {
-                                  isSubmitButtonLoading = false;
-                                });
-                                return;
-                              }
-                            },
+                            isLoading: false,
+                            onPressed: controller.onFormSubmitted,
                           ),
                         ],
                       ),
