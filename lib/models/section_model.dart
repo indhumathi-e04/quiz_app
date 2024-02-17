@@ -1,29 +1,27 @@
-import 'package:get/get.dart';
+import 'package:get/get.dart' show RxBool, BoolExtension;
+import 'package:quiz/models/question_model.dart';
 
-class SectionsModel {
+class SectionModel {
+  int? sectionId;
   String? sectionTitle;
   int? questionCount;
   double? positiveMarks;
   double? negativeMarks;
   int? isSectionTimeSpecific;
   int? sectionTimeLimit;
+  List<QuestionModel>? questions;
 
   RxBool isExpanded = false.obs;
-  RxnInt isTimeSpecific = RxnInt();
+  RxBool isTimeSpecific = false.obs;
 
-  SectionsModel({
+  SectionModel({
+    this.sectionId,
     this.sectionTitle,
     this.questionCount,
     this.positiveMarks,
     this.negativeMarks,
     this.isSectionTimeSpecific,
     this.sectionTimeLimit,
+    this.questions,
   });
-
-  get sectionsModelList => null;
-
-  @override
-  String toString() {
-    return "$sectionTitle - $questionCount";
-  }
 }

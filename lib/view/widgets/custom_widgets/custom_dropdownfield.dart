@@ -43,7 +43,10 @@ class CustomDropDownField extends StatelessWidget {
             .map<DropdownMenuItem<DropDownFieldChoices>>(
               (e) => DropdownMenuItem<DropDownFieldChoices>(
                 value: e,
-                child: Text(e.value),
+                child: Text(
+                  e.value,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
               ),
             )
             .toList(),

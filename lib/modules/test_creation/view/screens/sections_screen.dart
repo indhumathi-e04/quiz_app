@@ -1,10 +1,9 @@
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:quiz/routes/route_constants.dart';
 
 import '../../../../constants/ui_constants.dart';
-import '../../../../models/sections_model.dart';
+import '../../../../models/section_model.dart';
 import '../../../../view/widgets/custom_widgets/custom_dropdownfield.dart';
 import '../../../../view/widgets/custom_widgets/custom_elevated_button.dart';
 import '../../../../view/widgets/custom_widgets/custom_textformfield.dart';
@@ -24,36 +23,32 @@ class SectionsScreen extends StatelessWidget {
           "Sections",
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: CustomElevatedButton(
-        buttonHeight: 50,
-        isLoading: false,
-        onPressed: () {
-          bool isFormValid =
-              controller.formKey.currentState?.validate() ?? false;
-          if (isFormValid) {
-            controller.formKey.currentState?.save();
-            Get.toNamed(
-              RouteConstants.routeQuestions,
-              arguments: controller.sectionsModelList,
-            );
-          }
-        },
-        buttonText: "Proceed",
-      ),
-      body: Form(
-        key: controller.formKey,
-        child: ListView.separated(
-          padding: const EdgeInsets.all(UIConstants.defaultHeight * 2),
-          itemCount: controller.sectionCount,
-          separatorBuilder: (context, index) => const SizedBox(
-            height: UIConstants.defaultHeight,
+      body: Column(
+        children: [
+          Expanded(
+            child: Form(
+              key: controller.formKey,
+              child: ListView.separated(
+                padding: const EdgeInsets.all(UIConstants.defaultHeight * 2),
+                itemCount: controller.testModel.sections?.length ?? 0,
+                separatorBuilder: (context, index) => const SizedBox(
+                  height: UIConstants.defaultHeight,
+                ),
+                itemBuilder: (context, index) => SectionPanel(
+                  sectionTitle: "Section-${index + 1}",
+                  sectionModel:
+                      controller.testModel.sections?[index] ?? SectionModel(),
+                ),
+              ),
+            ),
           ),
-          itemBuilder: (context, index) => SectionPanel(
-            sectionTitle: "Section-${index + 1}",
-            sectionModel: controller.sectionsModelList[index],
+          CustomElevatedButton(
+            buttonHeight: 50,
+            isLoading: false,
+            onPressed: controller.onFormSubmitted,
+            buttonText: "Proceed",
           ),
-        ),
+        ],
       ),
     );
   }
@@ -67,7 +62,7 @@ class SectionPanel extends StatelessWidget {
   });
 
   final String sectionTitle;
-  final SectionsModel sectionModel;
+  final SectionModel sectionModel;
 
   final List<DropDownFieldChoices> isTimeSpecific = [
     DropDownFieldChoices(id: 0, value: "False"),
@@ -232,7 +227,8 @@ class SectionPanel extends StatelessWidget {
                     },
                     onChanged: (value) {
                       if (value != null) {
-                        sectionModel.isTimeSpecific.value = value.id;
+                        sectionModel.isTimeSpecific.value =
+                            value.id == 1 ? true : false;
                       }
                     },
                     validator: (value) {
@@ -244,7 +240,7 @@ class SectionPanel extends StatelessWidget {
                   ),
                   Obx(
                     () => Visibility(
-                      visible: sectionModel.isTimeSpecific.value == 1,
+                      visible: sectionModel.isTimeSpecific.value,
                       child: CustomTextFormField(
                         labelText: "Time Limit (In Minutes)",
                         keyboardType: TextInputType.number,

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../constants/ui_constants.dart';
-import '../../../../models/test_data_model.dart';
+import '../../../../models/section_model.dart';
+import '../../../../models/test_model.dart';
+import '../../../../routes/route_constants.dart';
 import '../../../../view/widgets/custom_widgets/custom_dropdownfield.dart';
 
 class TestCreationController extends GetxController {
@@ -22,20 +23,7 @@ class TestCreationController extends GetxController {
     DropDownFieldChoices(id: 1, value: "School"),
     DropDownFieldChoices(id: 2, value: "Engineering"),
   ];
-  List<DropDownFieldChoices> testTypes = [
-    DropDownFieldChoices(
-      id: UIConstants.examLevelTestId,
-      value: "Exam Level Test",
-    ),
-    DropDownFieldChoices(
-      id: UIConstants.subjectLevelTestId,
-      value: "Subject Level Test",
-    ),
-    DropDownFieldChoices(
-      id: UIConstants.chapterLevelTestId,
-      value: "Chapter Level Test",
-    ),
-  ];
+
   List<DropDownFieldChoices> contentTypes = [
     DropDownFieldChoices(id: 1, value: "School"),
     DropDownFieldChoices(id: 2, value: "Engineering"),
@@ -53,5 +41,21 @@ class TestCreationController extends GetxController {
     DropDownFieldChoices(id: 2, value: "Engineering"),
   ];
 
-  TestDataModel testDataModel = TestDataModel();
+  TestModel testModel = TestModel();
+
+  void onFormSubmitted() {
+    bool isFormValid = _formKey.currentState?.validate() ?? false;
+    if (isFormValid) {
+      _formKey.currentState?.save();
+      List<SectionModel> sections = List.generate(
+        testModel.sectionsCount ?? 0,
+        (index) => SectionModel(),
+      );
+      testModel.sections = sections;
+      Get.toNamed(
+        RouteConstants.routeSections,
+        arguments: testModel,
+      );
+    }
+  }
 }

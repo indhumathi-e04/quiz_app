@@ -17,9 +17,7 @@ class AppRoutes {
     ),
     GetPage(
       name: RouteConstants.routeQuestions,
-      page: () => QuestionScreen(
-        sectionModelList: [],
-      ),
+      page: () => QuestionScreen(),
     ),
   ];
 }

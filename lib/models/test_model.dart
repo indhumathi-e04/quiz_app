@@ -1,4 +1,7 @@
-class TestDataModel {
+import 'section_model.dart';
+
+class TestModel {
+  int? testId;
   int? examCategory;
   int? examName;
   int? testType;
@@ -10,8 +13,10 @@ class TestDataModel {
   int? timeLimit;
   int? sectionsCount;
   String? instructions;
+  List<SectionModel>? sections;
 
-  TestDataModel({
+  TestModel({
+    this.testId,
     this.examCategory,
     this.examName,
     this.testType,
@@ -23,5 +28,6 @@ class TestDataModel {
     this.timeLimit,
     this.sectionsCount,
     this.instructions,
+    this.sections,
   });
 }

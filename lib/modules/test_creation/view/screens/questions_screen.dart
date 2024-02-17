@@ -1,22 +1,19 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:quiz/models/questions_model.dart';
-import 'package:quiz/modules/test_creation/view/view_model/questions_controller.dart';
-import '../../../../view/widgets/custom_widgets/custom_textformfield.dart';
 
 import '../../../../constants/ui_constants.dart';
-import '../../../../models/sections_model.dart';
-import '../../../../view/widgets/custom_widgets/custom_elevated_button.dart';
+import '../../../../models/question_model.dart';
+import '../../../../models/section_model.dart';
 import '../../../../view/widgets/custom_widgets/custom_dropdownfield.dart';
+import '../../../../view/widgets/custom_widgets/custom_elevated_button.dart';
 import '../../../../view/widgets/custom_widgets/custom_multiline_textformfield.dart';
-import '../../../../view/widgets/question_panel.dart';
+import '../../../../view/widgets/custom_widgets/custom_outlined_button.dart';
+import '../../../../view/widgets/custom_widgets/custom_textformfield.dart';
+import '../view_model/questions_controller.dart';
 
 class QuestionScreen extends StatelessWidget {
-  QuestionScreen({
-    super.key,
-  });
+  QuestionScreen({super.key});
+
   final QuestionsController controller = Get.put<QuestionsController>(
     QuestionsController(),
   );
@@ -36,7 +33,6 @@ class QuestionScreen extends StatelessWidget {
               controller.formKey.currentState?.validate() ?? false;
           if (isFormValid) {
             controller.formKey.currentState?.save();
-            //TODO: Navigate to test screen
           }
         },
         buttonText: "Proceed",
@@ -47,15 +43,12 @@ class QuestionScreen extends StatelessWidget {
           padding: const EdgeInsets.all(
             UIConstants.defaultHeight,
           ),
-          itemCount: controller.sectionsModelList.length,
+          itemCount: controller.testModel.sections?.length ?? 0,
           separatorBuilder: (context, index) => const SizedBox(
             height: UIConstants.defaultHeight,
           ),
           itemBuilder: (context, index) => SectionQuestionPanel(
-            sectionTitle:
-                controller.sectionsModelList[index].sectionTitle ?? "",
-            questionCount:
-                controller.sectionsModelList[index].questionCount ?? 0,
+            section: controller.testModel.sections?[index] ?? SectionModel(),
           ),
         ),
       ),
@@ -64,21 +57,18 @@ class QuestionScreen extends StatelessWidget {
 }
 
 class SectionQuestionPanel extends StatelessWidget {
-  SectionQuestionPanel({
-    required this.sectionTitle,
-    required this.questionCount,
+  const SectionQuestionPanel({
+    required this.section,
     super.key,
   });
-  final String sectionTitle;
-  final int questionCount;
-  final QuestionsModel questionsModel;
+  final SectionModel section;
 
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => ExpansionPanelList(
-        expansionCallback: (int i, bool _) {
-          questionsModel.isExpanded.value = !questionsModel.isExpanded.value;
+        expansionCallback: (_, __) {
+          section.isExpanded.value = !section.isExpanded.value;
         },
         elevation: 0,
         expandedHeaderPadding: EdgeInsets.zero,
@@ -95,14 +85,14 @@ class SectionQuestionPanel extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    sectionTitle,
+                    section.sectionTitle ?? "",
                     style: Theme.of(context).textTheme.displaySmall,
                   ),
                 ),
               );
             },
-            isExpanded: questionsModel.isExpanded.value,
-            body: SingleChildScrollView(
+            isExpanded: section.isExpanded.value,
+            body: Padding(
               padding: const EdgeInsets.all(
                 UIConstants.defaultPadding,
               ),
@@ -111,10 +101,9 @@ class SectionQuestionPanel extends StatelessWidget {
                 children: [
                   Text(
                     "Enter each question information in the appropriate field and on the appropriate card. Alternatively, you can upload the document that has every detail related to the question.",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(height: 2),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          height: 2,
+                        ),
                   ),
                   const SizedBox(
                     height: UIConstants.defaultHeight * 0.5,
@@ -131,9 +120,9 @@ class SectionQuestionPanel extends StatelessWidget {
                   const SizedBox(
                     height: UIConstants.defaultHeight,
                   ),
-                  CustomElevatedButton(
-                    buttonWidth: 144,
-                    buttonHeight: 32,
+                  CustomOutlinedButton(
+                    buttonHeight: 40,
+                    buttonWidth: UIConstants.defaultWidth * 15,
                     isLoading: false,
                     onPressed: () {},
                     buttonText: "Upload Document",
@@ -143,11 +132,14 @@ class SectionQuestionPanel extends StatelessWidget {
                   ),
                   ListView.separated(
                     shrinkWrap: true,
-                    itemCount: questionCount,
-                    itemBuilder: (context, index) =>
-                        Questions(questionTitle: "Question -${index + 1}"),
+                    itemCount: section.questions?.length ?? 0,
                     separatorBuilder: (context, index) => const SizedBox(
                       height: UIConstants.defaultHeight,
+                    ),
+                    itemBuilder: (context, index) => QuestionPanel(
+                      questionTitle: "Question -${index + 1}",
+                      questionModel:
+                          section.questions?[index] ?? QuestionModel(),
                     ),
                   ),
                 ],
@@ -160,216 +152,235 @@ class SectionQuestionPanel extends StatelessWidget {
   }
 }
 
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
-
-class Questions extends StatefulWidget {
-  const Questions({required this.questionTitle, super.key});
+class QuestionPanel extends StatelessWidget {
+  const QuestionPanel({
+    required this.questionTitle,
+    required this.questionModel,
+    super.key,
+  });
   final String questionTitle;
-
-  @override
-  State<Questions> createState() => _QuestionsState();
-}
-
-class _QuestionsState extends State<Questions> {
-  bool isExpanded = false;
-
-  QuestionsModel questionsModel = QuestionsModel();
-  List<DropDownFieldChoices> questionTypes = [
-    DropDownFieldChoices(id: 1, value: "Multiple Choice"),
-    DropDownFieldChoices(id: 2, value: "Fill in the blanks"),
-    DropDownFieldChoices(id: 3, value: "True or False"),
-  ];
-  List<DropDownFieldChoices> correctOptions = [
-    DropDownFieldChoices(id: 1, value: "1"),
-    DropDownFieldChoices(id: 2, value: "2"),
-    DropDownFieldChoices(id: 3, value: "3"),
-    DropDownFieldChoices(id: 4, value: "4"),
-  ];
-  List<DropDownFieldChoices> trueOrFalseOption = [
-    DropDownFieldChoices(id: 1, value: "True"),
-    DropDownFieldChoices(id: 2, value: "False"),
-  ];
+  final QuestionModel questionModel;
 
   @override
   Widget build(BuildContext context) {
-    return ExpansionPanelList(
-      expansionCallback: (int i, bool _) {
-        setState(() {
-          isExpanded = !isExpanded;
-        });
-      },
-      elevation: 0,
-      expandedHeaderPadding: EdgeInsets.zero,
-      children: [
-        ExpansionPanel(
-          backgroundColor:
-              Theme.of(context).colorScheme.primary.withOpacity(0.1),
-          canTapOnHeader: true,
-          headerBuilder: (context, isExpanded) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: UIConstants.defaultPadding,
+    return Obx(
+      () => ExpansionPanelList(
+        expansionCallback: (_, __) {
+          questionModel.isExpanded.value = !questionModel.isExpanded.value;
+        },
+        elevation: 0,
+        expandedHeaderPadding: EdgeInsets.zero,
+        children: [
+          ExpansionPanel(
+            backgroundColor:
+                Theme.of(context).colorScheme.primary.withOpacity(0.1),
+            canTapOnHeader: true,
+            headerBuilder: (context, isExpanded) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: UIConstants.defaultPadding,
+                ),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    questionTitle,
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                ),
+              );
+            },
+            isExpanded: questionModel.isExpanded.value,
+            body: Padding(
+              padding: const EdgeInsets.all(
+                UIConstants.defaultPadding,
               ),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  widget.questionTitle,
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-              ),
-            );
-          },
-          isExpanded: isExpanded,
-          body: Padding(
-            padding: const EdgeInsets.all(
-              UIConstants.defaultPadding,
-            ),
-            child: Column(
-              children: [
-                Text(
-                  "Choose the desired question type from the drop-down menu and then add the content of the question accordin to that choice",
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelLarge
-                      ?.copyWith(height: 2),
-                ),
-                CustomDropDownField(
-                  margin: const EdgeInsets.symmetric(
-                    vertical: UIConstants.defaultMargin * 2,
+              child: Column(
+                children: [
+                  Text(
+                    "Choose the desired question type from the drop-down menu and then add the content of the question according to that choice",
+                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          height: 2,
+                        ),
                   ),
-                  labelText: "Question Type",
-                  items: questionTypes,
-                  onChanged: (value) {
-                    if (value != null) {
-                      setState(() {
-                        questionsModel.questionType = value.id;
-                      });
-                    }
-                  },
-                  validator: (value) {
-                    if (value == null) {
-                      return "Field is necessary. Select the question type.";
-                    }
-                    return null;
-                  },
-                ),
-                CustomMultiLineTextFormField(
-                  labelText: "Question",
-                  margin: const EdgeInsets.only(
-                    bottom: UIConstants.defaultMargin * 2,
+                  const SizedBox(
+                    height: UIConstants.defaultHeight,
                   ),
-                  validator: (value) {
-                    if (value == null) {
-                      return "Field is necessary. Enter question.";
-                    } else {
-                      if (value.trim().isEmpty) {
-                        return "Field is necessary. Enter question.";
-                      } else {
-                        return null;
-                      }
-                    }
-                  },
-                ),
-                Visibility(
-                  visible: questionsModel.questionType == 1,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: 4,
-                    itemBuilder: (context, index) => Options(
-                      optionlabel: 'Opions - ${index + 1}',
-                    ),
-                  ),
-                ),
-                Visibility(
-                  visible: questionsModel.questionType == 1,
-                  child: CustomDropDownField(
-                    margin: const EdgeInsets.only(
-                      bottom: UIConstants.defaultMargin * 2,
-                    ),
-                    labelText: "Correct Answer",
-                    items: correctOptions,
-                    onChanged: (value) {
+                  CustomMultiLineTextFormField(
+                    labelText: "Question",
+                    maxLines: 5,
+                    onSaved: (value) {
                       if (value != null) {
-                        setState(() {
-                          questionsModel.correctOption = value.id;
-                        });
+                        questionModel.question = value;
                       }
                     },
                     validator: (value) {
                       if (value == null) {
-                        return "Field is necessary. Choose correct option.";
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                Visibility(
-                  visible: questionsModel.questionType == 2,
-                  child: Container(
-                    margin: const EdgeInsets.only(
-                      bottom: UIConstants.defaultMargin * 2,
-                    ),
-                    child: CustomMultiLineTextFormField(
-                      labelText: "Correct Answer",
-                      validator: (value) {
-                        if (value == null) {
-                          return "Field is necessary. Enter correct answer.";
-                        } else {
-                          if (value.trim().isEmpty) {
-                            return "Field is necessary. Enter correct answer.";
-                          } else {
-                            return null;
-                          }
-                        }
-                      },
-                    ),
-                  ),
-                ),
-                Visibility(
-                  visible: questionsModel.questionType == 3,
-                  child: CustomDropDownField(
-                    margin: const EdgeInsets.only(
-                      bottom: UIConstants.defaultMargin * 2,
-                    ),
-                    validator: (value) {
-                      if (value == null) {
-                        return "Field is necessary. Choose correct option.";
-                      }
-                      return null;
-                    },
-                    onChanged: (value) {
-                      if (value != null) {
-                        setState(() {
-                          questionsModel.trueOrFalse = value.id;
-                        });
-                      }
-                    },
-                    labelText: "Correct Answer",
-                    items: trueOrFalseOption,
-                  ),
-                ),
-                CustomMultiLineTextFormField(
-                    validator: (value) {
-                      if (value == null) {
-                        return "Field is necessary. Enter solution & explanations.";
+                        return "Field is necessary. Enter the question content.";
                       } else {
                         if (value.trim().isEmpty) {
-                          return "Field is necessary. Enter solution & explanations.";
+                          return "Field is necessary. Enter the question content.";
                         } else {
                           return null;
                         }
                       }
                     },
-                    maxLines: 5,
-                    labelText: "Solution & Explanation")
-              ],
+                  ),
+                  CustomDropDownField(
+                    labelText: "Question Type",
+                    items: UIConstants.questionTypes,
+                    onSaved: (value) {
+                      if (value != null) {
+                        questionModel.questionType = value.id;
+                      }
+                    },
+                    onChanged: (value) {
+                      if (value != null) {
+                        questionModel.selectedQuestionType.value = value.id;
+                      }
+                    },
+                    validator: (value) {
+                      if (value == null) {
+                        return "Field is necessary. Select the question type.";
+                      }
+                      return null;
+                    },
+                  ),
+                  Visibility(
+                    visible: questionModel.selectedQuestionType.value ==
+                            UIConstants.multipleChoice4OptionsId ||
+                        questionModel.selectedQuestionType.value ==
+                            UIConstants.multipleChoice5OptionsId,
+                    child: MultipleChoiceOptions(
+                      questionModel: questionModel,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MultipleChoiceOptions extends StatelessWidget {
+  const MultipleChoiceOptions({
+    required this.questionModel,
+    super.key,
+  });
+  final QuestionModel questionModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        CustomMultiLineTextFormField(
+          labelText: "Option-1",
+          maxLines: 5,
+          onSaved: (value) {
+            if (value != null) {
+              questionModel.option1 = value;
+            }
+          },
+          validator: (value) {
+            if (value == null) {
+              return "Field is necessary. Enter the option content.";
+            } else {
+              if (value.trim().isEmpty) {
+                return "Field is necessary. Enter the option content.";
+              } else {
+                return null;
+              }
+            }
+          },
+        ),
+        CustomMultiLineTextFormField(
+          labelText: "Option-2",
+          maxLines: 5,
+          onSaved: (value) {
+            if (value != null) {
+              questionModel.option2 = value;
+            }
+          },
+          validator: (value) {
+            if (value == null) {
+              return "Field is necessary. Enter the option content.";
+            } else {
+              if (value.trim().isEmpty) {
+                return "Field is necessary. Enter the option content.";
+              } else {
+                return null;
+              }
+            }
+          },
+        ),
+        CustomMultiLineTextFormField(
+          labelText: "Option-3",
+          maxLines: 5,
+          onSaved: (value) {
+            if (value != null) {
+              questionModel.option3 = value;
+            }
+          },
+          validator: (value) {
+            if (value == null) {
+              return "Field is necessary. Enter the option content.";
+            } else {
+              if (value.trim().isEmpty) {
+                return "Field is necessary. Enter the option content.";
+              } else {
+                return null;
+              }
+            }
+          },
+        ),
+        CustomMultiLineTextFormField(
+          labelText: "Option-4",
+          maxLines: 5,
+          onSaved: (value) {
+            if (value != null) {
+              questionModel.option4 = value;
+            }
+          },
+          validator: (value) {
+            if (value == null) {
+              return "Field is necessary. Enter the option content.";
+            } else {
+              if (value.trim().isEmpty) {
+                return "Field is necessary. Enter the option content.";
+              } else {
+                return null;
+              }
+            }
+          },
+        ),
+        Obx(
+          () => Visibility(
+            visible: questionModel.selectedQuestionType.value ==
+                UIConstants.multipleChoice5OptionsId,
+            child: CustomMultiLineTextFormField(
+              labelText: "Option-5",
+              maxLines: 5,
+              onSaved: (value) {
+                if (value != null) {
+                  questionModel.option5 = value;
+                }
+              },
+              validator: (value) {
+                if (value == null) {
+                  return "Field is necessary. Enter the option content.";
+                } else {
+                  if (value.trim().isEmpty) {
+                    return "Field is necessary. Enter the option content.";
+                  } else {
+                    return null;
+                  }
+                }
+              },
             ),
           ),
         ),
@@ -378,31 +389,60 @@ class _QuestionsState extends State<Questions> {
   }
 }
 
-class Options extends StatefulWidget {
-  const Options({required this.optionlabel, super.key});
-  final String optionlabel;
+class FillInTheBlanksCorrectAnswer extends StatelessWidget {
+  const FillInTheBlanksCorrectAnswer({
+    required this.questionModel,
+    super.key,
+  });
+  final QuestionModel questionModel;
 
-  @override
-  State<Options> createState() => _OptionsState();
-}
-
-class _OptionsState extends State<Options> {
   @override
   Widget build(BuildContext context) {
     return CustomTextFormField(
-      margin: const EdgeInsets.only(
-        bottom: UIConstants.defaultMargin * 2,
-      ),
-      labelText: widget.optionlabel,
+      labelText: "Correct Answer",
+      onSaved: (value) {
+        if (value != null) {
+          questionModel.fillInTheBlanksCorrectAnswer = value;
+        }
+      },
       validator: (value) {
         if (value == null) {
-          return "Field is required. Enter ${widget.optionlabel}";
+          return "Field is necessary. Enter the correct answer.";
         } else {
           if (value.trim().isEmpty) {
-            return "Field is required. Enter ${widget.optionlabel}";
+            return "Field is necessary. Enter the correct answer.";
           } else {
             return null;
           }
+        }
+      },
+    );
+  }
+}
+
+class TrueOrFalseCorrectAnswer extends StatelessWidget {
+  const TrueOrFalseCorrectAnswer({
+    required this.questionModel,
+    super.key,
+  });
+
+  final QuestionModel questionModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomDropDownField(
+      labelText: "Correct answer",
+      items: UIConstants.trueOrFalseOptions,
+      onSaved: (value) {
+        if (value != null) {
+          questionModel.trueOrFalseCorrectAnswer = value.id;
+        }
+      },
+      validator: (value) {
+        if (value == null) {
+          return "Field is necessary. Enter the correct answer.";
+        } else {
+          return null;
         }
       },
     );
