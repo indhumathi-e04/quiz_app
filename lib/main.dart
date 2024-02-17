@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 
-import 'routes/app_routes.dart';
 import 'routes/app_route_constants.dart';
+import 'routes/app_routes.dart';
 import 'theme/app_theme.dart';
 
 void main() {
