@@ -13,12 +13,12 @@ class SyllabusController extends GetxController {
   final List<DropDownFieldChoices> examCategoryList = [
     DropDownFieldChoices(id: 1, value: "school"),
     DropDownFieldChoices(id: 2, value: "College"),
-    DropDownFieldChoices(id: 3, value: "primary")
+    DropDownFieldChoices(id: 3, value: "primary"),
   ];
   final List<DropDownFieldChoices> examName = [
     DropDownFieldChoices(id: 1, value: "NEET"),
     DropDownFieldChoices(id: 2, value: "JEE"),
-    DropDownFieldChoices(id: 3, value: "TNPSC")
+    DropDownFieldChoices(id: 3, value: "TNPSC"),
   ];
   SyllabusModel syllabusModel = SyllabusModel();
   void onFormSubmitted() {

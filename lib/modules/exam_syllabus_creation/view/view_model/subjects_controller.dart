@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../models/chapter_model.dart';
 import '../../../../models/subject_model.dart';
 import '../../../../models/syllabus_model.dart';
 import '../../../../routes/route_constants.dart';
@@ -21,6 +22,13 @@ class SubjectsController extends GetxController {
     bool isFormValid = _formKey.currentState?.validate() ?? false;
     if (isFormValid) {
       _formKey.currentState?.save();
+
+      for (SubjectModel subjectModel in syllabusModel.subjects ?? []) {
+        subjectModel.chapters = List.generate(
+          subjectModel.chaptersCount ?? 0,
+          (index) => ChapterModel(),
+        );
+      }
 
       Get.toNamed(
         RouteConstants.routeChapters,

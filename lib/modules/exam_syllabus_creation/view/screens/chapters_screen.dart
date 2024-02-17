@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import '../../../../models/chapter_model.dart';
-import '../../../../view/widgets/custom_widgets/custom_textformfield.dart';
 
 import '../../../../constants/ui_constants.dart';
+import '../../../../models/chapter_model.dart';
 import '../../../../models/subject_model.dart';
+import '../../../../view/widgets/custom_widgets/custom_elevated_button.dart';
+import '../../../../view/widgets/custom_widgets/custom_textformfield.dart';
 import '../view_model/chapters_controller.dart';
-import '../view_model/subjects_controller.dart';
 
 class ChapterScreen extends StatelessWidget {
   ChapterScreen({
@@ -25,14 +25,70 @@ class ChapterScreen extends StatelessWidget {
           "Chapters",
         ),
       ),
-      body: Form(
-        key: controller.formKey,
-        child: Column(
-          children: List.generate(
-            controller.syllabusModel.subjects?.length ?? 0,
-            (index) => SubjectChapterPanel(
-              subjectChapterIndex: index,
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(
+                UIConstants.defaultPadding,
+              ),
+              child: Form(
+                key: controller.formKey,
+                child: Column(
+                  children: List.generate(
+                    controller.syllabusModel.subjects?.length ?? 0,
+                    (index) => Container(
+                      margin: const EdgeInsets.only(
+                        bottom: UIConstants.defaultHeight,
+                      ),
+                      child: SubjectChapterPanel(
+                        subjectModel:
+                            controller.syllabusModel.subjects?[index] ??
+                                SubjectModel(),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ),
+          ),
+          CustomElevatedButton(
+            buttonHeight: UIConstants.defaultHeight * 5,
+            isLoading: false,
+            onPressed: controller.onFormSubmitted,
+            buttonText: "Proceed",
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SubjectChapterPanel extends StatelessWidget {
+  const SubjectChapterPanel({
+    required this.subjectModel,
+    super.key,
+  });
+  final SubjectModel subjectModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return ExpansionTile(
+      initiallyExpanded: true,
+      maintainState: true,
+      title: Text(
+        subjectModel.subjectTitle ?? "",
+        style: Theme.of(context).textTheme.displaySmall,
+      ),
+      children: List.generate(
+        subjectModel.chapters?.length ?? 0,
+        (index) => Container(
+          margin: const EdgeInsets.only(
+            bottom: UIConstants.defaultHeight,
+          ),
+          child: ChapterPanel(
+            chapterTitle: "Chapter - ${index + 1}",
+            chapterModel: subjectModel.chapters?[index] ?? ChapterModel(),
           ),
         ),
       ),
@@ -40,37 +96,29 @@ class ChapterScreen extends StatelessWidget {
   }
 }
 
-class SubjectChapterPanel extends StatelessWidget {
-  SubjectChapterPanel({required this.subjectChapterIndex, super.key});
-  final int subjectChapterIndex;
-  final SubjectsController controller = Get.find<SubjectsController>();
-
+class ChapterPanel extends StatelessWidget {
+  const ChapterPanel({
+    required this.chapterTitle,
+    required this.chapterModel,
+    super.key,
+  });
+  final String chapterTitle;
+  final ChapterModel chapterModel;
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
+      initiallyExpanded: true,
+      maintainState: true,
       title: Text(
-        controller.syllabusModel.subjects?[subjectChapterIndex].subjectTitle ??
-            "",
+        chapterTitle,
+        style: Theme.of(context).textTheme.displaySmall,
       ),
-      children: List.generate(
-          controller.syllabusModel.subjects?[subjectChapterIndex].chapters?.length ?? 0, (index)=> Chapter(),),
-    );
-  }
-}
-
-class Chapter extends StatelessWidget {
-  Chapter({super.key});
-  final ChaptersController controller = Get.find<ChaptersController>();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
       children: [
         CustomTextFormField(
           labelText: "Chapter Title",
           onSaved: (value) {
             if (value != null) {
-              controller.syllabusModel.subjects = value;
+              chapterModel.chapterTitle = value;
             }
           },
           validator: (value) {
@@ -93,7 +141,7 @@ class Chapter extends StatelessWidget {
           ],
           onSaved: (value) {
             if (value != null) {
-              controller.chapterModel.weightage = int.parse(value);
+              chapterModel.weightage = int.parse(value);
             }
           },
           validator: (value) {
@@ -112,7 +160,7 @@ class Chapter extends StatelessWidget {
           labelText: "Major Topics",
           onSaved: (value) {
             if (value != null) {
-              controller.chapterModel.majorTopics = value;
+              chapterModel.majorTopics = value;
             }
           },
           validator: (value) {
@@ -130,3 +178,4 @@ class Chapter extends StatelessWidget {
       ],
     );
   }
+}
