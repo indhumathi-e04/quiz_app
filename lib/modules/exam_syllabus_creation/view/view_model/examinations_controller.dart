@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:quiz/models/examination_model.dart';
-import 'package:quiz/view/widgets/custom_widgets/custom_dropdownfield.dart';
+
+import '../../../../models/examination_model.dart';
+import '../../../../view/widgets/custom_widgets/custom_dropdownfield.dart';
 
 class ExamCreationController extends GetxController {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -9,7 +10,14 @@ class ExamCreationController extends GetxController {
   List<DropDownFieldChoices> examCategoryList = [
     DropDownFieldChoices(id: 1, value: "school"),
     DropDownFieldChoices(id: 2, value: "College"),
-    DropDownFieldChoices(id: 1, value: "primary")
+    DropDownFieldChoices(id: 1, value: "primary"),
   ];
   ExaminationModel examination = ExaminationModel();
+  void onFormSubmitted() {
+    FocusManager.instance.primaryFocus?.unfocus();
+    bool isFormValid = formKey.currentState?.validate() ?? false;
+    if (isFormValid) {
+      formKey.currentState?.save();
+    }
+  }
 }

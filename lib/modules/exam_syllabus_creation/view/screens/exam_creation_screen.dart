@@ -37,11 +37,6 @@ class ExamCreationScreen extends StatelessWidget {
                       labelText: "Exam Category",
                       items: controller.examCategoryList,
                       value: controller.examination.examCategory,
-                      onChanged: (value) {
-                        if (value != null) {
-                          controller.examination.examCategory = value.id;
-                        }
-                      },
                       onSaved: (value) {
                         if (value != null) {
                           controller.examination.examCategory = value.id;
@@ -138,13 +133,7 @@ class ExamCreationScreen extends StatelessWidget {
           CustomElevatedButton(
             buttonHeight: 50,
             isLoading: false,
-            onPressed: () {
-              bool isFormValid =
-                  controller.formKey.currentState?.validate() ?? false;
-              if (isFormValid) {
-                controller.formKey.currentState?.save();
-              }
-            },
+            onPressed: controller.onFormSubmitted,
             buttonText: "Submit",
           ),
         ],
