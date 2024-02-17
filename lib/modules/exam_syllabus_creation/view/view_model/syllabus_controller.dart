@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:quiz/models/syllabus_model.dart';
 
+import '../../../../models/subject_model.dart';
+import '../../../../models/syllabus_model.dart';
+import '../../../../routes/route_constants.dart';
 import '../../../../view/widgets/custom_widgets/custom_dropdownfield.dart';
 
 class SyllabusController extends GetxController {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   GlobalKey<FormState> get formKey => _formKey;
-  List<SyllabusModel> syllabusModelList = [];
 
   final List<DropDownFieldChoices> examCategoryList = [
     DropDownFieldChoices(id: 1, value: "school"),
@@ -19,6 +20,21 @@ class SyllabusController extends GetxController {
     DropDownFieldChoices(id: 2, value: "JEE"),
     DropDownFieldChoices(id: 3, value: "TNPSC")
   ];
-  SyllabusModel syllabus = SyllabusModel();
-  int subjectCount = 0;
+  SyllabusModel syllabusModel = SyllabusModel();
+  void onFormSubmitted() {
+    FocusManager.instance.primaryFocus?.unfocus();
+    bool isFormValid = _formKey.currentState?.validate() ?? false;
+    if (isFormValid) {
+      _formKey.currentState?.save();
+      List<SubjectModel> subject = List.generate(
+        syllabusModel.subjectsCount ?? 0,
+        (index) => SubjectModel(),
+      );
+      syllabusModel.subjects = subject;
+      Get.toNamed(
+        RouteConstants.routeSubjects,
+        arguments: syllabusModel,
+      );
+    }
+  }
 }

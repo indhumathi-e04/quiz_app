@@ -42,6 +42,11 @@ class ExamCreationScreen extends StatelessWidget {
                           controller.examination.examCategory = value.id;
                         }
                       },
+                      onChanged: (value) {
+                        if (value != null) {
+                          controller.examination.examCategory = value.id;
+                        }
+                      },
                       validator: (value) {
                         if (value == null) {
                           return "Field is required. Choose exam category";

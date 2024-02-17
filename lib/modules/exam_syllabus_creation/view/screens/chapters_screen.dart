@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import '../../../../models/chapter_model.dart';
 import '../../../../view/widgets/custom_widgets/custom_textformfield.dart';
 
 import '../../../../constants/ui_constants.dart';
 import '../../../../models/subject_model.dart';
+import '../view_model/chapters_controller.dart';
+import '../view_model/subjects_controller.dart';
 
 class ChapterScreen extends StatelessWidget {
   ChapterScreen({
     super.key,
-    required this.subjectModelList,
   });
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final List<SubjectModel> subjectModelList;
+
+  final ChaptersController controller =
+      Get.put<ChaptersController>(ChaptersController());
 
   @override
   Widget build(BuildContext context) {
@@ -22,60 +26,53 @@ class ChapterScreen extends StatelessWidget {
         ),
       ),
       body: Form(
-        key: formKey,
-        child: ListView.separated(
-          padding: const EdgeInsets.all(
-            UIConstants.defaultHeight * 2,
+        key: controller.formKey,
+        child: Column(
+          children: List.generate(
+            controller.syllabusModel.subjects?.length ?? 0,
+            (index) => SubjectChapterPanel(
+              subjectChapterIndex: index,
+            ),
           ),
-          itemCount: subjectModelList.length,
-          separatorBuilder: (context, index) => const SizedBox(
-            height: UIConstants.defaultHeight,
-          ),
-          itemBuilder: (context, index) => Chapter(),
         ),
       ),
     );
   }
 }
 
-class ChapterPanel extends StatefulWidget {
-  const ChapterPanel({
-    required this.chapterTitle,
-    required this.chapterCount,
-    super.key,
-  });
-  final String chapterTitle;
-  final int chapterCount;
+class SubjectChapterPanel extends StatelessWidget {
+  SubjectChapterPanel({required this.subjectChapterIndex, super.key});
+  final int subjectChapterIndex;
+  final SubjectsController controller = Get.find<SubjectsController>();
 
-  @override
-  State<ChapterPanel> createState() => _SectionsState();
-}
-
-class _SectionsState extends State<ChapterPanel> {
-  bool isExpanded = false;
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(child: Chapter());
+    return ExpansionTile(
+      title: Text(
+        controller.syllabusModel.subjects?[subjectChapterIndex].subjectTitle ??
+            "",
+      ),
+      children: List.generate(
+          controller.syllabusModel.subjects?[subjectChapterIndex].chapters?.length ?? 0, (index)=> Chapter(),),
+    );
   }
 }
 
-class Chapter extends StatefulWidget {
-  const Chapter({super.key});
+class Chapter extends StatelessWidget {
+  Chapter({super.key});
+  final ChaptersController controller = Get.find<ChaptersController>();
 
-  @override
-  State<Chapter> createState() => _ChapterState();
-}
-
-class _ChapterState extends State<Chapter> {
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         CustomTextFormField(
-          margin: const EdgeInsets.only(
-            bottom: UIConstants.defaultMargin * 2,
-          ),
           labelText: "Chapter Title",
+          onSaved: (value) {
+            if (value != null) {
+              controller.syllabusModel.subjects = value;
+            }
+          },
           validator: (value) {
             if (value == null) {
               return "Field is required. Please enter chapter title";
@@ -89,14 +86,16 @@ class _ChapterState extends State<Chapter> {
           },
         ),
         CustomTextFormField(
+          labelText: "Weightage",
           keyboardType: TextInputType.number,
           inputFormatters: <TextInputFormatter>[
-            FilteringTextInputFormatter.digitsOnly
+            FilteringTextInputFormatter.digitsOnly,
           ],
-          margin: const EdgeInsets.only(
-            bottom: UIConstants.defaultMargin * 2,
-          ),
-          labelText: "Weightage",
+          onSaved: (value) {
+            if (value != null) {
+              controller.chapterModel.weightage = int.parse(value);
+            }
+          },
           validator: (value) {
             if (value == null) {
               return "Field is required. Please enter weightage";
@@ -110,10 +109,12 @@ class _ChapterState extends State<Chapter> {
           },
         ),
         CustomTextFormField(
-          margin: const EdgeInsets.only(
-            bottom: UIConstants.defaultMargin * 2,
-          ),
           labelText: "Major Topics",
+          onSaved: (value) {
+            if (value != null) {
+              controller.chapterModel.majorTopics = value;
+            }
+          },
           validator: (value) {
             if (value == null) {
               return "Field is required. Please enter major topics";
@@ -129,4 +130,3 @@ class _ChapterState extends State<Chapter> {
       ],
     );
   }
-}

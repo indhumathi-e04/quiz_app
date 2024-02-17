@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 
+import '../modules/exam_syllabus_creation/view/screens/chapters_screen.dart';
 import '../modules/exam_syllabus_creation/view/screens/exam_creation_screen.dart';
+import '../modules/exam_syllabus_creation/view/screens/subject_screen.dart';
 import '../modules/exam_syllabus_creation/view/screens/syllabus_screen.dart';
 import '../modules/test_creation/view/screens/questions_screen.dart';
 import '../modules/test_creation/view/screens/sections_screen.dart';
@@ -28,6 +30,14 @@ class AppRoutes {
     GetPage(
       name: RouteConstants.routeSyllabus,
       page: () => SyllabusScreen(),
+    ),
+    GetPage(
+      name: RouteConstants.routeSubjects,
+      page: () => SubjectScreen(),
+    ),
+    GetPage(
+      name: RouteConstants.routeChapters,
+      page: () => ChapterScreen(),
     ),
   ];
 }
