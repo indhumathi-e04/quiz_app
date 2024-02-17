@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:quiz/models/sections_model.dart';
+
+import '../../../../models/test_model.dart';
 
 class QuestionsController extends GetxController {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   GlobalKey<FormState> get formKey => _formKey;
-  late final List<SectionsModel> sectionsModelList;
+
+  late final TestModel testModel;
+
   @override
   void onInit() {
     super.onInit();
-    sectionsModelList = Get.arguments;
+    testModel = Get.arguments;
   }
 }

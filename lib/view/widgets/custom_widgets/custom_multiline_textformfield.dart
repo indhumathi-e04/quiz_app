@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../constants/ui_constants.dart';
+
 class CustomMultiLineTextFormField extends StatelessWidget {
   final String labelText;
   final String? Function(String? value)? validator;
@@ -23,7 +25,10 @@ class CustomMultiLineTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: margin ?? EdgeInsets.zero,
+      padding: margin ??
+          const EdgeInsets.only(
+            bottom: UIConstants.defaultMargin * 2,
+          ),
       child: TextFormField(
         keyboardType: keyboardType,
         maxLines: maxLines,

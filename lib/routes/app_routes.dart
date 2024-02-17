@@ -26,20 +26,8 @@ class AppRoutes {
     //   ),
     // ),
     GetPage(
-      name: RouteConstants.routeExaminations,
-      page: () => ExaminationScreen(),
+      name: RouteConstants.routeQuestions,
+      page: () => QuestionScreen(),
     ),
-    GetPage(
-      name: RouteConstants.routeSyllabus,
-      page: () => const SyllabusScreen(),
-    ),
-    // GetPage(
-    //   name: RouteConstants.routeSubjects,
-    //   page: () => SubjectScreen(subjectCount: subjectCount),
-    // ),
-    // GetPage(
-    //   name: RouteConstants.routeChapters,
-    //   page: () => ChapterScreen(subjectModelList: subjectModelList),
-    // ),
   ];
 }
