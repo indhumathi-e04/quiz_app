@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../widgets/custom_widgets/custom_textformfield.dart';
+import '../../../../view/widgets/custom_widgets/custom_textformfield.dart';
 
-import '../../constants/ui_constants.dart';
-import '../../models/subject_model.dart';
+import '../../../../constants/ui_constants.dart';
+import '../../../../models/subject_model.dart';
 
 class ChapterScreen extends StatelessWidget {
   ChapterScreen({

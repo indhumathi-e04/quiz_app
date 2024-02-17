@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../constants/ui_constants.dart';
-import '../../models/syllabus_model.dart';
+import '../../../../constants/ui_constants.dart';
+import '../../../../models/syllabus_model.dart';
 import 'subject_screen.dart';
 
-import '../widgets/custom_widgets/custom_elevated_button.dart';
-import '../widgets/custom_widgets/custom_dropdownfield.dart';
-import '../widgets/custom_widgets/custom_textformfield.dart';
+import '../../../../view/widgets/custom_widgets/custom_elevated_button.dart';
+import '../../../../view/widgets/custom_widgets/custom_dropdownfield.dart';
+import '../../../../view/widgets/custom_widgets/custom_textformfield.dart';
 
 class SyllabusScreen extends StatefulWidget {
   const SyllabusScreen({super.key});
