@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/ui_constants.dart';
+import 'app_colors.dart';
 
 class AppTheme {
   static final ColorScheme lightColorScheme = ColorScheme(
@@ -23,19 +24,20 @@ class AppTheme {
 
   static final ColorScheme darkColorScheme = ColorScheme(
     brightness: Brightness.dark,
-    primary: Colors.white,
-    onPrimary: Colors.black,
-    secondary: Colors.black,
-    onSecondary: Colors.white,
-    tertiary: Colors.white30,
-    onTertiary: Colors.white,
-    error: Colors.red,
-    onError: Colors.black,
-    background: Colors.black,
-    onBackground: Colors.white,
-    surface: Colors.black,
-    onSurface: Colors.white,
-    outline: Colors.white.withOpacity(0.2),
+    primary: AppDarkColors.lightBlue,
+    onPrimary: AppDarkColors.black,
+    secondary: AppDarkColors.lightPink,
+    onSecondary: AppDarkColors.black,
+    tertiary: AppDarkColors.lightGreen,
+    onTertiary: AppDarkColors.black,
+    error: AppDarkColors.lightPink,
+    onError: AppDarkColors.black,
+    background: AppDarkColors.black,
+    onBackground: AppDarkColors.white,
+    surface: AppDarkColors.transparent,
+    onSurface: AppDarkColors.white,
+    outline: AppDarkColors.white.withOpacity(0.1),
+    outlineVariant: AppDarkColors.white,
   );
 
   static const TextTheme _baseTextTheme = TextTheme(
@@ -240,6 +242,9 @@ class AppTheme {
         colorScheme: colorScheme,
       ).copyWith(
         brightness: brightness,
+        scaffoldBackgroundColor: brightness == Brightness.dark
+            ? darkColorScheme.background
+            : lightColorScheme.background,
         textTheme: textTheme(brightness),
         iconTheme: iconTheme(brightness),
         appBarTheme: appBarTheme(brightness),
@@ -271,13 +276,13 @@ class AppTheme {
           style: buttonStyle(brightness).copyWith(
             backgroundColor: MaterialStateProperty.all<Color>(
               brightness == Brightness.dark
-                  ? darkColorScheme.secondary
-                  : lightColorScheme.secondary,
+                  ? darkColorScheme.background
+                  : lightColorScheme.background,
             ),
             foregroundColor: MaterialStateProperty.all<Color>(
               brightness == Brightness.dark
-                  ? darkColorScheme.onSecondary
-                  : lightColorScheme.onSecondary,
+                  ? darkColorScheme.onBackground
+                  : lightColorScheme.onBackground,
             ),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(

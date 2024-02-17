@@ -27,7 +27,9 @@ class SectionsScreen extends StatelessWidget {
         children: [
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(UIConstants.defaultPadding),
+              padding: const EdgeInsets.all(
+                UIConstants.defaultPadding,
+              ),
               child: Form(
                 key: controller.formKey,
                 child: Column(
