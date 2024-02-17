@@ -55,7 +55,27 @@ class UIConstants {
     ),
   ];
 
-  static final List<DropDownFieldChoices> correctOptions = [
+  static final List<DropDownFieldChoices> multipleChoiceCorrectAnswer4Options =
+      [
+    DropDownFieldChoices(
+      id: 1,
+      value: "1",
+    ),
+    DropDownFieldChoices(
+      id: 2,
+      value: "2",
+    ),
+    DropDownFieldChoices(
+      id: 3,
+      value: "3",
+    ),
+    DropDownFieldChoices(
+      id: 4,
+      value: "4",
+    ),
+  ];
+  static final List<DropDownFieldChoices> multipleChoiceCorrectAnswer5Options =
+      [
     DropDownFieldChoices(
       id: 1,
       value: "1",

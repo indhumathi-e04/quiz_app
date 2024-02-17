@@ -1,3 +1,4 @@
+import 'question_model.dart';
 import 'section_model.dart';
 
 class TestModel {
@@ -14,6 +15,8 @@ class TestModel {
   int? sectionsCount;
   String? instructions;
   List<SectionModel>? sections;
+  int? questionsCount;
+  List<QuestionModel>? questions;
 
   TestModel({
     this.testId,
@@ -29,5 +32,7 @@ class TestModel {
     this.sectionsCount,
     this.instructions,
     this.sections,
+    this.questionsCount,
+    this.questions,
   });
 }

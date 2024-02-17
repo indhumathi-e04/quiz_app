@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../constants/ui_constants.dart';
 
@@ -8,7 +9,7 @@ class CustomDropDownField extends StatelessWidget {
   final void Function(DropDownFieldChoices? value)? onSaved;
   final String? Function(DropDownFieldChoices? value)? validator;
   final List<DropDownFieldChoices> items;
-  final DropDownFieldChoices? value;
+  final int? value;
   final EdgeInsetsGeometry? margin;
 
   const CustomDropDownField({
@@ -31,7 +32,9 @@ class CustomDropDownField extends StatelessWidget {
           ),
       child: DropdownButtonFormField<DropDownFieldChoices>(
         icon: const Icon(Icons.keyboard_arrow_down_outlined),
-        value: value,
+        value: items.firstWhereOrNull(
+          (element) => element.id == value,
+        ),
         decoration: InputDecoration(
           labelText: labelText.toUpperCase(),
         ),

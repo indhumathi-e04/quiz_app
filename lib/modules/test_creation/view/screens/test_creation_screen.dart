@@ -38,6 +38,7 @@ class TestCreationScreen extends StatelessWidget {
                     CustomDropDownField(
                       labelText: "Exam Category",
                       items: controller.examCategories,
+                      value: controller.testModel.examCategory,
                       onChanged: (value) {
                         if (value != null) {
                           controller.testModel.examCategory = value.id;
@@ -58,6 +59,7 @@ class TestCreationScreen extends StatelessWidget {
                     CustomDropDownField(
                       labelText: "Exam Name",
                       items: controller.examNames,
+                      value: controller.testModel.examName,
                       onChanged: (value) {
                         if (value != null) {
                           controller.testModel.examName = value.id;
@@ -78,6 +80,7 @@ class TestCreationScreen extends StatelessWidget {
                     CustomDropDownField(
                       labelText: "Test Type",
                       items: UIConstants.testTypes,
+                      value: controller.testModel.testType,
                       onChanged: (value) {
                         if (value != null) {
                           controller.selectedTestType.value = value.id;
@@ -102,6 +105,7 @@ class TestCreationScreen extends StatelessWidget {
                         child: CustomDropDownField(
                           labelText: "Content Type",
                           items: controller.contentTypes,
+                          value: controller.testModel.contentType,
                           onChanged: (value) {
                             if (value != null) {
                               controller.testModel.contentType = value.id;
@@ -130,6 +134,7 @@ class TestCreationScreen extends StatelessWidget {
                         child: CustomDropDownField(
                           labelText: "Subject",
                           items: controller.subjects,
+                          value: controller.testModel.subject,
                           onChanged: (value) {
                             if (value != null) {
                               controller.testModel.subject = value.id;
@@ -156,6 +161,7 @@ class TestCreationScreen extends StatelessWidget {
                         child: CustomDropDownField(
                           labelText: "Chapter",
                           items: controller.chapters,
+                          value: controller.testModel.chapter,
                           onSaved: (value) {
                             if (value != null) {
                               controller.testModel.chapter = value.id;
@@ -173,7 +179,12 @@ class TestCreationScreen extends StatelessWidget {
                     CustomDropDownField(
                       labelText: "Language",
                       items: controller.languages,
-                      onChanged: (value) {},
+                      value: controller.testModel.language,
+                      onChanged: (value) {
+                        if (value != null) {
+                          controller.testModel.language = value.id;
+                        }
+                      },
                       onSaved: (value) {
                         if (value != null) {
                           controller.testModel.language = value.id;

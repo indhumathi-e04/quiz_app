@@ -13,6 +13,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputAction? textInputAction;
   final EdgeInsetsGeometry? margin;
   final List<TextInputFormatter>? inputFormatters;
+  final String? initialValue;
 
   const CustomTextFormField({
     super.key,
@@ -25,6 +26,7 @@ class CustomTextFormField extends StatelessWidget {
     this.textInputAction = TextInputAction.next,
     this.margin,
     this.inputFormatters,
+    this.initialValue,
   });
 
   @override
@@ -35,6 +37,7 @@ class CustomTextFormField extends StatelessWidget {
             bottom: UIConstants.defaultMargin * 2,
           ),
       child: TextFormField(
+        initialValue: initialValue,
         keyboardType: keyboardType,
         obscureText: isPasswordField,
         inputFormatters: inputFormatters,

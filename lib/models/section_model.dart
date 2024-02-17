@@ -1,5 +1,4 @@
 import 'package:get/get.dart' show RxBool, BoolExtension;
-import 'package:quiz/models/question_model.dart';
 
 class SectionModel {
   int? sectionId;
@@ -9,9 +8,9 @@ class SectionModel {
   double? negativeMarks;
   int? isSectionTimeSpecific;
   int? sectionTimeLimit;
-  List<QuestionModel>? questions;
+  int? firstQuestionIndex;
+  int? lastQuestionIndex;
 
-  RxBool isExpanded = false.obs;
   RxBool isTimeSpecific = false.obs;
 
   SectionModel({
@@ -22,6 +21,7 @@ class SectionModel {
     this.negativeMarks,
     this.isSectionTimeSpecific,
     this.sectionTimeLimit,
-    this.questions,
+    this.firstQuestionIndex,
+    this.lastQuestionIndex,
   });
 }

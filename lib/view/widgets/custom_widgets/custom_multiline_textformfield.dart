@@ -10,6 +10,7 @@ class CustomMultiLineTextFormField extends StatelessWidget {
   final TextInputType? keyboardType;
   final int? maxLines;
   final EdgeInsetsGeometry? margin;
+  final String? initialValue;
 
   const CustomMultiLineTextFormField({
     super.key,
@@ -20,6 +21,7 @@ class CustomMultiLineTextFormField extends StatelessWidget {
     this.keyboardType,
     this.maxLines,
     this.margin,
+    this.initialValue,
   });
 
   @override
@@ -30,6 +32,7 @@ class CustomMultiLineTextFormField extends StatelessWidget {
             bottom: UIConstants.defaultMargin * 2,
           ),
       child: TextFormField(
+        initialValue: initialValue,
         keyboardType: keyboardType,
         maxLines: maxLines,
         decoration: InputDecoration(

@@ -206,6 +206,30 @@ class AppTheme {
         ),
       );
 
+  static ExpansionTileThemeData expansionTileTheme(Brightness brightness) =>
+      ExpansionTileThemeData(
+        backgroundColor: brightness == Brightness.dark
+            ? darkColorScheme.primary.withOpacity(0.1)
+            : lightColorScheme.primary.withOpacity(0.1),
+        collapsedBackgroundColor: brightness == Brightness.dark
+            ? darkColorScheme.primary.withOpacity(0.1)
+            : lightColorScheme.primary.withOpacity(0.1),
+        childrenPadding: const EdgeInsets.all(
+          UIConstants.defaultPadding,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+            UIConstants.defaultBorderRadius,
+          ),
+        ),
+        collapsedShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+            UIConstants.defaultBorderRadius,
+          ),
+        ),
+        expandedAlignment: Alignment.centerLeft,
+      );
+
   static ThemeData appTheme({
     required ColorScheme colorScheme,
     required Brightness brightness,
@@ -296,5 +320,6 @@ class AppTheme {
           space: 0,
           thickness: 0.5,
         ),
+        expansionTileTheme: expansionTileTheme(brightness),
       );
 }

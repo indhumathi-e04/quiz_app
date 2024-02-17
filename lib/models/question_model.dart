@@ -1,4 +1,4 @@
-import 'package:get/get.dart' show BoolExtension, RxBool, RxnInt;
+import 'package:get/get.dart' show RxnInt;
 
 class QuestionModel {
   int? questionType;
@@ -13,7 +13,6 @@ class QuestionModel {
   int? trueOrFalseCorrectAnswer;
   String? solutionExplanation;
 
-  RxBool isExpanded = false.obs;
   RxnInt selectedQuestionType = RxnInt();
 
   QuestionModel({
