@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../models/examination_model.dart';
-import '../../../../view/widgets/custom_widgets/custom_dropdownfield.dart';
+import '../../../common/view/widgets/custom_widgets/custom_dropdownfield.dart';
 
 class ExamCreationController extends GetxController {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

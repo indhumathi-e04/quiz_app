@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../constants/ui_constants.dart';
-import '../../../../view/widgets/custom_widgets/custom_dropdownfield.dart';
-import '../../../../view/widgets/custom_widgets/custom_elevated_button.dart';
-import '../../../../view/widgets/custom_widgets/custom_textformfield.dart';
+import '../../../common/view/widgets/custom_widgets/custom_dropdownfield.dart';
+import '../../../common/view/widgets/custom_widgets/custom_elevated_button.dart';
+import '../../../common/view/widgets/custom_widgets/custom_textformfield.dart';
 import '../view_model/syllabus_controller.dart';
 
 class SyllabusScreen extends StatelessWidget {

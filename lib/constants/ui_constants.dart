@@ -1,4 +1,4 @@
-import '../view/widgets/custom_widgets/custom_dropdownfield.dart';
+import '../modules/common/view/widgets/custom_widgets/custom_dropdownfield.dart';
 
 class UIConstants {
   static const double defaultHeight = 10;

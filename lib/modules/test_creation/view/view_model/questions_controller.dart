@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../models/test_model.dart';
+import '../../../../routes/app_route_constants.dart';
 
 class QuestionsController extends GetxController {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -20,6 +21,10 @@ class QuestionsController extends GetxController {
     bool isFormValid = _formKey.currentState?.validate() ?? false;
     if (isFormValid) {
       _formKey.currentState?.save();
+      Get.toNamed(
+        AppRouteConstants.routeTestInstructions,
+        arguments: testModel,
+      );
     }
   }
 }

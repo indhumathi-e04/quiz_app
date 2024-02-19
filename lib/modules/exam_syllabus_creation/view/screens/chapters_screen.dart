@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import '../../../../constants/ui_constants.dart';
 import '../../../../models/chapter_model.dart';
 import '../../../../models/subject_model.dart';
-import '../../../../view/widgets/custom_widgets/custom_elevated_button.dart';
-import '../../../../view/widgets/custom_widgets/custom_textformfield.dart';
+import '../../../common/view/widgets/custom_widgets/custom_elevated_button.dart';
+import '../../../common/view/widgets/custom_widgets/custom_textformfield.dart';
 import '../view_model/chapters_controller.dart';
 
 class ChapterScreen extends StatelessWidget {

@@ -3,11 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../../models/subject_model.dart';
-import '../../../../view/widgets/custom_widgets/custom_textformfield.dart';
+import '../../../common/view/widgets/custom_widgets/custom_textformfield.dart';
 
 import '../../../../constants/ui_constants.dart';
 
-import '../../../../view/widgets/custom_widgets/custom_elevated_button.dart';
+import '../../../common/view/widgets/custom_widgets/custom_elevated_button.dart';
 
 import '../view_model/subjects_controller.dart';
 

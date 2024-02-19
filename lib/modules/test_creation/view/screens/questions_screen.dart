@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 
 import '../../../../constants/ui_constants.dart';
 import '../../../../models/question_model.dart';
-import '../../../../view/widgets/custom_widgets/custom_dropdownfield.dart';
-import '../../../../view/widgets/custom_widgets/custom_elevated_button.dart';
-import '../../../../view/widgets/custom_widgets/custom_multiline_textformfield.dart';
-import '../../../../view/widgets/custom_widgets/custom_outlined_button.dart';
-import '../../../../view/widgets/custom_widgets/custom_textformfield.dart';
+import '../../../common/view/widgets/custom_widgets/custom_dropdownfield.dart';
+import '../../../common/view/widgets/custom_widgets/custom_elevated_button.dart';
+import '../../../common/view/widgets/custom_widgets/custom_multiline_textformfield.dart';
+import '../../../common/view/widgets/custom_widgets/custom_outlined_button.dart';
+import '../../../common/view/widgets/custom_widgets/custom_textformfield.dart';
 import '../view_model/questions_controller.dart';
 
 class QuestionScreen extends StatelessWidget {

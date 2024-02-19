@@ -1,5 +1,7 @@
 import 'package:get/get.dart' show RxnInt;
 
+import 'user_choice_model.dart';
+
 class QuestionModel {
   int? questionType;
   String? question;
@@ -12,6 +14,10 @@ class QuestionModel {
   String? fillInTheBlanksCorrectAnswer;
   int? trueOrFalseCorrectAnswer;
   String? solutionExplanation;
+  int? positiveMarks;
+  int? negativeMarks;
+
+  UserChoiceModel userChoiceModel = UserChoiceModel();
 
   RxnInt selectedQuestionType = RxnInt();
 
@@ -23,8 +29,8 @@ class QuestionModel {
     this.option3,
     this.option4,
     this.option5,
-    this.fillInTheBlanksCorrectAnswer,
     this.multipleChoiceCorrectOption,
+    this.fillInTheBlanksCorrectAnswer,
     this.trueOrFalseCorrectAnswer,
     this.solutionExplanation,
   });

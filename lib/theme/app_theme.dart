@@ -34,7 +34,7 @@ class AppTheme {
     onError: AppDarkColors.black,
     background: AppDarkColors.black,
     onBackground: AppDarkColors.white,
-    surface: AppDarkColors.transparent,
+    surface: AppDarkColors.black.withOpacity(0.5),
     onSurface: AppDarkColors.white,
     outline: AppDarkColors.white.withOpacity(0.1),
     outlineVariant: AppDarkColors.white,
@@ -86,7 +86,7 @@ class AppTheme {
       fontWeight: FontWeight.w400,
     ),
     bodySmall: TextStyle(
-      fontSize: 10,
+      fontSize: 11,
       fontWeight: FontWeight.w400,
     ),
     labelLarge: TextStyle(
@@ -121,10 +121,10 @@ class AppTheme {
         ),
         titleSpacing: UIConstants.defaultMargin,
         actionsIconTheme: const IconThemeData(
-          size: UIConstants.defaultHeight * 3,
+          size: UIConstants.defaultHeight * 2,
         ),
         scrolledUnderElevation: 0,
-        titleTextStyle: textTheme(brightness).displayMedium,
+        titleTextStyle: textTheme(brightness).displaySmall,
       );
 
   static InputDecorationTheme inputDecorationTheme(
@@ -204,7 +204,10 @@ class AppTheme {
               : lightColorScheme.primary,
         ),
         textStyle: MaterialStateProperty.all<TextStyle?>(
-          textTheme(brightness).bodySmall,
+          textTheme(brightness).bodySmall?.copyWith(
+                letterSpacing: 0.5,
+                fontWeight: FontWeight.w600,
+              ),
         ),
       );
 
@@ -265,8 +268,9 @@ class AppTheme {
                   : lightColorScheme.onPrimary,
             ),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              const RoundedRectangleBorder(
-                borderRadius: BorderRadius.zero,
+              RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(UIConstants.defaultBorderRadius),
                 side: BorderSide.none,
               ),
             ),
@@ -304,8 +308,8 @@ class AppTheme {
             ),
             foregroundColor: MaterialStateProperty.all<Color>(
               brightness == Brightness.dark
-                  ? darkColorScheme.onSecondary
-                  : lightColorScheme.onSecondary,
+                  ? darkColorScheme.onBackground
+                  : lightColorScheme.onBackground,
             ),
           ),
         ),

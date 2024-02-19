@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../constants/ui_constants.dart';
-import '../../../../view/widgets/custom_widgets/custom_outlined_button.dart';
-import '../../../../view/widgets/custom_widgets/custom_textformfield.dart';
+import '../../../common/view/widgets/custom_widgets/custom_outlined_button.dart';
+import '../../../common/view/widgets/custom_widgets/custom_textformfield.dart';
 import '../view_model/sign_in_controller.dart';
 
 class SignInScreen extends StatelessWidget {

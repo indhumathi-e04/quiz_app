@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 
 import '../../../../constants/ui_constants.dart';
 import '../../../../models/section_model.dart';
-import '../../../../view/widgets/custom_widgets/custom_dropdownfield.dart';
-import '../../../../view/widgets/custom_widgets/custom_elevated_button.dart';
-import '../../../../view/widgets/custom_widgets/custom_textformfield.dart';
+import '../../../common/view/widgets/custom_widgets/custom_dropdownfield.dart';
+import '../../../common/view/widgets/custom_widgets/custom_elevated_button.dart';
+import '../../../common/view/widgets/custom_widgets/custom_textformfield.dart';
 import '../view_model/sections_controller.dart';
 
 class SectionsScreen extends StatelessWidget {

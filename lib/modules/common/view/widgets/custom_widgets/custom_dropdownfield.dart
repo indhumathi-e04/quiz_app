@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../constants/ui_constants.dart';
+import '../../../../../constants/ui_constants.dart';
 
 class CustomDropDownField extends StatelessWidget {
   final String labelText;

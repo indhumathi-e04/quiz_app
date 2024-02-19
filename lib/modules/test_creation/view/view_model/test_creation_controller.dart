@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../../../models/section_model.dart';
 import '../../../../models/test_model.dart';
 import '../../../../routes/app_route_constants.dart';
-import '../../../../view/widgets/custom_widgets/custom_dropdownfield.dart';
+import '../../../common/view/widgets/custom_widgets/custom_dropdownfield.dart';
 
 class TestCreationController extends GetxController {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

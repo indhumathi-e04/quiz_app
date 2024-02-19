@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../../constants/ui_constants.dart';
+import '../../../../../constants/ui_constants.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String labelText;
@@ -14,6 +14,8 @@ class CustomTextFormField extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final List<TextInputFormatter>? inputFormatters;
   final String? initialValue;
+  final AutovalidateMode? autovalidateMode;
+  final bool isEnabled;
 
   const CustomTextFormField({
     super.key,
@@ -27,6 +29,8 @@ class CustomTextFormField extends StatelessWidget {
     this.margin,
     this.inputFormatters,
     this.initialValue,
+    this.autovalidateMode,
+    this.isEnabled = true,
   });
 
   @override
@@ -37,11 +41,13 @@ class CustomTextFormField extends StatelessWidget {
             bottom: UIConstants.defaultMargin * 2,
           ),
       child: TextFormField(
+        enabled: isEnabled,
         initialValue: initialValue,
         keyboardType: keyboardType,
         obscureText: isPasswordField,
         inputFormatters: inputFormatters,
         textInputAction: textInputAction,
+        autovalidateMode: autovalidateMode,
         decoration: InputDecoration(
           labelText: labelText.toUpperCase(),
         ),
