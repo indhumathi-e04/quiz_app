@@ -34,7 +34,7 @@ class AppTheme {
     onError: AppDarkColors.black,
     background: AppDarkColors.black,
     onBackground: AppDarkColors.white,
-    surface: AppDarkColors.black.withOpacity(0.5),
+    surface: AppDarkColors.white.withOpacity(0.1),
     onSurface: AppDarkColors.white,
     outline: AppDarkColors.white.withOpacity(0.1),
     outlineVariant: AppDarkColors.white,
@@ -107,21 +107,27 @@ class AppTheme {
     Brightness brightness,
   ) =>
       GoogleFonts.latoTextTheme(_baseTextTheme).apply(
-        bodyColor: brightness == Brightness.dark ? Colors.white : Colors.black,
-        displayColor:
-            brightness == Brightness.dark ? Colors.white : Colors.black,
+        bodyColor: brightness == Brightness.dark
+            ? darkColorScheme.onBackground
+            : lightColorScheme.onBackground,
+        displayColor: brightness == Brightness.dark
+            ? darkColorScheme.onBackground
+            : lightColorScheme.onBackground,
       );
 
   static AppBarTheme appBarTheme(
     Brightness brightness,
   ) =>
       AppBarTheme(
+        backgroundColor: brightness == Brightness.dark
+            ? darkColorScheme.background
+            : lightColorScheme.background,
         iconTheme: const IconThemeData(
-          size: UIConstants.defaultHeight * 2,
+          size: UIConstants.defaultIconSize,
         ),
         titleSpacing: UIConstants.defaultMargin,
         actionsIconTheme: const IconThemeData(
-          size: UIConstants.defaultHeight * 2,
+          size: UIConstants.defaultIconSize,
         ),
         scrolledUnderElevation: 0,
         titleTextStyle: textTheme(brightness).displaySmall,
@@ -182,8 +188,10 @@ class AppTheme {
       );
 
   static IconThemeData iconTheme(Brightness brightness) => IconThemeData(
-        size: UIConstants.defaultHeight * 2,
-        color: brightness == Brightness.dark ? Colors.white : Colors.black,
+        size: UIConstants.defaultIconSize,
+        color: brightness == Brightness.dark
+            ? darkColorScheme.onBackground
+            : lightColorScheme.onBackground,
       );
 
   static ButtonStyle buttonStyle(Brightness brightness) => ButtonStyle(
@@ -196,7 +204,7 @@ class AppTheme {
         ),
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         iconSize: MaterialStateProperty.all<double>(
-          UIConstants.defaultHeight * 2,
+          UIConstants.defaultIconSize,
         ),
         iconColor: MaterialStateProperty.all<Color>(
           brightness == Brightness.dark
@@ -308,8 +316,13 @@ class AppTheme {
             ),
             foregroundColor: MaterialStateProperty.all<Color>(
               brightness == Brightness.dark
-                  ? darkColorScheme.onBackground
-                  : lightColorScheme.onBackground,
+                  ? darkColorScheme.secondary
+                  : lightColorScheme.secondary,
+            ),
+            iconColor: MaterialStateProperty.all<Color>(
+              brightness == Brightness.dark
+                  ? darkColorScheme.secondary
+                  : lightColorScheme.secondary,
             ),
           ),
         ),
@@ -320,8 +333,13 @@ class AppTheme {
             ),
             foregroundColor: MaterialStateProperty.all<Color>(
               brightness == Brightness.dark
-                  ? darkColorScheme.onSecondary
-                  : lightColorScheme.onSecondary,
+                  ? darkColorScheme.secondary
+                  : lightColorScheme.secondary,
+            ),
+            iconColor: MaterialStateProperty.all<Color>(
+              brightness == Brightness.dark
+                  ? darkColorScheme.secondary
+                  : lightColorScheme.secondary,
             ),
           ),
         ),
@@ -329,6 +347,8 @@ class AppTheme {
           space: 0,
           thickness: 0.5,
         ),
-        expansionTileTheme: expansionTileTheme(brightness),
+        expansionTileTheme: expansionTileTheme(
+          brightness,
+        ),
       );
 }

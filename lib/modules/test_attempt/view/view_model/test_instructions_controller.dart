@@ -1,7 +1,5 @@
 import 'package:get/get.dart';
 
-import '../../../../models/question_model.dart';
-import '../../../../models/section_model.dart';
 import '../../../../models/test_model.dart';
 import '../../../../routes/app_route_constants.dart';
 

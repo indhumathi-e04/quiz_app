@@ -6,6 +6,7 @@ class UIConstants {
   static const double defaultPadding = 10;
   static const double defaultMargin = 10;
   static const double defaultBorderRadius = 5;
+  static const double defaultIconSize = 15;
 
   static const int examLevelTestId = 1;
   static const int subjectLevelTestId = 2;

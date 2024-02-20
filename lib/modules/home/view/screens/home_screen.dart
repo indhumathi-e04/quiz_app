@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
 import '../../../../constants/ui_constants.dart';
 import '../../../common/view/widgets/custom_widgets/custom_dropdownfield.dart';
 import '../../../common/view/widgets/custom_widgets/custom_elevated_button.dart';
+import '../../../common/view/widgets/name_badge.dart';
 import '../view_model/home_controller.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -72,175 +72,155 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Continue Your Progress",
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            Text(
-              "Keep attempting the tests to make progress",
-              style: Theme.of(context).textTheme.labelSmall,
-            ),
-            const SizedBox(
-              height: UIConstants.defaultHeight,
-            ),
-            SizedBox(
-              height: 50,
-              width: 330,
-              child: ListView.builder(
-                itemCount: 5,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: ((BuildContext context, index) {
-                  return const ContinueProgressSlider(
-                    examTitle: 'NEET - 2023 Full Length Mock Test',
-                    examName: 'Manimaran K V',
-                  );
-                }),
+            Section(
+              title: "Continue Your Progress",
+              subtitle: "Keep attempting the tests to make a progress",
+              child: SizedBox(
+                height: UIConstants.defaultHeight * 6,
+                child: PageView.builder(
+                  padEnds: true,
+                  itemCount: 5,
+                  itemBuilder: (context, index) => ResumeTestCard(
+                    testDetails: TestDetailsModel(
+                      testTitle: "NEET - 2023 Full Length Mock Test",
+                      creatorName: "Manimaran K V",
+                      isVerified: true,
+                    ),
+                  ),
+                ),
               ),
             ),
             const SizedBox(
-              height: UIConstants.defaultHeight,
+              height: UIConstants.defaultHeight * 3,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Latest Quizzes",
-                  style: Theme.of(context).textTheme.bodyMedium,
+            Section(
+              title: "Latest Quizzes",
+              actionTitle: "View all",
+              child: SizedBox(
+                height: UIConstants.defaultHeight * 25,
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  childAspectRatio: 120 / 240,
+                  crossAxisSpacing: UIConstants.defaultMargin,
+                  mainAxisSpacing: UIConstants.defaultMargin,
+                  scrollDirection: Axis.horizontal,
+                  children: List.generate(
+                    5,
+                    (index) {
+                      return LatestQuizCard(
+                        testDetails: TestDetailsModel(
+                          testTitle: "NEET - 2023 Full Length Mock Test",
+                          creatorName: "Manimaran K V",
+                          isVerified: true,
+                          totalQuestions: 10,
+                          timeLimit: 90,
+                          attemptsCount: 1500,
+                          coins: 10,
+                        ),
+                      );
+                    },
+                  ),
                 ),
-                Text(
-                  "View all",
-                  style: Theme.of(context).textTheme.labelLarge,
-                ),
-              ],
+              ),
             ),
             const SizedBox(
-              height: UIConstants.defaultHeight,
+              height: UIConstants.defaultHeight * 3,
             ),
-            SizedBox(
-              height: 250,
-              child: GridView.count(
-                crossAxisCount: 2,
-                childAspectRatio: 110 / 250,
-                crossAxisSpacing: UIConstants.defaultMargin * 2,
-                mainAxisSpacing: UIConstants.defaultMargin * 2,
-                scrollDirection: Axis.horizontal,
-                children: List.generate(
-                  5,
-                  (index) {
-                    return const LatestQuizCard(
-                      cardTitle: "NEET - 2023 Full Length NEET",
-                      testTitle: "Manimaran K V",
-                      numberOfQuestion: 5,
-                      minutes: 90,
-                      numberOfAttemps: 150,
-                      coinsCount: 10,
+            Section(
+              title: "Trending Mock Tests (Exam Level)",
+              subtitle:
+                  "Attempt exam level tests to keep yourself matched with the exam",
+              child: SizedBox(
+                height: UIConstants.defaultHeight * 22,
+                child: ListView.builder(
+                  itemCount: 5,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (BuildContext context, index) {
+                    return TrendingMockTestCard(
+                      testDetails: TestDetailsModel(
+                        testTitle: "NEET - 2023 Full Length Mock Test",
+                        creatorName: "Manimaran K V",
+                        isVerified: true,
+                        totalQuestions: 10,
+                        timeLimit: 90,
+                        attemptsCount: 1500,
+                        coins: 10,
+                        totalMarks: 200,
+                      ),
                     );
                   },
                 ),
               ),
             ),
             const SizedBox(
-              height: UIConstants.defaultHeight,
+              height: UIConstants.defaultHeight * 3,
             ),
-            Text(
-              "Trending Mock Tests (Exam Level)",
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            const SizedBox(
-              height: UIConstants.defaultHeight * 0.5,
-            ),
-            Text(
-              "Attempt exam level tests to keep yourself matched with the exam",
-              style: Theme.of(context).textTheme.labelSmall,
-            ),
-            const SizedBox(
-              height: UIConstants.defaultHeight,
-            ),
-            SizedBox(
-              height: 172,
+            Section(
+              title: "Attempt Previous Year Question",
+              actionTitle: "View all",
               child: ListView.builder(
-                itemCount: 4,
-                scrollDirection: Axis.horizontal,
+                itemCount: 5,
                 shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (BuildContext context, index) {
-                  return const TrendingMockTest(
-                    examTitle: "NEET - 2023 Full Length Mock Test",
-                    examName: "Manimaran K V",
-                    questionsCount: 200,
-                    timeLimit: 20,
-                    marks: 300,
-                    coins: 150,
+                  return PreviousYearQuestionsCard(
+                    testDetails: TestDetailsModel(
+                      testTitle: "NEET - 2023 Full Length Mock Test",
+                      creatorName: "Manimaran K V",
+                      isVerified: true,
+                      totalQuestions: 10,
+                      timeLimit: 90,
+                      attemptsCount: 1500,
+                      coins: 10,
+                      totalMarks: 200,
+                    ),
                   );
                 },
               ),
             ),
             const SizedBox(
-              height: UIConstants.defaultHeight,
+              height: UIConstants.defaultHeight * 3,
             ),
-            Text(
-              "Attempt Previous Year Question",
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            const SizedBox(
-              height: UIConstants.defaultHeight * 0.5,
-            ),
-            ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: 20,
-              shrinkWrap: true,
-              itemBuilder: (BuildContext context, int index) {
-                return const PreviousYearQuestionsCard(
-                  cardTitle: "NEET - 2023 Full Length Mock Test",
-                  testTitle: "Manimaran K V",
-                  numberOfAttempts: 150,
-                  coinsCount: 10,
-                );
-              },
-            ),
-            const SizedBox(
-              height: UIConstants.defaultHeight,
-            ),
-            Text(
-              "Subject-wise Tests",
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            const SizedBox(
-              height: UIConstants.defaultHeight,
-            ),
-            SizedBox(
-              height: 67,
-              child: ListView.builder(
+            Section(
+              title: "Subject-wise Tests",
+              subtitle:
+                  "Try to improve at subjects where you think you're not strong",
+              actionTitle: "View all",
+              child: GridView.count(
+                crossAxisCount: 4,
+                childAspectRatio: 1,
+                crossAxisSpacing: UIConstants.defaultMargin,
+                mainAxisSpacing: UIConstants.defaultMargin,
+                scrollDirection: Axis.vertical,
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemCount: 20,
-                itemBuilder: (BuildContext context, int index) {
-                  return const SubjectWiseTests(
-                    subjectIcon: "C",
-                    subjectName: "Chemistry",
-                  );
-                },
+                children: List.generate(
+                  6,
+                  (index) {
+                    return const SubjectWiseTestCard(
+                      subject: "Chemistry",
+                    );
+                  },
+                ),
               ),
             ),
             const SizedBox(
-              height: UIConstants.defaultHeight,
+              height: UIConstants.defaultHeight * 3,
             ),
-            Text(
-              "Other Exams",
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            const SizedBox(
-              height: UIConstants.defaultHeight,
-            ),
-            SizedBox(
-              height: 110,
-              child: ListView.builder(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemCount: 20,
-                itemBuilder: (BuildContext context, int index) {
-                  return const OtherExams(examName: "NEET - UG");
-                },
+            Section(
+              title: "Other Related Exams",
+              child: SizedBox(
+                height: UIConstants.defaultHeight * 10,
+                child: ListView.builder(
+                  itemCount: 5,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (BuildContext context, index) {
+                    return const OtherExamCard(
+                      examName: "NEET - UG",
+                      testCount: 1000,
+                    );
+                  },
+                ),
               ),
             ),
           ],
@@ -252,369 +232,99 @@ class HomeScreen extends StatelessWidget {
 
 class LatestQuizCard extends StatelessWidget {
   const LatestQuizCard({
-    required this.cardTitle,
-    required this.testTitle,
-    required this.numberOfQuestion,
-    required this.minutes,
-    required this.numberOfAttemps,
-    required this.coinsCount,
     super.key,
+    required this.testDetails,
   });
-  final String cardTitle;
-  final String testTitle;
-  final int numberOfQuestion;
-  final int minutes;
-  final int numberOfAttemps;
-  final int coinsCount;
+  final TestDetailsModel testDetails;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(UIConstants.defaultPadding),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Theme.of(context).colorScheme.outlineVariant,
-        ),
-        borderRadius: BorderRadius.circular(UIConstants.defaultBorderRadius),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text("Test Series"),
-          Text(
-            cardTitle,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.labelLarge,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                testTitle,
-                style: Theme.of(context).textTheme.labelMedium,
-              ),
-              const SizedBox(
-                width: UIConstants.defaultHeight * 0.5,
-              ),
-              Icon(
-                Icons.check_circle,
-                size: UIConstants.defaultHeight,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "$numberOfQuestion Questions",
-                style: Theme.of(context).textTheme.labelSmall,
-              ),
-              Text(
-                "$minutes minutes",
-                style: Theme.of(context).textTheme.labelSmall,
-              ),
-              Text(
-                "$numberOfAttemps attempts",
-                style: Theme.of(context).textTheme.labelSmall,
-              ),
-              Text(
-                "$coinsCount coins",
-                style: Theme.of(context).textTheme.labelSmall,
-              ),
-            ],
-          ),
-          CustomElevatedButton(
-            buttonHeight: 20,
-            buttonWidth: 90,
-            buttonText: "Attempt",
-            isLoading: false,
-            onPressed: () {},
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class PreviousYearQuestionsCard extends StatelessWidget {
-  const PreviousYearQuestionsCard({
-    required this.cardTitle,
-    required this.testTitle,
-    required this.numberOfAttempts,
-    required this.coinsCount,
-    super.key,
-  });
-  final String cardTitle;
-  final String testTitle;
-  final int numberOfAttempts;
-  final int coinsCount;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: UIConstants.defaultWidth,
-      ),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Theme.of(context).colorScheme.outlineVariant,
-        ),
-        borderRadius: BorderRadius.circular(UIConstants.defaultBorderRadius),
-      ),
-      margin: const EdgeInsets.symmetric(
-        vertical: UIConstants.defaultMargin * 0.5,
-        horizontal: UIConstants.defaultMargin * 0.5,
-      ),
-      height: 40,
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  cardTitle,
-                  style: Theme.of(context).textTheme.labelLarge,
-                ),
-                const SizedBox(
-                  height: UIConstants.defaultHeight * 0.5,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          testTitle,
-                          style: Theme.of(context).textTheme.labelMedium,
-                        ),
-                        const SizedBox(
-                          width: UIConstants.defaultWidth * 0.5,
-                        ),
-                        Icon(
-                          Icons.check_circle,
-                          size: UIConstants.defaultHeight,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ],
-                    ),
-                    Text(
-                      "$numberOfAttempts attempts",
-                      style: Theme.of(context).textTheme.labelSmall,
-                    ),
-                    Text(
-                      "$coinsCount coins",
-                      style: Theme.of(context).textTheme.labelSmall,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class TrendingMockTest extends StatelessWidget {
-  const TrendingMockTest({
-    required this.examTitle,
-    required this.examName,
-    required this.questionsCount,
-    required this.timeLimit,
-    required this.marks,
-    required this.coins,
-    super.key,
-  });
-  final String examTitle;
-  final String examName;
-  final int questionsCount;
-  final int timeLimit;
-  final int marks;
-  final int coins;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 147,
-      height: 172,
       padding: const EdgeInsets.all(
         UIConstants.defaultPadding,
       ),
-      margin: const EdgeInsets.only(
-        right: UIConstants.defaultMargin,
-      ),
       decoration: BoxDecoration(
-        border: Border.all(
-          color: Theme.of(context).colorScheme.outlineVariant,
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Theme.of(context).colorScheme.primary.withOpacity(0.3),
+            Theme.of(context).colorScheme.primary.withOpacity(0.1),
+            Theme.of(context).colorScheme.primary.withOpacity(0.3),
+          ],
         ),
-        borderRadius: BorderRadius.circular(UIConstants.defaultBorderRadius),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text("Test Series"),
-          Text(
-            examTitle,
-            style: Theme.of(context).textTheme.labelLarge,
-          ),
-          Row(
-            children: [
-              Text(
-                examName,
-                style: Theme.of(context).textTheme.labelSmall,
-              ),
-              const SizedBox(
-                width: UIConstants.defaultWidth * 0.5,
-              ),
-              Icon(
-                Icons.check_circle,
-                size: UIConstants.defaultHeight,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-            ],
-          ),
-          Container(
-            padding: const EdgeInsets.all(
-              UIConstants.defaultPadding * 0.5,
-            ),
-            margin: const EdgeInsets.only(
-              bottom: UIConstants.defaultMargin * 0.1,
-            ),
-            decoration: BoxDecoration(
-              color: Colors.grey,
-              borderRadius: BorderRadius.circular(
-                UIConstants.defaultBorderRadius,
-              ),
-            ),
-            height: 72,
-            width: 127,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Questions",
-                      style: Theme.of(context).textTheme.labelSmall,
-                    ),
-                    Text(
-                      questionsCount.toString(),
-                      style: Theme.of(context).textTheme.labelSmall,
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Time Limit",
-                      style: Theme.of(context).textTheme.labelSmall,
-                    ),
-                    Text(
-                      questionsCount.toString(),
-                      style: Theme.of(context).textTheme.labelSmall,
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Marks",
-                      style: Theme.of(context).textTheme.labelSmall,
-                    ),
-                    Text(
-                      questionsCount.toString(),
-                      style: Theme.of(context).textTheme.labelSmall,
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Coins",
-                      style: Theme.of(context).textTheme.labelSmall,
-                    ),
-                    Text(
-                      questionsCount.toString(),
-                      style: Theme.of(context).textTheme.labelSmall,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          CustomElevatedButton(
-            buttonWidth: 127,
-            buttonHeight: 20,
-            buttonText: "Attempt",
-            onPressed: () {},
-            isLoading: false,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ContinueProgressSlider extends StatelessWidget {
-  const ContinueProgressSlider({
-    required this.examName,
-    required this.examTitle,
-    super.key,
-  });
-  final String examTitle;
-  final String examName;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(
-        UIConstants.defaultPadding * 0.5,
-      ),
-      margin: const EdgeInsets.only(
-        right: UIConstants.defaultMargin * 2,
-      ),
-      decoration: BoxDecoration(
         border: Border.all(
-          color: Theme.of(context).colorScheme.outlineVariant,
+          color: Theme.of(context).colorScheme.outline,
         ),
         borderRadius: BorderRadius.circular(
           UIConstants.defaultBorderRadius,
         ),
       ),
-      height: 50,
-      width: 330,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            examTitle,
-            style: Theme.of(context).textTheme.labelLarge,
+            testDetails.testTitle ?? "",
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
+          const SizedBox(
+            height: UIConstants.defaultHeight * 0.5,
+          ),
+          NameBadge(
+            name: testDetails.creatorName ?? "",
+            isVerifiedUser: testDetails.isVerified ?? false,
+          ),
+          const Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
-                examName,
-                style: Theme.of(context).textTheme.labelMedium,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "${testDetails.totalQuestions ?? 0} questions",
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onBackground
+                              .withOpacity(0.5),
+                        ),
+                  ),
+                  const SizedBox(
+                    height: UIConstants.defaultHeight * 0.3,
+                  ),
+                  Text(
+                    "${testDetails.coins ?? 0} coins",
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onBackground
+                              .withOpacity(0.5),
+                        ),
+                  ),
+                  const SizedBox(
+                    height: UIConstants.defaultHeight * 0.3,
+                  ),
+                  Text(
+                    "${testDetails.timeLimit ?? 0} minutes",
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onBackground
+                              .withOpacity(0.5),
+                        ),
+                  ),
+                ],
               ),
               CustomElevatedButton(
-                buttonHeight: 20,
-                buttonWidth: 60,
-                buttonText: "Resume",
+                buttonHeight: UIConstants.defaultHeight * 2.5,
+                buttonWidth: UIConstants.defaultWidth * 8,
+                buttonText: "Attempt",
                 onPressed: () {},
                 isLoading: false,
               ),
@@ -626,76 +336,493 @@ class ContinueProgressSlider extends StatelessWidget {
   }
 }
 
-class SubjectWiseTests extends StatelessWidget {
-  const SubjectWiseTests({
-    required this.subjectIcon,
-    required this.subjectName,
+class PreviousYearQuestionsCard extends StatelessWidget {
+  const PreviousYearQuestionsCard({
     super.key,
+    required this.testDetails,
   });
-  final String subjectName;
-  final String subjectIcon;
+  final TestDetailsModel testDetails;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(UIConstants.defaultPadding),
+      margin: const EdgeInsets.only(bottom: UIConstants.defaultMargin),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface.withOpacity(0.05),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.outline,
+        ),
+        borderRadius: BorderRadius.circular(
+          UIConstants.defaultBorderRadius,
+        ),
+      ),
+      height: UIConstants.defaultHeight * 6,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            testDetails.testTitle ?? "",
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          const SizedBox(
+            height: UIConstants.defaultHeight * 0.5,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              NameBadge(
+                name: testDetails.creatorName ?? "",
+                isVerifiedUser: testDetails.isVerified ?? false,
+              ),
+              Text(
+                "${testDetails.totalQuestions ?? 0} questions",
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onBackground
+                          .withOpacity(0.5),
+                    ),
+              ),
+              Text(
+                "${testDetails.coins ?? 0} coins",
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onBackground
+                          .withOpacity(0.5),
+                    ),
+              ),
+              Text(
+                "${testDetails.attemptsCount ?? 0} attempts",
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onBackground
+                          .withOpacity(0.5),
+                    ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TrendingMockTestCard extends StatelessWidget {
+  const TrendingMockTestCard({
+    super.key,
+    required this.testDetails,
+  });
+  final TestDetailsModel testDetails;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: UIConstants.defaultWidth * 18,
+      padding: const EdgeInsets.all(
+        UIConstants.defaultPadding,
+      ),
+      margin: const EdgeInsets.only(
+        right: UIConstants.defaultMargin,
+      ),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface.withOpacity(0.05),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.outline,
+        ),
+        borderRadius: BorderRadius.circular(UIConstants.defaultBorderRadius),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            testDetails.testTitle ?? "",
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          const SizedBox(
+            height: UIConstants.defaultHeight * 0.5,
+          ),
+          NameBadge(
+            name: testDetails.creatorName ?? "",
+            isVerifiedUser: testDetails.isVerified ?? false,
+          ),
+          const Spacer(),
+          Container(
+            padding: const EdgeInsets.all(
+              UIConstants.defaultPadding,
+            ),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surface.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(
+                UIConstants.defaultBorderRadius,
+              ),
+            ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Questions",
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                    ),
+                    Text(
+                      (testDetails.totalQuestions ?? 0).toString(),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: UIConstants.defaultHeight * 0.5,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Total Marks",
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                    ),
+                    Text(
+                      (testDetails.totalMarks ?? 0).toString(),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: UIConstants.defaultHeight * 0.5,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Time Limit (minutes)",
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                    ),
+                    Text(
+                      (testDetails.timeLimit ?? 0).toString(),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: UIConstants.defaultHeight * 0.5,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Coins",
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                    ),
+                    Text(
+                      (testDetails.coins ?? 0).toString(),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontWeight: FontWeight.w700,
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const Spacer(),
+          CustomElevatedButton(
+            buttonHeight: UIConstants.defaultHeight * 3,
+            buttonText: "Attempt",
+            onPressed: () {},
+            isLoading: false,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ResumeTestCard extends StatelessWidget {
+  const ResumeTestCard({
+    super.key,
+    required this.testDetails,
+  });
+  final TestDetailsModel testDetails;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(
+        UIConstants.defaultPadding,
+      ),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface.withOpacity(0.05),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.outline,
+        ),
+        borderRadius: BorderRadius.circular(
+          UIConstants.defaultBorderRadius,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            testDetails.testTitle ?? "",
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              NameBadge(
+                name: testDetails.creatorName ?? "",
+                isVerifiedUser: testDetails.isVerified ?? false,
+              ),
+              TextButton(
+                onPressed: () {},
+                child: const Text(
+                  "Resume",
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SubjectWiseTestCard extends StatelessWidget {
+  const SubjectWiseTestCard({
+    super.key,
+    required this.subject,
+  });
+  final String subject;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
-          width: 50,
-          height: 50,
-          margin: const EdgeInsets.symmetric(
-              horizontal: UIConstants.defaultHeight * 2),
+          height: UIConstants.defaultHeight * 5,
           decoration: BoxDecoration(
-            color: Colors.grey,
-            borderRadius: BorderRadius.circular(25),
+            shape: BoxShape.circle,
+            color: Theme.of(context).colorScheme.secondary,
           ),
           child: Center(
-            child: Text(subjectIcon),
+            child: Text(
+              subject[0].toUpperCase(),
+              style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.onSecondary,
+                  ),
+            ),
           ),
         ),
-        Text(subjectName),
+        const SizedBox(
+          height: UIConstants.defaultHeight * 0.5,
+        ),
+        Text(
+          subject,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
+        ),
       ],
     );
   }
 }
 
-class OtherExams extends StatelessWidget {
-  const OtherExams({
-    required this.examName,
+class OtherExamCard extends StatelessWidget {
+  const OtherExamCard({
     super.key,
+    required this.examName,
+    required this.testCount,
   });
+
   final String examName;
+  final int? testCount;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(
-        horizontal: UIConstants.defaultMargin,
+      padding: const EdgeInsets.all(
+        UIConstants.defaultPadding,
       ),
-      padding: const EdgeInsets.all(UIConstants.defaultPadding * 2),
+      margin: const EdgeInsets.only(
+        right: UIConstants.defaultMargin,
+      ),
       decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primary,
         border: Border.all(
-          color: Theme.of(context).colorScheme.outlineVariant,
+          color: Theme.of(context).colorScheme.outline,
         ),
-        borderRadius: BorderRadius.circular(UIConstants.defaultBorderRadius),
+        borderRadius: BorderRadius.circular(
+          UIConstants.defaultBorderRadius,
+        ),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(
-            height: 30,
-            width: 30,
+            height: UIConstants.defaultHeight * 3,
+            width: UIConstants.defaultHeight * 3,
             child: Placeholder(),
+          ),
+          const SizedBox(
+            height: UIConstants.defaultHeight,
           ),
           Text(
             examName,
-            style: Theme.of(context).textTheme.bodyMedium,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
           ),
           Text(
-            "100+ Tests",
-            style: Theme.of(context).textTheme.labelLarge,
+            "${testCount ?? 10}+ Tests",
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                ),
           ),
         ],
       ),
     );
   }
+}
+
+class Section extends StatelessWidget {
+  final String title;
+  final String? subtitle;
+  final String? actionTitle;
+  final Function()? onActionPressed;
+  final Widget? child;
+
+  const Section({
+    super.key,
+    required this.title,
+    this.subtitle,
+    this.actionTitle,
+    this.onActionPressed,
+    this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        _sectionHeader(context),
+        const SizedBox(
+          height: UIConstants.defaultMargin,
+        ),
+        child ?? const SizedBox.shrink(),
+      ],
+    );
+  }
+
+  Widget _sectionHeader(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
+            ),
+            const SizedBox(
+              height: UIConstants.defaultHeight * 0.5,
+            ),
+            Visibility(
+              visible: subtitle != null,
+              child: Text(
+                subtitle ?? "",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onBackground
+                          .withOpacity(0.5),
+                    ),
+              ),
+            ),
+          ],
+        ),
+        Visibility(
+          visible: actionTitle != null,
+          child: TextButton(
+            onPressed: onActionPressed,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  actionTitle ?? "",
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class TestDetailsModel {
+  int? testId;
+  String? testTitle;
+  String? creatorName;
+  bool? isVerified;
+  int? totalQuestions;
+  int? timeLimit;
+  double? totalMarks;
+  double? coins;
+  int? attemptsCount;
+  String? tag;
+
+  TestDetailsModel({
+    this.testId,
+    this.testTitle,
+    this.creatorName,
+    this.isVerified,
+    this.totalQuestions,
+    this.timeLimit,
+    this.totalMarks,
+    this.coins,
+    this.attemptsCount,
+    this.tag,
+  });
 }
