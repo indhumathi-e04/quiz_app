@@ -243,6 +243,39 @@ class AppTheme {
         expandedAlignment: Alignment.centerLeft,
       );
 
+  static BottomNavigationBarThemeData bottomNavigationBarTheme(
+    Brightness brightness,
+  ) =>
+      BottomNavigationBarThemeData(
+        backgroundColor: brightness == Brightness.dark
+            ? darkColorScheme.background
+            : lightColorScheme.background,
+        selectedIconTheme: IconThemeData(
+          color: brightness == Brightness.dark
+              ? darkColorScheme.onBackground
+              : lightColorScheme.onBackground,
+          size: UIConstants.defaultIconSize * 1.2,
+        ),
+        unselectedIconTheme: IconThemeData(
+          color: brightness == Brightness.dark
+              ? darkColorScheme.onBackground.withOpacity(0.5)
+              : lightColorScheme.onBackground.withOpacity(0.5),
+          size: UIConstants.defaultIconSize,
+        ),
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+        selectedLabelStyle: textTheme(brightness).bodyMedium,
+        unselectedLabelStyle: textTheme(brightness).bodySmall,
+        selectedItemColor: brightness == Brightness.dark
+            ? darkColorScheme.onBackground
+            : lightColorScheme.onBackground,
+        unselectedItemColor: brightness == Brightness.dark
+            ? darkColorScheme.onBackground.withOpacity(0.5)
+            : lightColorScheme.onBackground.withOpacity(0.5),
+        type: BottomNavigationBarType.fixed,
+        elevation: 0,
+      );
+
   static ThemeData appTheme({
     required ColorScheme colorScheme,
     required Brightness brightness,
@@ -348,6 +381,9 @@ class AppTheme {
           thickness: 0.5,
         ),
         expansionTileTheme: expansionTileTheme(
+          brightness,
+        ),
+        bottomNavigationBarTheme: bottomNavigationBarTheme(
           brightness,
         ),
       );

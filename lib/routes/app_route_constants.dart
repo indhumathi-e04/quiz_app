@@ -21,5 +21,9 @@ class AppRouteConstants {
   static const String routeTestResult = "/test-result";
 
   // Home Screen Flow
+  static const String routeDashboard = "/dashboard";
   static const String routeHome = "/home";
+  static const String routePractice = "/practice";
+  static const String routeDownloads = "/download";
+  static const String routeProfile = "/profile";
 }

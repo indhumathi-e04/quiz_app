@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 
 import '../modules/authentication/view/screens/sign_in_screen.dart';
+import '../modules/dashboard/view/screens/dashboard_screen.dart';
 import '../modules/exam_syllabus_creation/view/screens/chapters_screen.dart';
 import '../modules/exam_syllabus_creation/view/screens/exam_creation_screen.dart';
 import '../modules/exam_syllabus_creation/view/screens/subject_screen.dart';
 import '../modules/exam_syllabus_creation/view/screens/syllabus_screen.dart';
-import '../modules/home/view/screens/home_screen.dart';
 import '../modules/test_attempt/view/screens/test_attempt_screen.dart';
 import '../modules/test_attempt/view/screens/test_instructions_screen.dart';
 import '../modules/test_attempt/view/screens/test_result_screen.dart';
@@ -61,8 +61,8 @@ class AppRoutes {
       page: () => TestResultScreen(),
     ),
     GetPage(
-      name: AppRouteConstants.routeHome,
-      page: () => HomeScreen(),
+      name: AppRouteConstants.routeDashboard,
+      page: () => DashboardScreen(),
     ),
   ];
 }
