@@ -19,4 +19,7 @@ class AppRouteConstants {
   static const String routeTestInstructions = '/test-instructions';
   static const String routeTestAttempt = "/attempt-test";
   static const String routeTestResult = "/test-result";
+
+  // Home Screen Flow
+  static const String routeHome = "/home";
 }

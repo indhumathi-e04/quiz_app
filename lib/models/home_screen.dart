@@ -1,0 +1,3 @@
+class HomeModel {
+  int? examName;
+}
