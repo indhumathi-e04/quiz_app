@@ -3,13 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../constants/ui_constants.dart';
+import '../../../common/view/widgets/name_badge.dart';
+import '../../../practice/view/screens/practice_screen.dart';
 import '../view_model/profile_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
-  ProfileScreen({super.key});
+  ProfileScreen({
+    super.key,
+  });
   final ProfileController controller = Get.put<ProfileController>(
     ProfileController(),
   );
+  TestDetailsModel testDetails = TestDetailsModel();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,20 +31,9 @@ class ProfileScreen extends StatelessWidget {
               width: 60,
               child: Placeholder(),
             ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Manimaran K V",
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                Icon(
-                  Icons.verified,
-                  size: UIConstants.defaultHeight * 1.2,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ],
+            NameBadge(
+              name: testDetails.creatorName ?? "",
+              isVerifiedUser: testDetails.isVerified ?? false,
             ),
             Text(
               "manimaran@gmail.com",
@@ -50,7 +44,6 @@ class ProfileScreen extends StatelessWidget {
             ),
             SizedBox(
               height: 40,
-              width: 260,
               child: ListView.separated(
                 separatorBuilder: (context, index) {
                   return const SizedBox(
@@ -76,6 +69,7 @@ class ProfileScreen extends StatelessWidget {
               shrinkWrap: true,
               itemBuilder: ((context, index) {
                 return const ProfileTile(
+                  profileIcon: "C",
                   profileTitle: "Edit Profile",
                   profileSubTitle: "Edit your name, mobile number, etc.",
                 );
@@ -86,7 +80,7 @@ class ProfileScreen extends StatelessWidget {
                 );
               },
               itemCount: 6,
-            )
+            ),
           ],
         ),
       ),
@@ -115,8 +109,6 @@ class Status extends StatelessWidget {
           UIConstants.defaultBorderRadius,
         ),
       ),
-      height: 40,
-      width: 80,
       child: Column(
         children: [
           Text(
@@ -138,16 +130,20 @@ class ProfileTile extends StatelessWidget {
     super.key,
     required this.profileTitle,
     required this.profileSubTitle,
+    required this.profileIcon,
   });
   final String profileTitle;
   final String profileSubTitle;
+  final String profileIcon;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
+      padding: const EdgeInsets.all(
+        UIConstants.defaultPadding,
+      ),
       decoration: BoxDecoration(
-        color: Colors.grey,
+        color: Theme.of(context).colorScheme.surface.withOpacity(0.05),
         border: Border.all(
           color: Theme.of(context).colorScheme.outline,
         ),
@@ -161,14 +157,23 @@ class ProfileTile extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.all(
-                  UIConstants.defaultPadding * 2,
-                ),
-                width: 40,
-                height: 40,
+                height: UIConstants.defaultHeight * 4,
+                width: UIConstants.defaultWidth * 4,
                 decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(20),
+                  shape: BoxShape.circle,
+                  color:
+                      Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
+                ),
+                child: Center(
+                  child: Text(
+                    profileIcon.toUpperCase(),
+                    style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                  ),
                 ),
               ),
               const SizedBox(
@@ -178,8 +183,14 @@ class ProfileTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(profileTitle),
-                  Text(profileSubTitle),
+                  Text(
+                    profileTitle,
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                  Text(
+                    profileSubTitle,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
                 ],
               ),
             ],
