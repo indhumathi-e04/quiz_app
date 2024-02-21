@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 
+import '../../../../constants/ui_constants.dart';
 import '../view_model/profile_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -10,9 +12,182 @@ class ProfileScreen extends StatelessWidget {
   );
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text("Profile Page"),
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(
+          UIConstants.defaultPadding,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(
+              height: 60,
+              width: 60,
+              child: Placeholder(),
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Manimaran K V",
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                Icon(
+                  Icons.verified,
+                  size: UIConstants.defaultHeight * 1.2,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ],
+            ),
+            Text(
+              "manimaran@gmail.com",
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
+            const SizedBox(
+              height: UIConstants.defaultHeight,
+            ),
+            SizedBox(
+              height: 40,
+              width: 260,
+              child: ListView.separated(
+                separatorBuilder: (context, index) {
+                  return const SizedBox(
+                    width: UIConstants.defaultWidth,
+                  );
+                },
+                scrollDirection: Axis.horizontal,
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: 3,
+                itemBuilder: (context, index) {
+                  return Status(
+                    credits: controller.credits[index],
+                    statusName: controller.status[index],
+                  );
+                },
+              ),
+            ),
+            const SizedBox(
+              height: UIConstants.defaultHeight,
+            ),
+            ListView.separated(
+              shrinkWrap: true,
+              itemBuilder: ((context, index) {
+                return const ProfileTile(
+                  profileTitle: "Edit Profile",
+                  profileSubTitle: "Edit your name, mobile number, etc.",
+                );
+              }),
+              separatorBuilder: (context, index) {
+                return const SizedBox(
+                  height: UIConstants.defaultHeight,
+                );
+              },
+              itemCount: 6,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Status extends StatelessWidget {
+  const Status({
+    required this.credits,
+    required this.statusName,
+    super.key,
+  });
+  final int credits;
+  final String statusName;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface.withOpacity(0.05),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.outline,
+        ),
+        borderRadius: BorderRadius.circular(
+          UIConstants.defaultBorderRadius,
+        ),
+      ),
+      height: 40,
+      width: 80,
+      child: Column(
+        children: [
+          Text(
+            credits.toString(),
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          Text(
+            statusName,
+            style: Theme.of(context).textTheme.labelSmall,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ProfileTile extends StatelessWidget {
+  const ProfileTile({
+    super.key,
+    required this.profileTitle,
+    required this.profileSubTitle,
+  });
+  final String profileTitle;
+  final String profileSubTitle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 50,
+      decoration: BoxDecoration(
+        color: Colors.grey,
+        border: Border.all(
+          color: Theme.of(context).colorScheme.outline,
+        ),
+        borderRadius: BorderRadius.circular(
+          UIConstants.defaultBorderRadius,
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(
+                  UIConstants.defaultPadding * 2,
+                ),
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              const SizedBox(
+                width: UIConstants.defaultHeight,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(profileTitle),
+                  Text(profileSubTitle),
+                ],
+              ),
+            ],
+          ),
+          const Icon(
+            Icons.chevron_right_outlined,
+          ),
+        ],
       ),
     );
   }
