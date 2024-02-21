@@ -8,6 +8,7 @@ import '../../../practice/view/screens/practice_screen.dart';
 import '../../../profile/view/screens/profile_screen.dart';
 
 class DashboardController extends GetxController {
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   var currentIndex = 0.obs;
 
   final List<String> pages = [

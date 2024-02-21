@@ -6,6 +6,7 @@ import '../../../../constants/ui_constants.dart';
 import '../../../../routes/app_route_constants.dart';
 import '../../../../theme/app_colors.dart';
 import '../../../common/view/widgets/custom_widgets/custom_dropdownfield.dart';
+import '../../../practice/view/screens/practice_screen.dart';
 import '../view_model/dashboard_controller.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -18,6 +19,7 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: controller.scaffoldKey,
       appBar: AppBar(
         leading: Container(
           margin: const EdgeInsets.all(
@@ -32,10 +34,15 @@ class DashboardScreen extends StatelessWidget {
           padding: const EdgeInsets.only(
             top: UIConstants.defaultPadding * 2,
           ),
-          child: CustomDropDownField(
-            labelText: 'Exam Name',
-            items: [],
-            onSaved: (value) {},
+          child: GestureDetector(
+            onTap: () {
+              controller.scaffoldKey.currentState?.openEndDrawer();
+            },
+            child: CustomDropDownField(
+              labelText: 'Exam Name',
+              items: const [],
+              onSaved: (value) {},
+            ),
           ),
         ),
         actions: [
@@ -62,6 +69,10 @@ class DashboardScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+      endDrawer: Drawer(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        child: const ExamNamePallete(),
       ),
       body: AuraBox(
         spots: [
@@ -127,6 +138,131 @@ class DashboardScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ExamNamePallete extends StatelessWidget {
+  const ExamNamePallete({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(
+              UIConstants.defaultHeight,
+            ),
+            child: Section(
+              title: "Exam Category",
+              subtitle: "Select the exam category from the following list",
+            ),
+          ),
+          ListView.separated(
+            shrinkWrap: true,
+            itemBuilder: ((context, index) {
+              return ExpansionTile(
+                childrenPadding: const EdgeInsets.all(
+                  UIConstants.defaultPadding,
+                ),
+                title: Row(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(
+                        right: UIConstants.defaultHeight,
+                      ),
+                      height: UIConstants.defaultHeight * 4,
+                      width: UIConstants.defaultWidth * 4,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withOpacity(0.05),
+                        border: Border.all(
+                          color: Theme.of(context).colorScheme.outline,
+                        ),
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text("SEMOOL"),
+                        Text(
+                          "NEET-UG,IIT,JEE",
+                          style: Theme.of(context).textTheme.labelLarge,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                children: [
+                  ListView.separated(
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(
+                        height: UIConstants.defaultHeight,
+                      );
+                    },
+                    shrinkWrap: true,
+                    itemCount: 3,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        padding: const EdgeInsets.all(
+                          UIConstants.defaultHeight,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .surface
+                              .withOpacity(0.05),
+                          border: Border.all(
+                            color: Theme.of(context).colorScheme.outline,
+                          ),
+                          borderRadius: BorderRadius.circular(
+                            UIConstants.defaultBorderRadius,
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(
+                                right: UIConstants.defaultMargin,
+                              ),
+                              padding: const EdgeInsets.only(
+                                right: UIConstants.defaultHeight,
+                              ),
+                              height: UIConstants.defaultHeight * 2,
+                              width: UIConstants.defaultWidth * 2,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurface
+                                    .withOpacity(0.05),
+                                border: Border.all(
+                                  color: Theme.of(context).colorScheme.outline,
+                                ),
+                              ),
+                            ),
+                            const Text("NEET - UG"),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              );
+            }),
+            separatorBuilder: ((context, index) {
+              return const SizedBox(
+                height: UIConstants.defaultHeight,
+              );
+            }),
+            itemCount: 2,
+          ),
+        ],
       ),
     );
   }
