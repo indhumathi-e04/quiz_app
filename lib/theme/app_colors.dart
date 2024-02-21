@@ -18,4 +18,6 @@ class AppDarkColors {
   static const Color transparent = Colors.transparent;
   static const Color yellow = Color(0xFFFFDF9A);
   static const Color red = Color(0xFFFF2200);
+  static const Color darkBlue = Color(0xFF7141FF);
+  static const Color darkPink = Color(0xFF9C2362);
 }

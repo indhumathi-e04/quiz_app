@@ -15,8 +15,8 @@ class PracticeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(
-          UIConstants.defaultPadding,
+        padding: const EdgeInsets.symmetric(
+          vertical: UIConstants.defaultPadding * 2,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,6 +24,10 @@ class PracticeScreen extends StatelessWidget {
             Section(
               title: "Continue Your Progress",
               subtitle: "Keep attempting the tests to make a progress",
+              titlePadding: const EdgeInsets.symmetric(
+                horizontal: UIConstants.defaultPadding * 2,
+              ),
+              isChildHorizontallyScrolling: false,
               child: SizedBox(
                 height: UIConstants.defaultHeight * 6,
                 child: PageView.builder(
@@ -45,9 +49,16 @@ class PracticeScreen extends StatelessWidget {
             Section(
               title: "Latest Quizzes",
               actionTitle: "View all",
+              titlePadding: const EdgeInsets.symmetric(
+                horizontal: UIConstants.defaultPadding * 2,
+              ),
+              isChildHorizontallyScrolling: true,
               child: SizedBox(
                 height: UIConstants.defaultHeight * 25,
                 child: GridView.count(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: UIConstants.defaultPadding * 2,
+                  ),
                   crossAxisCount: 2,
                   childAspectRatio: 120 / 240,
                   crossAxisSpacing: UIConstants.defaultMargin,
@@ -79,9 +90,16 @@ class PracticeScreen extends StatelessWidget {
               title: "Trending Mock Tests (Exam Level)",
               subtitle:
                   "Attempt exam level tests to keep yourself matched with the exam",
+              titlePadding: const EdgeInsets.symmetric(
+                horizontal: UIConstants.defaultPadding * 2,
+              ),
+              isChildHorizontallyScrolling: true,
               child: SizedBox(
                 height: UIConstants.defaultHeight * 22,
                 child: ListView.builder(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: UIConstants.defaultPadding * 2,
+                  ),
                   itemCount: 5,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, index) {
@@ -107,6 +125,10 @@ class PracticeScreen extends StatelessWidget {
             Section(
               title: "Attempt Previous Year Question",
               actionTitle: "View all",
+              titlePadding: const EdgeInsets.symmetric(
+                horizontal: UIConstants.defaultPadding * 2,
+              ),
+              isChildHorizontallyScrolling: false,
               child: ListView.builder(
                 itemCount: 5,
                 shrinkWrap: true,
@@ -135,6 +157,10 @@ class PracticeScreen extends StatelessWidget {
               subtitle:
                   "Try to improve at subjects where you think you're not strong",
               actionTitle: "View all",
+              titlePadding: const EdgeInsets.symmetric(
+                horizontal: UIConstants.defaultPadding * 2,
+              ),
+              isChildHorizontallyScrolling: false,
               child: GridView.count(
                 crossAxisCount: 4,
                 childAspectRatio: 1,
@@ -148,25 +174,6 @@ class PracticeScreen extends StatelessWidget {
                   (index) {
                     return const SubjectWiseTestCard(
                       subject: "Chemistry",
-                    );
-                  },
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: UIConstants.defaultHeight * 3,
-            ),
-            Section(
-              title: "Other Related Exams",
-              child: SizedBox(
-                height: UIConstants.defaultHeight * 10,
-                child: ListView.builder(
-                  itemCount: 5,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (BuildContext context, index) {
-                    return const OtherExamCard(
-                      examName: "NEET - UG",
-                      testCount: 1000,
                     );
                   },
                 ),
@@ -569,13 +576,16 @@ class SubjectWiseTestCard extends StatelessWidget {
           height: UIConstants.defaultHeight * 5,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Theme.of(context).colorScheme.secondary,
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+            border: Border.all(
+              color: Theme.of(context).colorScheme.outline,
+            ),
           ),
           child: Center(
             child: Text(
               subject[0].toUpperCase(),
               style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.onSecondary,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
             ),
           ),
@@ -660,6 +670,9 @@ class Section extends StatelessWidget {
   final String? actionTitle;
   final Function()? onActionPressed;
   final Widget? child;
+  final bool isChildHorizontallyScrolling;
+
+  final EdgeInsetsGeometry? titlePadding;
 
   const Section({
     super.key,
@@ -668,6 +681,8 @@ class Section extends StatelessWidget {
     this.actionTitle,
     this.onActionPressed,
     this.child,
+    this.titlePadding,
+    this.isChildHorizontallyScrolling = false,
   });
 
   @override
@@ -680,64 +695,74 @@ class Section extends StatelessWidget {
         const SizedBox(
           height: UIConstants.defaultMargin,
         ),
-        child ?? const SizedBox.shrink(),
+        Padding(
+          padding: isChildHorizontallyScrolling
+              ? EdgeInsets.zero
+              : titlePadding ?? EdgeInsets.zero,
+          child: child ?? const SizedBox.shrink(),
+        ),
       ],
     );
   }
 
   Widget _sectionHeader(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onBackground,
-                  ),
-            ),
-            const SizedBox(
-              height: UIConstants.defaultHeight * 0.5,
-            ),
-            Visibility(
-              visible: subtitle != null,
-              child: Text(
-                subtitle ?? "",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onBackground
-                          .withOpacity(0.5),
-                    ),
-              ),
-            ),
-          ],
-        ),
-        Visibility(
-          visible: actionTitle != null,
-          child: TextButton(
-            onPressed: onActionPressed,
-            child: Row(
+    return Padding(
+      padding: titlePadding ?? EdgeInsets.zero,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  actionTitle ?? "",
+                  title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.onBackground,
+                      ),
+                ),
+                const SizedBox(
+                  height: UIConstants.defaultHeight * 0.5,
+                ),
+                Visibility(
+                  visible: subtitle != null,
+                  child: Text(
+                    subtitle ?? "",
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onBackground
+                              .withOpacity(0.5),
+                        ),
+                  ),
                 ),
               ],
             ),
           ),
-        ),
-      ],
+          Visibility(
+            visible: actionTitle != null,
+            child: TextButton(
+              onPressed: onActionPressed,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    actionTitle ?? "",
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

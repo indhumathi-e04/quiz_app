@@ -286,9 +286,7 @@ class AppTheme {
         colorScheme: colorScheme,
       ).copyWith(
         brightness: brightness,
-        scaffoldBackgroundColor: brightness == Brightness.dark
-            ? darkColorScheme.background
-            : lightColorScheme.background,
+        scaffoldBackgroundColor: Colors.transparent,
         textTheme: textTheme(brightness),
         iconTheme: iconTheme(brightness),
         appBarTheme: appBarTheme(brightness),
