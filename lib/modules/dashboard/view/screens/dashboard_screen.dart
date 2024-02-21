@@ -1,8 +1,10 @@
+import 'package:aura_box/aura_box.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../constants/ui_constants.dart';
 import '../../../../routes/app_route_constants.dart';
+import '../../../../theme/app_colors.dart';
 import '../../../common/view/widgets/custom_widgets/custom_dropdownfield.dart';
 import '../view_model/dashboard_controller.dart';
 
@@ -61,10 +63,26 @@ class DashboardScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Navigator(
-        key: Get.nestedKey(1),
-        initialRoute: AppRouteConstants.routeHome,
-        onGenerateRoute: controller.onGenerateRoute,
+      body: AuraBox(
+        spots: [
+          AuraSpot(
+            color: AppDarkColors.darkPink.withOpacity(0.5),
+            radius: MediaQuery.of(context).size.width,
+            alignment: Alignment.center,
+            blurRadius: 100,
+          ),
+          AuraSpot(
+            color: AppDarkColors.darkBlue.withOpacity(0.5),
+            radius: MediaQuery.of(context).size.width,
+            alignment: Alignment.center,
+            blurRadius: 100,
+          ),
+        ],
+        child: Navigator(
+          key: Get.nestedKey(1),
+          initialRoute: AppRouteConstants.routeHome,
+          onGenerateRoute: controller.onGenerateRoute,
+        ),
       ),
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
