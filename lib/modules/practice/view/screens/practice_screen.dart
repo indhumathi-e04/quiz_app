@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../constants/ui_constants.dart';
+import '../../../../theme/app_colors.dart';
 import '../../../common/view/widgets/custom_widgets/custom_elevated_button.dart';
 import '../../../common/view/widgets/name_badge.dart';
 import '../view_model/practice_controller.dart';
@@ -200,7 +201,18 @@ class LatestQuizCard extends StatelessWidget {
         UIConstants.defaultPadding,
       ),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface.withOpacity(0.05),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Theme.of(context).brightness == Brightness.dark
+                ? AppDarkColors.blue
+                : AppLightColors.blue,
+            Theme.of(context).brightness == Brightness.dark
+                ? AppDarkColors.black
+                : AppLightColors.white,
+          ],
+        ),
         border: Border.all(
           color: Theme.of(context).colorScheme.outline,
         ),
@@ -297,7 +309,18 @@ class PreviousYearQuestionsCard extends StatelessWidget {
       padding: const EdgeInsets.all(UIConstants.defaultPadding),
       margin: const EdgeInsets.only(bottom: UIConstants.defaultMargin),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface.withOpacity(0.05),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Theme.of(context).brightness == Brightness.dark
+                ? AppDarkColors.grey
+                : AppLightColors.grey,
+            Theme.of(context).brightness == Brightness.dark
+                ? AppDarkColors.black
+                : AppLightColors.white,
+          ],
+        ),
         border: Border.all(
           color: Theme.of(context).colorScheme.outline,
         ),
@@ -378,7 +401,18 @@ class TrendingMockTestCard extends StatelessWidget {
         right: UIConstants.defaultMargin,
       ),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface.withOpacity(0.05),
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Theme.of(context).brightness == Brightness.dark
+                ? AppDarkColors.green
+                : AppLightColors.green,
+            Theme.of(context).brightness == Brightness.dark
+                ? AppDarkColors.black
+                : AppLightColors.white,
+          ],
+        ),
         border: Border.all(
           color: Theme.of(context).colorScheme.outline,
         ),
@@ -521,7 +555,18 @@ class ResumeTestCard extends StatelessWidget {
         UIConstants.defaultPadding,
       ),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface.withOpacity(0.05),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Theme.of(context).brightness == Brightness.dark
+                ? AppDarkColors.brown
+                : AppLightColors.brown,
+            Theme.of(context).brightness == Brightness.dark
+                ? AppDarkColors.black
+                : AppLightColors.white,
+          ],
+        ),
         border: Border.all(
           color: Theme.of(context).colorScheme.outline,
         ),
@@ -576,7 +621,18 @@ class SubjectWiseTestCard extends StatelessWidget {
           height: UIConstants.defaultHeight * 5,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.05),
+            gradient: LinearGradient(
+              begin: Alignment.center,
+              end: Alignment.bottomCenter,
+              colors: [
+                Theme.of(context).brightness == Brightness.dark
+                    ? AppDarkColors.pink
+                    : AppLightColors.pink,
+                Theme.of(context).brightness == Brightness.dark
+                    ? AppDarkColors.black
+                    : AppLightColors.white,
+              ],
+            ),
             border: Border.all(
               color: Theme.of(context).colorScheme.outline,
             ),
