@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:get/get.dart';
 
@@ -12,7 +13,7 @@ class ProfileScreen extends StatelessWidget {
     super.key,
   });
   final ProfileController controller = Get.find<ProfileController>();
-  TestDetailsModel testDetails = TestDetailsModel();
+  final TestDetailsModel testDetails = TestDetailsModel();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,8 +26,8 @@ class ProfileScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(
-              height: 60,
-              width: 60,
+              height: UIConstants.defaultHeight * 6,
+              width: UIConstants.defaultHeight * 6,
               child: Placeholder(),
             ),
             NameBadge(
@@ -41,7 +42,7 @@ class ProfileScreen extends StatelessWidget {
               height: UIConstants.defaultHeight,
             ),
             SizedBox(
-              height: 40,
+              height: UIConstants.defaultHeight * 4,
               child: ListView.separated(
                 separatorBuilder: (context, index) {
                   return const SizedBox(
@@ -66,10 +67,10 @@ class ProfileScreen extends StatelessWidget {
             ListView.separated(
               shrinkWrap: true,
               itemBuilder: ((context, index) {
-                return const ProfileTile(
-                  profileIcon: "C",
-                  profileTitle: "Edit Profile",
-                  profileSubTitle: "Edit your name, mobile number, etc.",
+                return ProfileTile(
+                  profileIcon: controller.profileIcons[index],
+                  profileTitle: controller.profileTitle[index],
+                  profileSubTitle: controller.profileSubTitle[index],
                 );
               }),
               separatorBuilder: (context, index) {
