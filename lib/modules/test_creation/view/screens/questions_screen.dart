@@ -13,9 +13,7 @@ import '../view_model/questions_controller.dart';
 class QuestionScreen extends StatelessWidget {
   QuestionScreen({super.key});
 
-  final QuestionsController controller = Get.put<QuestionsController>(
-    QuestionsController(),
-  );
+  final QuestionsController controller = Get.find<QuestionsController>();
 
   @override
   Widget build(BuildContext context) {

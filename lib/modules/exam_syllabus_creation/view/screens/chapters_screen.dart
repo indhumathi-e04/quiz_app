@@ -14,8 +14,7 @@ class ChapterScreen extends StatelessWidget {
     super.key,
   });
 
-  final ChaptersController controller =
-      Get.put<ChaptersController>(ChaptersController());
+  final ChaptersController controller = Get.find<ChaptersController>();
 
   @override
   Widget build(BuildContext context) {

@@ -9,9 +9,7 @@ class TestInstructionsScreen extends StatelessWidget {
   TestInstructionsScreen({super.key});
 
   final TestInstructionsController controller =
-      Get.put<TestInstructionsController>(
-    TestInstructionsController(),
-  );
+      Get.find<TestInstructionsController>();
 
   @override
   Widget build(BuildContext context) {

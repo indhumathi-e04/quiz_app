@@ -10,9 +10,7 @@ import '../view_model/syllabus_controller.dart';
 class SyllabusScreen extends StatelessWidget {
   SyllabusScreen({super.key});
 
-  final SyllabusController controller = Get.put<SyllabusController>(
-    SyllabusController(),
-  );
+  final SyllabusController controller = Get.find<SyllabusController>();
 
   @override
   Widget build(BuildContext context) {

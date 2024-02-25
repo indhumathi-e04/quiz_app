@@ -10,9 +10,7 @@ import '../view_model/examinations_controller.dart';
 class ExamCreationScreen extends StatelessWidget {
   ExamCreationScreen({super.key});
 
-  final ExamCreationController controller = Get.put<ExamCreationController>(
-    ExamCreationController(),
-  );
+  final ExamCreationController controller = Get.find<ExamCreationController>();
 
   @override
   Widget build(BuildContext context) {

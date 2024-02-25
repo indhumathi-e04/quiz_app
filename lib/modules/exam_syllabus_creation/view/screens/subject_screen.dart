@@ -13,8 +13,7 @@ import '../view_model/subjects_controller.dart';
 
 class SubjectScreen extends StatelessWidget {
   SubjectScreen({super.key});
-  final SubjectsController controller =
-      Get.put<SubjectsController>(SubjectsController());
+  final SubjectsController controller = Get.find<SubjectsController>();
 
   @override
   Widget build(BuildContext context) {

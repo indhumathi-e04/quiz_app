@@ -11,9 +11,7 @@ import '../view_model/sections_controller.dart';
 
 class SectionsScreen extends StatelessWidget {
   SectionsScreen({super.key});
-  final SectionsController controller = Get.put<SectionsController>(
-    SectionsController(),
-  );
+  final SectionsController controller = Get.find<SectionsController>();
 
   @override
   Widget build(BuildContext context) {

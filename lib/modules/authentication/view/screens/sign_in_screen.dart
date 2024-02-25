@@ -4,14 +4,13 @@ import 'package:get/get.dart';
 import '../../../../constants/ui_constants.dart';
 import '../../../common/view/widgets/custom_widgets/custom_outlined_button.dart';
 import '../../../common/view/widgets/custom_widgets/custom_textformfield.dart';
-import '../view_model/sign_in_controller.dart';
+import '../view_model/authentication_controller.dart';
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
 
-  final SignInController controller = Get.put<SignInController>(
-    SignInController(),
-  );
+  final AuthenticationController controller =
+      Get.find<AuthenticationController>();
 
   @override
   Widget build(BuildContext context) {

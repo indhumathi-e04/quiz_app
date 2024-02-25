@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../routes/app_route_constants.dart';
+import '../../../downloads/view/dependency_injection/downloads_view_bindings.dart';
 import '../../../downloads/view/screens/downloads_screen.dart';
+import '../../../home/view/dependency_injection/home_view_bindings.dart';
 import '../../../home/view/screens/home_screen.dart';
-import '../../../practice/view/dependency_injection/practive_view_bindings.dart';
+import '../../../practice/view/dependency_injection/practice_view_bindings.dart';
 import '../../../practice/view/screens/practice_screen.dart';
+import '../../../profile/view/dependency_injection/profile_view_bindings.dart';
 import '../../../profile/view/screens/profile_screen.dart';
 
 class DashboardController extends GetxController {
@@ -35,7 +38,9 @@ class DashboardController extends GetxController {
       return GetPageRoute(
         settings: settings,
         page: () => HomeScreen(),
-        bindings: [],
+        bindings: [
+          HomeViewBindings(),
+        ],
       );
     } else if (settings.name == AppRouteConstants.routePractice) {
       return GetPageRoute(
@@ -49,13 +54,17 @@ class DashboardController extends GetxController {
       return GetPageRoute(
         settings: settings,
         page: () => DownloadsScreen(),
-        bindings: [],
+        bindings: [
+          DownloadsViewBindings(),
+        ],
       );
     } else if (settings.name == AppRouteConstants.routeProfile) {
       return GetPageRoute(
         settings: settings,
         page: () => ProfileScreen(),
-        bindings: [],
+        bindings: [
+          ProfileViewBindings(),
+        ],
       );
     }
     return null;

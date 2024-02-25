@@ -12,9 +12,7 @@ import '../view_model/test_result_controller.dart';
 class TestResultScreen extends StatelessWidget {
   TestResultScreen({super.key});
 
-  final TestResultController controller = Get.put<TestResultController>(
-    TestResultController(),
-  );
+  final TestResultController controller = Get.find<TestResultController>();
 
   @override
   Widget build(BuildContext context) {

@@ -9,9 +9,7 @@ import '../view_model/downloads_controller.dart';
 
 class DownloadsScreen extends StatelessWidget {
   DownloadsScreen({super.key});
-  final DownloadsController controller = Get.put<DownloadsController>(
-    DownloadsController(),
-  );
+  final DownloadsController controller = Get.find<DownloadsController>();
 
   @override
   Widget build(BuildContext context) {

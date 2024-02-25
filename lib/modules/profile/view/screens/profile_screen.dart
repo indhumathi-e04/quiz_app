@@ -11,9 +11,7 @@ class ProfileScreen extends StatelessWidget {
   ProfileScreen({
     super.key,
   });
-  final ProfileController controller = Get.put<ProfileController>(
-    ProfileController(),
-  );
+  final ProfileController controller = Get.find<ProfileController>();
   TestDetailsModel testDetails = TestDetailsModel();
   @override
   Widget build(BuildContext context) {

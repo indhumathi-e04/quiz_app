@@ -10,9 +10,7 @@ import '../view_model/dashboard_controller.dart';
 class DashboardScreen extends StatelessWidget {
   DashboardScreen({super.key});
 
-  final DashboardController controller = Get.put<DashboardController>(
-    DashboardController(),
-  );
+  final DashboardController controller = Get.find<DashboardController>();
 
   @override
   Widget build(BuildContext context) {

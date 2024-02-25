@@ -15,9 +15,7 @@ class TestAttemptScreen extends StatelessWidget {
     super.key,
   });
 
-  final TestAttemptController controller = Get.put<TestAttemptController>(
-    TestAttemptController(),
-  );
+  final TestAttemptController controller = Get.find<TestAttemptController>();
 
   @override
   Widget build(BuildContext context) {

@@ -12,9 +12,7 @@ import '../view_model/test_creation_controller.dart';
 class TestCreationScreen extends StatelessWidget {
   TestCreationScreen({super.key});
 
-  final TestCreationController controller = Get.put<TestCreationController>(
-    TestCreationController(),
-  );
+  final TestCreationController controller = Get.find<TestCreationController>();
 
   @override
   Widget build(BuildContext context) {
