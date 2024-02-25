@@ -7,19 +7,20 @@ import 'app_colors.dart';
 class AppTheme {
   static final ColorScheme lightColorScheme = ColorScheme(
     brightness: Brightness.light,
-    primary: Colors.black,
-    onPrimary: Colors.white,
-    secondary: Colors.white,
-    onSecondary: Colors.black,
-    tertiary: Colors.black38,
-    onTertiary: Colors.black,
-    error: Colors.red,
-    onError: Colors.white,
-    background: Colors.white,
-    onBackground: Colors.black,
-    surface: Colors.white,
-    onSurface: Colors.black,
-    outline: Colors.black.withOpacity(0.2),
+    primary: AppLightColors.darkBlue,
+    onPrimary: AppLightColors.white,
+    secondary: AppLightColors.darkPink,
+    onSecondary: AppLightColors.white,
+    tertiary: AppLightColors.green,
+    onTertiary: AppLightColors.white,
+    error: AppLightColors.pink,
+    onError: AppLightColors.black,
+    background: AppLightColors.white,
+    onBackground: AppLightColors.black,
+    surface: AppLightColors.black.withOpacity(0.1),
+    onSurface: AppLightColors.white,
+    outline: AppLightColors.black.withOpacity(0.2),
+    outlineVariant: AppLightColors.black,
   );
 
   static final ColorScheme darkColorScheme = ColorScheme(
@@ -36,7 +37,7 @@ class AppTheme {
     onBackground: AppDarkColors.white,
     surface: AppDarkColors.white.withOpacity(0.1),
     onSurface: AppDarkColors.white,
-    outline: AppDarkColors.white.withOpacity(0.1),
+    outline: AppDarkColors.white.withOpacity(0.2),
     outlineVariant: AppDarkColors.white,
   );
 
@@ -286,7 +287,7 @@ class AppTheme {
         colorScheme: colorScheme,
       ).copyWith(
         brightness: brightness,
-        scaffoldBackgroundColor: Colors.transparent,
+        scaffoldBackgroundColor: colorScheme.background,
         textTheme: textTheme(brightness),
         iconTheme: iconTheme(brightness),
         appBarTheme: appBarTheme(brightness),
