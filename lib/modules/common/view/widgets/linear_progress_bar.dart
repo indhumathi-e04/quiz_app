@@ -156,7 +156,8 @@ class MultiCircularSliderState extends State<MultiCircularSlider>
       begin: 0.0,
       end: 1.0,
     ).animate(
-        CurvedAnimation(parent: _controller, curve: widget.animationCurve));
+      CurvedAnimation(parent: _controller, curve: widget.animationCurve),
+    );
 
     //starting animation
     _controller.forward();
@@ -260,8 +261,10 @@ class MultiCircularSliderState extends State<MultiCircularSlider>
       widget.progressBarType == MultiCircularSliderType.circular
           ? CircularProgressBarPainter(
               size: widget.size,
-              values: List.generate(widget.values.length,
-                  (index) => widget.values[index] * _animation.value),
+              values: List.generate(
+                widget.values.length,
+                (index) => widget.values[index] * _animation.value,
+              ),
               colors: widget.colors,
               progressBarWidth: widget.progressBarWidth,
               trackColor: widget.trackColor,
@@ -269,8 +272,10 @@ class MultiCircularSliderState extends State<MultiCircularSlider>
             )
           : LinearProgressBarPainter(
               size: widget.size,
-              values: List.generate(widget.values.length,
-                  (index) => widget.values[index] * _animation.value),
+              values: List.generate(
+                widget.values.length,
+                (index) => widget.values[index] * _animation.value,
+              ),
               colors: widget.colors,
               progressBarWidth: widget.progressBarWidth,
               trackColor: widget.trackColor,
