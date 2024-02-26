@@ -9,9 +9,7 @@ import '../view_model/practice_controller.dart';
 
 class PracticeScreen extends StatelessWidget {
   PracticeScreen({super.key});
-  final PracticeController controller = Get.put<PracticeController>(
-    PracticeController(),
-  );
+  final PracticeController controller = Get.find<PracticeController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

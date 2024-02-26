@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../../../routes/app_route_constants.dart';
 import '../../../downloads/view/screens/downloads_screen.dart';
 import '../../../home/view/screens/home_screen.dart';
+import '../../../practice/view/dependency_injection/practive_view_bindings.dart';
 import '../../../practice/view/screens/practice_screen.dart';
 import '../../../profile/view/screens/profile_screen.dart';
 
@@ -40,7 +41,9 @@ class DashboardController extends GetxController {
       return GetPageRoute(
         settings: settings,
         page: () => PracticeScreen(),
-        bindings: [],
+        bindings: [
+          PracticeViewBindings(),
+        ],
       );
     } else if (settings.name == AppRouteConstants.routeDownloads) {
       return GetPageRoute(
