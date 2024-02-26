@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:get/get.dart';
 
@@ -99,6 +98,9 @@ class Status extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: UIConstants.defaultWidth * 3,
+      ),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface.withOpacity(0.05),
         border: Border.all(
@@ -109,6 +111,7 @@ class Status extends StatelessWidget {
         ),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             credits.toString(),
