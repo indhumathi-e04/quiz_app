@@ -6,10 +6,14 @@ import '../../../../models/section_model.dart';
 import '../../../../models/test_model.dart';
 import '../../../../models/user_choice_model.dart';
 import '../../../../routes/app_route_constants.dart';
+import '../../domain/usecase/test_attempt_usecase.dart';
 
 class TestResultController extends GetxController {
   late final TestModel testModel;
   late final TestResultModel testResultModel;
+  final TestAttemptUseCase _useCase;
+  TestResultController({required TestAttemptUseCase useCase})
+      : _useCase = useCase;
   @override
   void onInit() {
     super.onInit();

@@ -10,10 +10,14 @@ import '../../../../models/section_model.dart';
 import '../../../../models/test_model.dart';
 import '../../../../models/user_choice_model.dart';
 import '../../../../routes/app_route_constants.dart';
+import '../../domain/usecase/test_attempt_usecase.dart';
 
 class TestAttemptController extends GetxController {
   final PageController pageController = PageController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final TestAttemptUseCase _useCase;
+  TestAttemptController({required TestAttemptUseCase useCase})
+      : _useCase = useCase;
 
   late final Timer _timer;
   int currentQuestion = 0;

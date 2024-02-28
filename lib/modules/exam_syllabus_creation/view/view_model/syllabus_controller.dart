@@ -5,10 +5,14 @@ import '../../../../models/subject_model.dart';
 import '../../../../models/syllabus_model.dart';
 import '../../../../routes/app_route_constants.dart';
 import '../../../common/view/widgets/custom_widgets/custom_dropdownfield.dart';
+import '../../domain/usecase/exam_syllabus_creation_usecase.dart';
 
 class SyllabusController extends GetxController {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   GlobalKey<FormState> get formKey => _formKey;
+  final ExamSyllabusCreationUseCase _useCase;
+  SyllabusController({required ExamSyllabusCreationUseCase useCase})
+      : _useCase = useCase;
 
   final List<DropDownFieldChoices> examCategoryList = [
     DropDownFieldChoices(id: 1, value: "school"),

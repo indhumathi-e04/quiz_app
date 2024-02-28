@@ -1,6 +1,10 @@
 import 'package:get/get.dart';
 
+import '../../domain/usecase/profile_usecase.dart';
+
 class ProfileController extends GetxController {
+  final ProfileUseCase _useCase;
+  ProfileController({required ProfileUseCase useCase}) : _useCase = useCase;
   List<int> credits = [
     50,
     60,

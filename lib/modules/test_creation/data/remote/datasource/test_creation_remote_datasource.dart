@@ -2,10 +2,10 @@ import '../../../../../communication/communication_manager.dart';
 
 abstract class TestCreationRemoteDataSource {}
 
-class TestCreationLocalDataSourceImplementation
+class TestCreationRemoteDataSourceImplementation
     implements TestCreationRemoteDataSource {
   final CommunicationManager _communicationManager;
-  TestCreationLocalDataSourceImplementation(
+  TestCreationRemoteDataSourceImplementation(
       {required CommunicationManager communicationManager})
       : _communicationManager = communicationManager;
 }

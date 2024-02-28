@@ -5,10 +5,14 @@ import '../../../../models/chapter_model.dart';
 import '../../../../models/subject_model.dart';
 import '../../../../models/syllabus_model.dart';
 import '../../../../routes/app_route_constants.dart';
+import '../../domain/usecase/exam_syllabus_creation_usecase.dart';
 
 class SubjectsController extends GetxController {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   GlobalKey<FormState> get formKey => _formKey;
+  final ExamSyllabusCreationUseCase _useCase;
+  SubjectsController({required ExamSyllabusCreationUseCase useCase})
+      : _useCase = useCase;
 
   late final SyllabusModel syllabusModel;
   @override

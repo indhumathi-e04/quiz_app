@@ -3,10 +3,14 @@ import 'package:get/get.dart';
 
 import '../../../../models/examination_model.dart';
 import '../../../common/view/widgets/custom_widgets/custom_dropdownfield.dart';
+import '../../domain/usecase/exam_syllabus_creation_usecase.dart';
 
 class ExamCreationController extends GetxController {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   GlobalKey<FormState> get formKey => _formKey;
+  final ExamSyllabusCreationUseCase _useCase;
+  ExamCreationController({required ExamSyllabusCreationUseCase useCase})
+      : _useCase = useCase;
   List<DropDownFieldChoices> examCategoryList = [
     DropDownFieldChoices(id: 1, value: "school"),
     DropDownFieldChoices(id: 2, value: "College"),

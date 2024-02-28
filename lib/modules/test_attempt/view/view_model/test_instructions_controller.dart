@@ -2,9 +2,13 @@ import 'package:get/get.dart';
 
 import '../../../../models/test_model.dart';
 import '../../../../routes/app_route_constants.dart';
+import '../../domain/usecase/test_attempt_usecase.dart';
 
 class TestInstructionsController extends GetxController {
   late final TestModel testModel;
+  final TestAttemptUseCase _useCase;
+  TestInstructionsController({required TestAttemptUseCase useCase})
+      : _useCase = useCase;
 
   @override
   void onInit() {

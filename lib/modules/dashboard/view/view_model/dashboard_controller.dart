@@ -10,10 +10,15 @@ import '../../../practice/view/dependency_injection/practice_view_bindings.dart'
 import '../../../practice/view/screens/practice_screen.dart';
 import '../../../profile/view/dependency_injection/profile_view_bindings.dart';
 import '../../../profile/view/screens/profile_screen.dart';
+import '../../domain/usecase/dashboard_usecase.dart';
 
 class DashboardController extends GetxController {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   var currentIndex = 0.obs;
+  final DashboardUseCase _useCase;
+  DashboardController({
+    required DashboardUseCase useCase,
+  }) : _useCase = useCase;
 
   final List<String> pages = [
     AppRouteConstants.routeHome,

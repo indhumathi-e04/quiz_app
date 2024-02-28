@@ -5,9 +5,13 @@ import '../../../../models/section_model.dart';
 import '../../../../models/test_model.dart';
 import '../../../../routes/app_route_constants.dart';
 import '../../../common/view/widgets/custom_widgets/custom_dropdownfield.dart';
+import '../../domain/usecase/test_creation_usecase.dart';
 
 class TestCreationController extends GetxController {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TestCreationUseCase _useCase;
+  TestCreationController({required TestCreationUseCase useCase})
+      : _useCase = useCase;
 
   GlobalKey<FormState> get formKey => _formKey;
 
