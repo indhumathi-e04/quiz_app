@@ -6,6 +6,8 @@ import '../modules/authentication/view/bindings/authentication_view_bindings.dar
 import '../modules/authentication/view/screens/sign_in_screen.dart';
 import '../modules/dashboard/data/bindings/dashboard_data_bindings.dart';
 import '../modules/dashboard/domain/bindings/dashboard_domain_bindings.dart';
+import '../modules/dashboard/data/bindings/dashboard_data_bindings.dart';
+import '../modules/dashboard/domain/bindings/dashboard_domain_bindings.dart';
 import '../modules/dashboard/view/bindings/dashboard_view_bindings.dart';
 import '../modules/dashboard/view/screens/dashboard_screen.dart';
 import '../modules/exam_syllabus_creation/view/bindings/chapters_view_bindings.dart';

@@ -8,6 +8,8 @@ import '../../../downloads/view/bindings/downloads_view_bindings.dart';
 import '../../../downloads/view/screens/downloads_screen.dart';
 import '../../../home/data/bindings/home_data_bindings.dart';
 import '../../../home/domain/bindings/home_domain_bindings.dart';
+import '../../../home/data/bindings/home_data_bindings.dart';
+import '../../../home/domain/bindings/home_domain_bindings.dart';
 import '../../../home/view/bindings/home_view_bindings.dart';
 import '../../../home/view/screens/home_screen.dart';
 import '../../../practice/data/bindings/practice_data_bindings.dart';
