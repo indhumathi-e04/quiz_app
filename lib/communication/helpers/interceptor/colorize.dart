@@ -1,4 +1,4 @@
-part of colorize;
+part of 'colorize_interceptor.dart';
 
 class Colorize {
   static const String esc = "\u{1B}";

@@ -1,14 +1,14 @@
 import 'package:get/get.dart';
 
-import '../../../practice/domain/repository/practice_repository.dart';
-import '../../../practice/domain/usecase/practice_usecase.dart';
+import '../repository/profile_repository.dart';
+import '../usecase/profile_usecase.dart';
 
 class ProfileDomainBindings extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<PracticeUseCase>(
-      () => PracticeUseCaseImplementation(
-        practiceRepository: Get.find<PracticeRepository>(),
+    Get.lazyPut<ProfileUseCase>(
+      () => ProfileUseCaseImplementation(
+        profileRepository: Get.find<ProfileRepository>(),
       ),
     );
   }

@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         context: context,
       ),
-      initialRoute: AppRouteConstants.routeDashboard,
+      initialRoute: AppRouteConstants.routeTestInstructions,
       getPages: AppRoutes.appRoutes,
       initialBinding: InitialBindings(),
     );

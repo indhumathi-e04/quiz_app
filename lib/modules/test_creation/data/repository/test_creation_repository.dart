@@ -6,9 +6,9 @@ class TestCreationRepositoryImplementation implements TestCreationRepository {
   final TestCreationLocalDataSource _testCreationLocalDataSource;
   final TestCreationRemoteDataSource _testCreationRemoteDataSource;
 
-  TestCreationRepositoryImplementation(
-      {required TestCreationLocalDataSource testCreationLocalDataSource,
-      required TestCreationRemoteDataSource testCreationRemoteDataSource})
-      : _testCreationLocalDataSource = testCreationLocalDataSource,
+  TestCreationRepositoryImplementation({
+    required TestCreationLocalDataSource testCreationLocalDataSource,
+    required TestCreationRemoteDataSource testCreationRemoteDataSource,
+  })  : _testCreationLocalDataSource = testCreationLocalDataSource,
         _testCreationRemoteDataSource = testCreationRemoteDataSource;
 }

@@ -1,4 +1,4 @@
-part of colorize;
+part of 'colorize_interceptor.dart';
 
 void color(
   String text, {

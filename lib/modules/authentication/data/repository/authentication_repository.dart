@@ -7,9 +7,9 @@ class AuthenticationRepositoryImplementation
   final AuthenticationLocalDataSource _localDataSource;
   final AuthenticationRemoteDataSource _remoteDataSource;
 
-  AuthenticationRepositoryImplementation(
-      {required AuthenticationLocalDataSource localDataSource,
-      required AuthenticationRemoteDataSource remoteDataSource})
-      : _localDataSource = localDataSource,
+  AuthenticationRepositoryImplementation({
+    required AuthenticationLocalDataSource localDataSource,
+    required AuthenticationRemoteDataSource remoteDataSource,
+  })  : _localDataSource = localDataSource,
         _remoteDataSource = remoteDataSource;
 }

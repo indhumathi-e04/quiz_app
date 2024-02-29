@@ -13,9 +13,10 @@ import 'package:firebase_performance/firebase_performance.dart';
 /// This interceptor might be counting parsing time into elapsed API call duration.
 /// I am not fully aware of [Dio] internal architecture.
 class DioFirebaseInterceptor extends Interceptor {
-  DioFirebaseInterceptor(
-      {this.requestContentLengthMethod = defaultRequestContentLength,
-      this.responseContentLengthMethod = defaultResponseContentLength});
+  DioFirebaseInterceptor({
+    this.requestContentLengthMethod = defaultRequestContentLength,
+    this.responseContentLengthMethod = defaultResponseContentLength,
+  });
 
   /// key: requestKey hash code, value: ongoing metric
   final _map = <int, HttpMetric>{};
@@ -24,10 +25,14 @@ class DioFirebaseInterceptor extends Interceptor {
 
   @override
   Future onRequest(
-      RequestOptions options, RequestInterceptorHandler handler) async {
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     try {
       final metric = FirebasePerformance.instance.newHttpMetric(
-          options.uri.normalized(), options.method.asHttpMethod()!);
+        options.uri.normalized(),
+        options.method.asHttpMethod()!,
+      );
 
       final requestKey = options.extra.hashCode;
       _map[requestKey] = metric;
@@ -42,7 +47,9 @@ class DioFirebaseInterceptor extends Interceptor {
 
   @override
   Future onResponse(
-      Response response, ResponseInterceptorHandler handler) async {
+    Response response,
+    ResponseInterceptorHandler handler,
+  ) async {
     try {
       final requestKey = response.requestOptions.extra.hashCode;
       final metric = _map[requestKey];
@@ -89,8 +96,10 @@ int? defaultResponseContentLength(Response response) {
 }
 
 extension _ResponseHttpMetric on HttpMetric {
-  void setResponse(Response? value,
-      ResponseContentLengthMethod responseContentLengthMethod) {
+  void setResponse(
+    Response? value,
+    ResponseContentLengthMethod responseContentLengthMethod,
+  ) {
     if (value == null) {
       return;
     }

@@ -1,5 +1,5 @@
 import '../../domain/repository/downloads_repository.dart';
-import '../../view/screens/downloads_screen.dart';
+
 import '../local/datasource/downloads_local_datasource.dart';
 import '../remote/datasource/downloads_remote_datasource.dart';
 

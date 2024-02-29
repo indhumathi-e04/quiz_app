@@ -8,7 +8,8 @@ class ExamCreationViewBindings extends Bindings {
   void dependencies() {
     Get.lazyPut<ExamCreationController>(
       () => ExamCreationController(
-          useCase: Get.find<ExamSyllabusCreationUseCase>()),
+        useCase: Get.find<ExamSyllabusCreationUseCase>(),
+      ),
     );
   }
 }

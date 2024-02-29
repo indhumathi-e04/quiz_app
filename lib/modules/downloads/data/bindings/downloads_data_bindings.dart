@@ -10,7 +10,8 @@ class DownloadsDataBindings extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<DownloadsLocalDataSource>(
-        () => DownloadsLocalDataSourceImplementation());
+      () => DownloadsLocalDataSourceImplementation(),
+    );
     Get.lazyPut<DownloadsRemoteDataSource>(
       () => DownloadsRemoteDataSourceImplementation(
         communicationManager: Get.find<CommunicationManager>(),

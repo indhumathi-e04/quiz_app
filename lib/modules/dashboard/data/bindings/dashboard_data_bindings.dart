@@ -10,7 +10,8 @@ class DashboardDataBindings extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<DashboardLocalDataSource>(
-        () => DashboardLocalDataSourceImplementation());
+      () => DashboardLocalDataSourceImplementation(),
+    );
     Get.lazyPut<DashboardRemoteDataSource>(
       () => DashboardRemoteDataSourceImplementation(
         communicationManager: Get.find<CommunicationManager>(),
