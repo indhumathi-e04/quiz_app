@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../repository/home_repository.dart';
 import '../usecase/home_usecase.dart';
 
-class HomeBindings extends Bindings {
+class HomeDomainBindings extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<HomeUseCase>(

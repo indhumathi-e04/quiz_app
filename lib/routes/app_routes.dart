@@ -4,6 +4,8 @@ import '../modules/authentication/data/bindings/authentication_data_bindings.dar
 import '../modules/authentication/domain/bindings/authentication_domain_bindings.dart';
 import '../modules/authentication/view/dependency_injection/authentication_view_bindings.dart';
 import '../modules/authentication/view/screens/sign_in_screen.dart';
+import '../modules/dashboard/data/bindings/dashboard_data_bindings.dart';
+import '../modules/dashboard/domain/bindings/dashboard_domain_bindings.dart';
 import '../modules/dashboard/view/dependency_injection/dashboard_view_bindings.dart';
 import '../modules/dashboard/view/screens/dashboard_screen.dart';
 import '../modules/exam_syllabus_creation/view/dependency_injection/chapters_view_bindings.dart';
@@ -112,6 +114,8 @@ class AppRoutes {
       name: AppRouteConstants.routeDashboard,
       page: () => DashboardScreen(),
       bindings: [
+        DashboardDataBindings(),
+        DashboardDomainBindings(),
         DashboardViewBindings(),
       ],
     ),
