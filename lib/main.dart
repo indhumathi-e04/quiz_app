@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'communication/communication_manager.dart';
+import 'network/network_manager.dart';
 import 'routes/app_route_constants.dart';
 import 'routes/app_routes.dart';
 import 'theme/app_theme.dart';
@@ -29,6 +31,21 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: AppRouteConstants.routeSignIn,
       getPages: AppRoutes.appRoutes,
+      initialBinding: InitialBindings(),
+    );
+  }
+}
+
+class InitialBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut(
+      () => NetworkManager(),
+    );
+    Get.lazyPut(
+      () => CommunicationManager(
+        networkManager: Get.find<NetworkManager>(),
+      ),
     );
   }
 }

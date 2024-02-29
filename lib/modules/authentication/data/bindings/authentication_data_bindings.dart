@@ -14,14 +14,14 @@ class AuthenticationDataBindings extends Bindings {
         communicationManager: Get.find<CommunicationManager>(),
       ),
     );
+    Get.lazyPut<AuthenticationLocalDataSource>(
+      () => AuthenticationLocalDataSourceImplementation(),
+    );
     Get.lazyPut<AuthenticationRepository>(
       () => AuthenticationRepositoryImplementation(
         localDataSource: Get.find<AuthenticationLocalDataSource>(),
         remoteDataSource: Get.find<AuthenticationRemoteDataSource>(),
       ),
-    );
-    Get.lazyPut<AuthenticationLocalDataSource>(
-      () => AuthenticationLocalDataSourceImplementation(),
     );
   }
 }

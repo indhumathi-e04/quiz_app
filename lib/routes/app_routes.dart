@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/authentication/data/bindings/authentication_data_bindings.dart';
+import '../modules/authentication/domain/bindings/authentication_domain_bindings.dart';
 import '../modules/authentication/view/dependency_injection/authentication_view_bindings.dart';
 import '../modules/authentication/view/screens/sign_in_screen.dart';
 import '../modules/dashboard/view/dependency_injection/dashboard_view_bindings.dart';
@@ -70,15 +72,18 @@ class AppRoutes {
       ],
     ),
     GetPage(
-        name: AppRouteConstants.routeChapters,
-        page: () => ChapterScreen(),
-        bindings: [
-          ChaptersViewBindings(),
-        ]),
+      name: AppRouteConstants.routeChapters,
+      page: () => ChapterScreen(),
+      bindings: [
+        ChaptersViewBindings(),
+      ],
+    ),
     GetPage(
       name: AppRouteConstants.routeSignIn,
       page: () => SignInScreen(),
       bindings: [
+        AuthenticationDataBindings(),
+        AuthenticationDomainBindings(),
         AuthenticationViewBindings(),
       ],
     ),
