@@ -2,26 +2,30 @@ import 'package:get/get.dart';
 
 import '../modules/authentication/data/bindings/authentication_data_bindings.dart';
 import '../modules/authentication/domain/bindings/authentication_domain_bindings.dart';
-import '../modules/authentication/view/dependency_injection/authentication_view_bindings.dart';
+import '../modules/authentication/view/bindings/authentication_view_bindings.dart';
 import '../modules/authentication/view/screens/sign_in_screen.dart';
-import '../modules/dashboard/view/dependency_injection/dashboard_view_bindings.dart';
+import '../modules/dashboard/data/bindings/dashboard_data_bindings.dart';
+import '../modules/dashboard/domain/bindings/dashboard_domain_bindings.dart';
+import '../modules/dashboard/view/bindings/dashboard_view_bindings.dart';
 import '../modules/dashboard/view/screens/dashboard_screen.dart';
-import '../modules/exam_syllabus_creation/view/dependency_injection/chapters_view_bindings.dart';
-import '../modules/exam_syllabus_creation/view/dependency_injection/exam_creation_view_bindings.dart';
-import '../modules/exam_syllabus_creation/view/dependency_injection/subject_view_bindings.dart';
-import '../modules/exam_syllabus_creation/view/dependency_injection/syllabus_view_bindings.dart';
+import '../modules/exam_syllabus_creation/view/bindings/chapters_view_bindings.dart';
+import '../modules/exam_syllabus_creation/view/bindings/exam_creation_view_bindings.dart';
+import '../modules/exam_syllabus_creation/view/bindings/subject_view_bindings.dart';
+import '../modules/exam_syllabus_creation/view/bindings/syllabus_view_bindings.dart';
 import '../modules/exam_syllabus_creation/view/screens/chapters_screen.dart';
 import '../modules/exam_syllabus_creation/view/screens/exam_creation_screen.dart';
 import '../modules/exam_syllabus_creation/view/screens/subject_screen.dart';
 import '../modules/exam_syllabus_creation/view/screens/syllabus_screen.dart';
-import '../modules/test_attempt/view/dependency_injection/test_attempt_view_bindings.dart';
-import '../modules/test_attempt/view/dependency_injection/test_instructions_view_bindings.dart';
-import '../modules/test_attempt/view/dependency_injection/test_result_view_bindings.dart';
+import '../modules/test_attempt/data/bindings/test_attempt_data_bindings.dart';
+import '../modules/test_attempt/domain/bindings/test_attempt_domain_bindings.dart';
+import '../modules/test_attempt/view/bindings/test_attempt_view_bindings.dart';
+import '../modules/test_attempt/view/bindings/test_instructions_view_bindings.dart';
+import '../modules/test_attempt/view/bindings/test_result_view_bindings.dart';
 import '../modules/test_attempt/view/screens/test_attempt_screen.dart';
 import '../modules/test_attempt/view/screens/test_instructions_screen.dart';
 import '../modules/test_attempt/view/screens/test_result_screen.dart';
-import '../modules/test_creation/view/dependency_injection/question_view_bindings.dart';
-import '../modules/test_creation/view/dependency_injection/sections_view_bindings.dart';
+import '../modules/test_creation/view/bindings/question_view_bindings.dart';
+import '../modules/test_creation/view/bindings/sections_view_bindings.dart';
 import '../modules/test_creation/view/screens/questions_screen.dart';
 import '../modules/test_creation/view/screens/sections_screen.dart';
 import '../modules/test_creation/view/screens/test_creation_screen.dart';
@@ -105,6 +109,8 @@ class AppRoutes {
       name: AppRouteConstants.routeTestResult,
       page: () => TestResultScreen(),
       bindings: [
+        TestAttemptDataBindings(),
+        TestAttemptDomainBindings(),
         TestResultViewBindings(),
       ],
     ),
@@ -112,6 +118,8 @@ class AppRoutes {
       name: AppRouteConstants.routeDashboard,
       page: () => DashboardScreen(),
       bindings: [
+        DashboardDataBindings(),
+        DashboardDomainBindings(),
         DashboardViewBindings(),
       ],
     ),

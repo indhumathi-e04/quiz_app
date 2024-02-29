@@ -2,13 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../routes/app_route_constants.dart';
-import '../../../downloads/view/dependency_injection/downloads_view_bindings.dart';
+import '../../../downloads/data/bindings/downloads_data_bindings.dart';
+import '../../../downloads/domain/bindings/downloads_domain_bindings.dart';
+import '../../../downloads/view/bindings/downloads_view_bindings.dart';
 import '../../../downloads/view/screens/downloads_screen.dart';
-import '../../../home/view/dependency_injection/home_view_bindings.dart';
+import '../../../home/data/bindings/home_data_bindings.dart';
+import '../../../home/domain/bindings/home_domain_bindings.dart';
+import '../../../home/view/bindings/home_view_bindings.dart';
 import '../../../home/view/screens/home_screen.dart';
-import '../../../practice/view/dependency_injection/practice_view_bindings.dart';
+import '../../../practice/data/bindings/practice_data_bindings.dart';
+import '../../../practice/domain/bindings/practice_domain_bindings.dart';
+import '../../../practice/view/bindings/practice_view_bindings.dart';
 import '../../../practice/view/screens/practice_screen.dart';
-import '../../../profile/view/dependency_injection/profile_view_bindings.dart';
+import '../../../profile/data/bindings/profile_data_bindings.dart';
+import '../../../profile/domain/bindings/profile_domain_bindings.dart';
+import '../../../profile/view/bindings/profile_view_bindings.dart';
 import '../../../profile/view/screens/profile_screen.dart';
 import '../../domain/usecase/dashboard_usecase.dart';
 
@@ -44,6 +52,8 @@ class DashboardController extends GetxController {
         settings: settings,
         page: () => HomeScreen(),
         bindings: [
+          HomeDataBindings(),
+          HomeDomainBindings(),
           HomeViewBindings(),
         ],
       );
@@ -52,6 +62,8 @@ class DashboardController extends GetxController {
         settings: settings,
         page: () => PracticeScreen(),
         bindings: [
+          PracticeDataBindings(),
+          PracticeDomainBindings(),
           PracticeViewBindings(),
         ],
       );
@@ -60,6 +72,8 @@ class DashboardController extends GetxController {
         settings: settings,
         page: () => DownloadsScreen(),
         bindings: [
+          DownloadsDataBindings(),
+          DownloadsDomainBindings(),
           DownloadsViewBindings(),
         ],
       );
@@ -68,6 +82,8 @@ class DashboardController extends GetxController {
         settings: settings,
         page: () => ProfileScreen(),
         bindings: [
+          ProfileDataBindings(),
+          ProfileDomainBindings(),
           ProfileViewBindings(),
         ],
       );
