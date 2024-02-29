@@ -1,1 +1,3 @@
-class ApiConstants {}
+class ApiConstants {
+  static const contentTypeValue = 'application/json';
+}

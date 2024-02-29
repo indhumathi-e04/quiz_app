@@ -108,4 +108,5 @@ class UIConstants {
       value: "False",
     ),
   ];
+  static const String mobileClient = 'ayini_mobile_client';
 }
