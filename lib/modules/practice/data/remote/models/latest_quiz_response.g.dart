@@ -8,7 +8,9 @@ part of 'latest_quiz_response.dart';
 
 LatestQuizResponse _$LatestQuizResponseFromJson(Map<String, dynamic> json) =>
     LatestQuizResponse(
-      latestQuizzes: json['latest_quizzes'],
+      latestQuizzes: (json['latest_quizzes'] as List<dynamic>?)
+          ?.map((e) => TestDetailsResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$LatestQuizResponseToJson(LatestQuizResponse instance) =>
@@ -18,16 +20,16 @@ Map<String, dynamic> _$LatestQuizResponseToJson(LatestQuizResponse instance) =>
 
 TestDetailsResponse _$TestDetailsResponseFromJson(Map<String, dynamic> json) =>
     TestDetailsResponse(
-      testId: json['test_id'],
-      testTitle: json['test_title'],
-      creatorName: json['creator_name'],
-      isVerified: json['is_verified'],
-      totalQuestions: json['total_questions'],
-      timeLimit: json['time_limit'],
-      totalMarks: json['total_marks'],
-      coins: json['coins'],
-      attemptsCount: json['attempts_count'],
-      tag: json['tag'],
+      testId: json['test_id'] as int?,
+      testTitle: json['test_title'] as String?,
+      creatorName: json['creator_name'] as String?,
+      isVerified: json['is_verified'] as bool?,
+      totalQuestions: json['total_questions'] as int?,
+      timeLimit: json['time_limit'] as int?,
+      totalMarks: (json['total_marks'] as num?)?.toDouble(),
+      coins: (json['coins'] as num?)?.toDouble(),
+      attemptsCount: json['attempts_count'] as int?,
+      tag: json['tag'] as String?,
     );
 
 Map<String, dynamic> _$TestDetailsResponseToJson(

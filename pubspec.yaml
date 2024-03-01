@@ -15,7 +15,6 @@ dependencies:
   aura_box: ^1.0.2
   connectivity_plus: ^5.0.2
   dio: ^5.4.1
-  firebase_performance: ^0.9.3+8
   json_annotation: ^4.8.1
 
 dev_dependencies:

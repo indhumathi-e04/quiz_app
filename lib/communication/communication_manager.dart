@@ -46,7 +46,7 @@ class CommunicationManager extends get_package.GetxService {
             DioInterceptor(),
           );
         }
-        dioClient.interceptors.add(DioFirebaseInterceptor());
+        // dioClient.interceptors.add(DioFirebaseInterceptor());
         String basicAuth =
             'Basic ${base64.encode(utf8.encode('${UIConstants.mobileClient}:AyiniMobileAppPwd'))}';
         dioClient.options.headers = {'authorization': basicAuth};

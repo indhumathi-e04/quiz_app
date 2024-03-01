@@ -10,7 +10,7 @@ class LatestQuizResponse {
   List<TestDetailsResponse>? latestQuizzes;
 
   LatestQuizResponse({
-    latestQuizzes,
+    this.latestQuizzes,
   });
 
   factory LatestQuizResponse.fromJson(Map<String, dynamic> json) =>
@@ -41,16 +41,16 @@ class TestDetailsResponse {
   String? tag;
 
   TestDetailsResponse({
-    testId,
-    testTitle,
-    creatorName,
-    isVerified,
-    totalQuestions,
-    timeLimit,
-    totalMarks,
-    coins,
-    attemptsCount,
-    tag,
+    this.testId,
+    this.testTitle,
+    this.creatorName,
+    this.isVerified,
+    this.totalQuestions,
+    this.timeLimit,
+    this.totalMarks,
+    this.coins,
+    this.attemptsCount,
+    this.tag,
   });
 
   factory TestDetailsResponse.fromJson(Map<String, dynamic> json) =>

@@ -19,15 +19,10 @@ class PracticeRepositoryImplementation implements PracticeRepository {
 
   @override
   Future<ResultState> getLatestQuizzes() async {
-    // 1. Make the API call and get the data
     final result = await _remoteDataSource.getLatestQuizzes();
-    // 2. Check the data whether it is a success or error
     if (result is Success) {
-      // 3. if it is success, then convert the response to model
-      // 3.1 convert the map to response models
       LatestQuizResponse latestQuizResponse =
           LatestQuizResponse.fromJson(result.data);
-      // 3.2 convert the response models to entity models
       List<TestDetailsEntity> testDetailsEntityList =
           latestQuizResponse.latestQuizzes
                   ?.map(
@@ -35,12 +30,10 @@ class PracticeRepositoryImplementation implements PracticeRepository {
                   )
                   .toList() ??
               [];
-      // 3.3. return the entity models in success
       return Success(
         data: testDetailsEntityList,
       );
     } else {
-      // 4. if it is error, then return the error
       result as Error;
       return Error(
         errorCode: result.errorCode,
