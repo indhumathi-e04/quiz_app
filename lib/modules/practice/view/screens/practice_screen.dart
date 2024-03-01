@@ -5,6 +5,7 @@ import '../../../../constants/ui_constants.dart';
 import '../../../../theme/app_colors.dart';
 import '../../../common/view/widgets/custom_widgets/custom_elevated_button.dart';
 import '../../../common/view/widgets/name_badge.dart';
+import '../../domain/models/test_details_entity.dart';
 import '../view_model/practice_controller.dart';
 
 class PracticeScreen extends StatelessWidget {
@@ -161,7 +162,7 @@ class LatestQuizCard extends StatelessWidget {
     super.key,
     required this.testDetails,
   });
-  final TestDetailsModel testDetails;
+  final TestDetailsEntity testDetails;
 
   @override
   Widget build(BuildContext context) {
@@ -270,7 +271,7 @@ class PreviousYearQuestionsCard extends StatelessWidget {
     super.key,
     required this.testDetails,
   });
-  final TestDetailsModel testDetails;
+  final TestDetailsEntity testDetails;
 
   @override
   Widget build(BuildContext context) {
@@ -357,7 +358,7 @@ class TrendingMockTestCard extends StatelessWidget {
     super.key,
     required this.testDetails,
   });
-  final TestDetailsModel testDetails;
+  final TestDetailsEntity testDetails;
 
   @override
   Widget build(BuildContext context) {
@@ -516,7 +517,7 @@ class ResumeTestCard extends StatelessWidget {
     super.key,
     required this.testDetails,
   });
-  final TestDetailsModel testDetails;
+  final TestDetailsEntity testDetails;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -790,37 +791,4 @@ class Section extends StatelessWidget {
       ),
     );
   }
-}
-
-class TestDetailsModel {
-  int? testId;
-  String? testTitle;
-  String? creatorName;
-  bool? isVerified;
-  int? totalQuestions;
-  int? timeLimit;
-  double? totalMarks;
-  double? coins;
-  int? attemptsCount;
-  String? tag;
-
-  TestDetailsModel({
-    this.testId,
-    this.testTitle,
-    this.creatorName,
-    this.isVerified,
-    this.totalQuestions,
-    this.timeLimit,
-    this.totalMarks,
-    this.coins,
-    this.attemptsCount,
-    this.tag,
-  });
-}
-
-class SubjectModel {
-  String? subjects;
-  SubjectModel({
-    this.subjects,
-  });
 }

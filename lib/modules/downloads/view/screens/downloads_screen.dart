@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../../../constants/ui_constants.dart';
 import '../../../common/view/widgets/custom_widgets/custom_elevated_button.dart';
 import '../../../common/view/widgets/name_badge.dart';
+import '../../../practice/domain/models/test_details_entity.dart';
 import '../../../practice/view/screens/practice_screen.dart';
 import '../view_model/downloads_controller.dart';
 
@@ -72,7 +73,7 @@ class DownloadsScreen extends StatelessWidget {
                 itemBuilder: (BuildContext context, index) {
                   return Downloads(
                     downloadedDate: "4th March 2024",
-                    testDetails: TestDetailsModel(
+                    testDetails: TestDetailsEntity(
                       testTitle: "NEET - 2023 Full Length Mock Test",
                       creatorName: "Manimaran K V",
                       isVerified: true,
@@ -98,7 +99,7 @@ class Downloads extends StatelessWidget {
     required this.downloadedDate,
     super.key,
   });
-  final TestDetailsModel testDetails;
+  final TestDetailsEntity testDetails;
   final String downloadedDate;
 
   @override

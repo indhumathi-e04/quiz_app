@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
 import '../../../../constants/ui_constants.dart';
 import '../../../common/view/widgets/name_badge.dart';
-import '../../../practice/view/screens/practice_screen.dart';
 import '../view_model/profile_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -12,7 +10,7 @@ class ProfileScreen extends StatelessWidget {
     super.key,
   });
   final ProfileController controller = Get.find<ProfileController>();
-  final TestDetailsModel testDetails = TestDetailsModel();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,9 +27,9 @@ class ProfileScreen extends StatelessWidget {
               width: UIConstants.defaultHeight * 6,
               child: Placeholder(),
             ),
-            NameBadge(
-              name: testDetails.creatorName ?? "",
-              isVerifiedUser: testDetails.isVerified ?? false,
+            const NameBadge(
+              name: "Manimaran K V",
+              isVerifiedUser: true,
             ),
             Text(
               "manimaran@gmail.com",

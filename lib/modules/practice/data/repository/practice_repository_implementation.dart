@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 
 import '../../../common/data/remote/models/result_state.dart';
+import '../../domain/models/test_details_entity.dart';
 import '../../domain/repository/practice_repository.dart';
 import '../local/datasource/practice_local_datasource.dart';
 import '../remote/datasource/practice_remote_datasource.dart';
+import '../remote/models/latest_quiz_response.dart';
 
 class PracticeRepositoryImplementation implements PracticeRepository {
   final PracticeRemoteDataSource _remoteDataSource;
@@ -18,20 +20,31 @@ class PracticeRepositoryImplementation implements PracticeRepository {
   @override
   Future<ResultState> getLatestQuizzes() async {
     // 1. Make the API call and get the data
-    final response = await _remoteDataSource.getLatestQuizzes();
+    final result = await _remoteDataSource.getLatestQuizzes();
     // 2. Check the data whether it is a success or error
-    if (response is Success) {
+    if (result is Success) {
       // 3. if it is success, then convert the response to model
       // 3.1 convert the map to response models
+      LatestQuizResponse latestQuizResponse =
+          LatestQuizResponse.fromJson(result.data);
       // 3.2 convert the response models to entity models
+      List<TestDetailsEntity> testDetailsEntityList =
+          latestQuizResponse.latestQuizzes
+                  ?.map(
+                    (e) => e.toEntity(),
+                  )
+                  .toList() ??
+              [];
       // 3.3. return the entity models in success
-      return Success();
+      return Success(
+        data: testDetailsEntityList,
+      );
     } else {
       // 4. if it is error, then return the error
-      response as Error;
+      result as Error;
       return Error(
-        errorCode: response.errorCode,
-        errorMessage: response.errorMessage,
+        errorCode: result.errorCode,
+        errorMessage: result.errorMessage,
       );
     }
   }

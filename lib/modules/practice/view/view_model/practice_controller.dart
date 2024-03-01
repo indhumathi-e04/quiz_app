@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import '../../../common/data/remote/models/result_state.dart';
+import '../../domain/models/test_details_entity.dart';
 import '../../domain/usecase/practice_usecase.dart';
 import '../screens/practice_screen.dart';
 
@@ -10,10 +11,10 @@ class PracticeController extends GetxController {
     required PracticeUseCase useCase,
   }) : _useCase = useCase;
 
-  List<TestDetailsModel> latestQuizzes = [];
-  List<TestDetailsModel> continueYourProgressData = [];
-  List<TestDetailsModel> trendingMockTests = [];
-  List<TestDetailsModel> attemptPreviousYearQuestions = [];
+  List<TestDetailsEntity> latestQuizzes = [];
+  List<TestDetailsEntity> continueYourProgressData = [];
+  List<TestDetailsEntity> trendingMockTests = [];
+  List<TestDetailsEntity> attemptPreviousYearQuestions = [];
   List<SubjectModel> subjectWiseTests = [];
 
   @override
@@ -23,11 +24,11 @@ class PracticeController extends GetxController {
   }
 
   void getPracticeData() {
-    getContinueYourProgressData();
+    // getContinueYourProgressData();
     getLatestQuizzes();
-    getTrendingMockTests();
-    getAttemptPreviousYearQuestions();
-    getSubjectWiseTests();
+    // getTrendingMockTests();
+    // getAttemptPreviousYearQuestions();
+    // getSubjectWiseTests();
   }
 
   void getContinueYourProgressData() async {

@@ -1,6 +1,6 @@
 import '../../../common/data/remote/models/result_state.dart';
 import '../../../common/domain/models/use_case_result.dart';
-import '../../view/screens/practice_screen.dart';
+import '../models/test_details_entity.dart';
 import '../repository/practice_repository.dart';
 
 abstract class PracticeUseCase {
@@ -99,10 +99,10 @@ class PracticeUseCaseImplementation implements PracticeUseCase {
 }
 
 class PracticeUseCaseResult extends UseCaseResult {
-  final List<TestDetailsModel>? latestQuizzes;
-  final List<TestDetailsModel>? continueYourProgressData;
-  final List<TestDetailsModel>? trendingMockTests;
-  final List<TestDetailsModel>? attemptPreviousYearQuestions;
+  final List<TestDetailsEntity>? latestQuizzes;
+  final List<TestDetailsEntity>? continueYourProgressData;
+  final List<TestDetailsEntity>? trendingMockTests;
+  final List<TestDetailsEntity>? attemptPreviousYearQuestions;
   final List<SubjectModel>? subjects;
 
   PracticeUseCaseResult({

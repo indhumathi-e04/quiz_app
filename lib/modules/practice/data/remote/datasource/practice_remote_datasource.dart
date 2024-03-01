@@ -1,4 +1,5 @@
 import '../../../../../communication/communication_manager.dart';
+import '../../../../../communication/constants/api_endpoints.dart';
 import '../../../../common/data/remote/models/result_state.dart';
 
 abstract class PracticeRemoteDataSource {
@@ -19,7 +20,7 @@ class PracticeRemoteDataSourceImplementation
   @override
   Future<ResultState> getLatestQuizzes() async {
     return _communicationManager.callApiInterface(
-      endPoint: "/latest-quiz",
+      endPoint: ApiEndpoints.latestQuiz,
       requestType: RequestType.get,
     );
   }
@@ -43,7 +44,7 @@ class PracticeRemoteDataSourceImplementation
   @override
   Future<ResultState> getAttemptPreviousYearQuestions() {
     return _communicationManager.callApiInterface(
-      endPoint: "/attempt-previous-yeat-questions",
+      endPoint: "/attempt-previous-year-questions",
       requestType: RequestType.get,
     );
   }
