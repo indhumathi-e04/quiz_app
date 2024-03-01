@@ -5,6 +5,10 @@ import '../repository/practice_repository.dart';
 
 abstract class PracticeUseCase {
   Future<PracticeUseCaseResult> getLatestQuizzes();
+  Future<PracticeUseCaseResult> getContinueYourProgressData();
+  Future<PracticeUseCaseResult> getTrendingMockTests();
+  Future<PracticeUseCaseResult> getAttemptPreviousYearQuestions();
+  Future<PracticeUseCaseResult> getSubjectWiseTests();
 }
 
 class PracticeUseCaseImplementation implements PracticeUseCase {
@@ -28,12 +32,84 @@ class PracticeUseCaseImplementation implements PracticeUseCase {
       );
     }
   }
+
+  @override
+  Future<PracticeUseCaseResult> getContinueYourProgressData() async {
+    final result = await _repository.getContinueYourProgressData();
+    if (result is Success) {
+      return PracticeUseCaseResult(
+        continueYourProgressData: result.data,
+      );
+    } else {
+      result as Error;
+      return PracticeUseCaseResult(
+        errorCode: result.errorCode,
+        errorMessage: result.errorMessage,
+      );
+    }
+  }
+
+  @override
+  Future<PracticeUseCaseResult> getTrendingMockTests() async {
+    final result = await _repository.getTrendingMockTests();
+    if (result is Success) {
+      return PracticeUseCaseResult(
+        trendingMockTests: result.data,
+      );
+    } else {
+      result as Error;
+      return PracticeUseCaseResult(
+        errorCode: result.errorCode,
+        errorMessage: result.errorMessage,
+      );
+    }
+  }
+
+  @override
+  Future<PracticeUseCaseResult> getAttemptPreviousYearQuestions() async {
+    final result = await _repository.getAttemptPreviousYearQuestions();
+    if (result is Success) {
+      return PracticeUseCaseResult(
+        attemptPreviousYearQuestions: result.data,
+      );
+    } else {
+      result as Error;
+      return PracticeUseCaseResult(
+        errorCode: result.errorCode,
+        errorMessage: result.errorMessage,
+      );
+    }
+  }
+
+  @override
+  Future<PracticeUseCaseResult> getSubjectWiseTests() async {
+    final result = await _repository.getSubjectWiseTests();
+    if (result is Success) {
+      return PracticeUseCaseResult(
+        subjects: result.data,
+      );
+    } else {
+      result as Error;
+      return PracticeUseCaseResult(
+        errorCode: result.errorCode,
+        errorMessage: result.errorMessage,
+      );
+    }
+  }
 }
 
 class PracticeUseCaseResult extends UseCaseResult {
   final List<TestDetailsModel>? latestQuizzes;
+  final List<TestDetailsModel>? continueYourProgressData;
+  final List<TestDetailsModel>? trendingMockTests;
+  final List<TestDetailsModel>? attemptPreviousYearQuestions;
+  final List<SubjectModel>? subjects;
 
   PracticeUseCaseResult({
+    this.subjects,
+    this.attemptPreviousYearQuestions,
+    this.trendingMockTests,
+    this.continueYourProgressData,
     this.latestQuizzes,
     super.errorCode,
     super.errorMessage,

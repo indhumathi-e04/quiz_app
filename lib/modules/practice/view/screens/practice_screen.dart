@@ -31,13 +31,9 @@ class PracticeScreen extends StatelessWidget {
                 height: UIConstants.defaultHeight * 6,
                 child: PageView.builder(
                   padEnds: true,
-                  itemCount: 5,
+                  itemCount: controller.continueYourProgressData.length,
                   itemBuilder: (context, index) => ResumeTestCard(
-                    testDetails: TestDetailsModel(
-                      testTitle: "NEET - 2023 Full Length Mock Test",
-                      creatorName: "Manimaran K V",
-                      isVerified: true,
-                    ),
+                    testDetails: controller.continueYourProgressData[index],
                   ),
                 ),
               ),
@@ -91,20 +87,11 @@ class PracticeScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                     horizontal: UIConstants.defaultPadding * 2,
                   ),
-                  itemCount: 5,
+                  itemCount: controller.trendingMockTests.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, index) {
                     return TrendingMockTestCard(
-                      testDetails: TestDetailsModel(
-                        testTitle: "NEET - 2023 Full Length Mock Test",
-                        creatorName: "Manimaran K V",
-                        isVerified: true,
-                        totalQuestions: 10,
-                        timeLimit: 90,
-                        attemptsCount: 1500,
-                        coins: 10,
-                        totalMarks: 200,
-                      ),
+                      testDetails: controller.trendingMockTests[index],
                     );
                   },
                 ),
@@ -121,21 +108,12 @@ class PracticeScreen extends StatelessWidget {
               ),
               isChildHorizontallyScrolling: false,
               child: ListView.builder(
-                itemCount: 5,
+                itemCount: controller.attemptPreviousYearQuestions.length,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (BuildContext context, index) {
                   return PreviousYearQuestionsCard(
-                    testDetails: TestDetailsModel(
-                      testTitle: "NEET - 2023 Full Length Mock Test",
-                      creatorName: "Manimaran K V",
-                      isVerified: true,
-                      totalQuestions: 10,
-                      timeLimit: 90,
-                      attemptsCount: 1500,
-                      coins: 10,
-                      totalMarks: 200,
-                    ),
+                    testDetails: controller.attemptPreviousYearQuestions[index],
                   );
                 },
               ),
@@ -161,10 +139,11 @@ class PracticeScreen extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 children: List.generate(
-                  6,
+                  controller.subjectWiseTests.length,
                   (index) {
-                    return const SubjectWiseTestCard(
-                      subject: "Chemistry",
+                    return SubjectWiseTestCard(
+                      subject:
+                          controller.subjectWiseTests[index].subjects ?? "",
                     );
                   },
                 ),
@@ -836,5 +815,12 @@ class TestDetailsModel {
     this.coins,
     this.attemptsCount,
     this.tag,
+  });
+}
+
+class SubjectModel {
+  String? subjects;
+  SubjectModel({
+    this.subjects,
   });
 }

@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 import '../../../common/data/remote/models/result_state.dart';
 import '../../domain/repository/practice_repository.dart';
 import '../local/datasource/practice_local_datasource.dart';
@@ -26,6 +28,62 @@ class PracticeRepositoryImplementation implements PracticeRepository {
       return Success();
     } else {
       // 4. if it is error, then return the error
+      response as Error;
+      return Error(
+        errorCode: response.errorCode,
+        errorMessage: response.errorMessage,
+      );
+    }
+  }
+
+  @override
+  Future<ResultState> getContinueYourProgressData() async {
+    final response = await _remoteDataSource.getContinueYourProgressData();
+    if (response is Success) {
+      return Success();
+    } else {
+      response as Error;
+      return Error(
+        errorCode: response.errorCode,
+        errorMessage: response.errorMessage,
+      );
+    }
+  }
+
+  @override
+  Future<ResultState> getTrendingMockTests() async {
+    final response = await _remoteDataSource.getTrendingMockTests();
+    if (response is Success) {
+      return Success();
+    } else {
+      response as Error;
+      return Error(
+        errorCode: response.errorCode,
+        errorMessage: response.errorMessage,
+      );
+    }
+  }
+
+  @override
+  Future<ResultState> getAttemptPreviousYearQuestions() async {
+    final response = await _remoteDataSource.getAttemptPreviousYearQuestions();
+    if (response is Success) {
+      return Success();
+    } else {
+      response as Error;
+      return Error(
+        errorCode: response.errorCode,
+        errorMessage: response.errorMessage,
+      );
+    }
+  }
+
+  @override
+  Future<ResultState> getSubjectWiseTests() async {
+    final response = await _remoteDataSource.getSubjectWiseTests();
+    if (response is Success) {
+      return Success();
+    } else {
       response as Error;
       return Error(
         errorCode: response.errorCode,
