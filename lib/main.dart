@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.dark,
       theme: AppTheme.appTheme(
         colorScheme: AppTheme.lightColorScheme,
         brightness: Brightness.light,
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         context: context,
       ),
-      initialRoute: AppRouteConstants.routeTestInstructions,
+      initialRoute: AppRouteConstants.routeDashboard,
       getPages: AppRoutes.appRoutes,
       initialBinding: InitialBindings(),
     );

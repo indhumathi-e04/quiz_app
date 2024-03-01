@@ -8,7 +8,7 @@ class PracticeDomainBindings extends Bindings {
   void dependencies() {
     Get.lazyPut<PracticeUseCase>(
       () => PracticeUseCaseImplementation(
-        practiceRepository: Get.find<PracticeRepository>(),
+        repository: Get.find<PracticeRepository>(),
       ),
     );
   }

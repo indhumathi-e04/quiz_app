@@ -64,18 +64,10 @@ class PracticeScreen extends StatelessWidget {
                   mainAxisSpacing: UIConstants.defaultMargin,
                   scrollDirection: Axis.horizontal,
                   children: List.generate(
-                    5,
+                    controller.latestQuizzes.length,
                     (index) {
                       return LatestQuizCard(
-                        testDetails: TestDetailsModel(
-                          testTitle: "NEET - 2023 Full Length Mock Test",
-                          creatorName: "Manimaran K V",
-                          isVerified: true,
-                          totalQuestions: 10,
-                          timeLimit: 90,
-                          attemptsCount: 1500,
-                          coins: 10,
-                        ),
+                        testDetails: controller.latestQuizzes[index],
                       );
                     },
                   ),

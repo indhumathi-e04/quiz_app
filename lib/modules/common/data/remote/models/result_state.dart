@@ -2,18 +2,17 @@ abstract class ResultState {}
 
 class Success extends ResultState {
   final dynamic data;
-  Success({this.data});
+  Success({
+    this.data,
+  });
 }
 
 class Error extends ResultState {
-  Error({this.message, this.errorCode, this.data});
+  Error({
+    this.errorMessage,
+    this.errorCode,
+  });
 
-  String? message;
+  String? errorMessage;
   String? errorCode;
-  final dynamic data;
-}
-
-class Loading extends ResultState {
-  final bool isLoading;
-  Loading(this.isLoading);
 }

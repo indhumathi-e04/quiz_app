@@ -93,9 +93,8 @@ class CommunicationManager extends get_package.GetxService {
             );
           } else {
             return Error(
-              message: baseReponse.error,
+              errorMessage: baseReponse.error,
               errorCode: response.statusCode.toString(),
-              data: baseReponse.data,
             );
           }
         } else {
@@ -105,13 +104,13 @@ class CommunicationManager extends get_package.GetxService {
         }
       } catch (exception) {
         return Error(
-          message: "Internal server error",
+          errorMessage: "Internal server error",
           errorCode: ResponseCodeConstants.internalServer.toString(),
         );
       }
     } else {
       return Error(
-        message: "No Internet Connection",
+        errorMessage: "No Internet Connection",
         errorCode: ResponseCodeConstants.noInternet.toString(),
       );
     }
