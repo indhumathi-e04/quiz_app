@@ -24,9 +24,9 @@ class TestDetailsEntity {
   });
 }
 
-class SubjectModel {
+class SubjectEntityModel {
   String? subjects;
-  SubjectModel({
+  SubjectEntityModel({
     this.subjects,
   });
 }

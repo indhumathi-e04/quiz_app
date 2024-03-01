@@ -103,7 +103,7 @@ class PracticeUseCaseResult extends UseCaseResult {
   final List<TestDetailsEntity>? continueYourProgressData;
   final List<TestDetailsEntity>? trendingMockTests;
   final List<TestDetailsEntity>? attemptPreviousYearQuestions;
-  final List<SubjectModel>? subjects;
+  final List<SubjectEntityModel>? subjects;
 
   PracticeUseCaseResult({
     this.subjects,

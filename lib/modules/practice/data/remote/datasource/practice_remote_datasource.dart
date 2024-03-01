@@ -28,7 +28,7 @@ class PracticeRemoteDataSourceImplementation
   @override
   Future<ResultState> getContinueYourProgressData() {
     return _communicationManager.callApiInterface(
-      endPoint: "/continue-your-progress",
+      endPoint: ApiEndpoints.continueYourProgress,
       requestType: RequestType.get,
     );
   }
@@ -36,7 +36,7 @@ class PracticeRemoteDataSourceImplementation
   @override
   Future<ResultState> getTrendingMockTests() {
     return _communicationManager.callApiInterface(
-      endPoint: "/trending-mock-tests",
+      endPoint: ApiEndpoints.trendingMockTests,
       requestType: RequestType.get,
     );
   }
@@ -44,7 +44,7 @@ class PracticeRemoteDataSourceImplementation
   @override
   Future<ResultState> getAttemptPreviousYearQuestions() {
     return _communicationManager.callApiInterface(
-      endPoint: "/attempt-previous-year-questions",
+      endPoint: ApiEndpoints.attemptPreviousYearQuestions,
       requestType: RequestType.get,
     );
   }
@@ -52,7 +52,7 @@ class PracticeRemoteDataSourceImplementation
   @override
   Future<ResultState> getSubjectWiseTests() {
     return _communicationManager.callApiInterface(
-      endPoint: "/subject-wise-tests",
+      endPoint: ApiEndpoints.subjectWiseTests,
       requestType: RequestType.get,
     );
   }

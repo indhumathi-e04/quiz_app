@@ -15,7 +15,7 @@ class PracticeController extends GetxController {
   List<TestDetailsEntity> continueYourProgressData = [];
   List<TestDetailsEntity> trendingMockTests = [];
   List<TestDetailsEntity> attemptPreviousYearQuestions = [];
-  List<SubjectModel> subjectWiseTests = [];
+  List<SubjectEntityModel> subjectWiseTests = [];
 
   @override
   void onInit() {
@@ -24,11 +24,11 @@ class PracticeController extends GetxController {
   }
 
   void getPracticeData() {
-    // getContinueYourProgressData();
+    getContinueYourProgressData();
     getLatestQuizzes();
-    // getTrendingMockTests();
-    // getAttemptPreviousYearQuestions();
-    // getSubjectWiseTests();
+    getTrendingMockTests();
+    getAttemptPreviousYearQuestions();
+    getSubjectWiseTests();
   }
 
   void getContinueYourProgressData() async {
